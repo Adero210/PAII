@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/icons8_me_gusta_50"
+        android:state_checked="false"></item>
+    <item android:drawable="@drawable/cora"
+        android:state_checked="true"></item>
+    <item android:drawable="@drawable/icons8_me_gusta_50"></item>
+</selector>

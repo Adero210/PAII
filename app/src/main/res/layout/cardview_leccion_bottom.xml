@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/leccionCard"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_cardview_leccion"
+    cardview:cardCornerRadius="@dimen/cornerradius_cardview"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:id="@+id/leccionBackCard"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_cardview_leccion"
+            android:background="@drawable/background_degradado"
+            android:scaleType="centerCrop"
+            android:transitionName="@string/transitionname_picture"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:paddingLeft="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:background="@color/background_textcard"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/leccionNumberCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/number_Leccion_card"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textsize_username_card"/>
+
+                <TextView
+                    android:id="@+id/NumberCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/number_card"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textsize_username_card"
+                    android:layout_marginLeft="@dimen/completado_leccion_card"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/lenguajeCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lenguaje_card"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="@dimen/like_margintop_card"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/like_margintop_card"
+                >
+                    <TextView
+                        android:id="@+id/completadoCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/completado_leccion_card"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/completado_leccion_card"
+                        />
+                    <TextView
+                android:id="@+id/porcentajeCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prcentaje_leccion_card"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/completado_leccion_card"
+                android:layout_marginLeft="@dimen/timecard_marginleft_card"
+                />
+
+
+            </LinearLayout>
+            
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+
+
+</android.support.v7.widget.CardView>

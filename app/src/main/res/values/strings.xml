@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">PAI</string>
+    <string name="title_activity_referencia">ReferenciaActivity</string>
+    <string name="hint_username">Nombre de usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="text_button_login">Login</string>
+    <string name="dont_have_account">¿No tienes cuenta?, </string>
+    <string name="create_here">Crea una aquí!</string>
+    <string name="hint_email">Correo</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_user">Usuario</string>
+    <string name="text_button_createaccount">Unete</string>
+    <string name="toolbar_tittle_createaccount">Crear cuenta</string>
+    <string name="username_card">nombreUsuario</string>
+    <string name="firstword_card">Hace</string>
+    <string name="timecard_card">4 días</string>
+    <string name="likecard_card">10 Me Gusta</string>
+    <string name="tab_search">Buscar</string>
+    <string name="tab_home">Home</string>
+    <string name="tab_profile">Perfil</string>
+    <!---FACEBOOK-->
+    <string name="facebook_app_id">1216454841853785</string>
+    <string name="fb_login_protocol_scheme">fb1216454841853785</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="secondword_detail">Me gusta</string>
+    <string name="titleImag1e">\"Tirando, bien cool\"</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et mollis ex. Aenean ornare, sem quis tristique tincidunt, turpis sapien eleifend sem, eu interdum orci mi non sapien. Proin pharetra justo nec lacus fermentum lacinia. Sed auctor porttitor lacus non tempus. Quisque lobortis posuere tortor. Phasellus nec lacus non sem semper lacinia. Quisque condimentum enim vel mi ultricies interdum. Aenean eget mi at mi euismod accumsan eu vel sapien. Pellentesque sed velit risus. Suspendisse aliquam est libero, nec fringilla ipsum scelerisque vitae. Nunc commodo quis mi in pellentesque. Fusce sit amet hendrerit eros. Morbi rhoncus ultrices condimentum. Mauris nunc magna, condimentum non dignissim in, varius id dolor. Morbi turpis odio, eleifend sed congue nec, aliquam suscipit risus.</string>
+    <string name="transitionname_picture">transitionnamepicture</string>
+    <string name="title_activity_container">ContainerActivity</string>
+    <string name="title_home">Home</string>
+    <string name="number_Leccion_card">Leccion</string>
+    <string name="number_card">1</string>
+    <string name="lenguaje_card">Ingles</string>
+    <string name="completado_leccion_card">Completado</string>
+    <string name="prcentaje_leccion_card">0%</string>
+    <string name="tab_chat">Chat</string>
+    <string name="test_message">Hola, ¿Como te va?</string>
+    <string name="message_hour">11:40</string>
+    <string name="answer_message">Hello!!!</string>
+    <string name="nav_header_title">Luis Cornejo</string>
+    <string name="nav_header_subtitle">Prueba</string>
+    <string name="nav_header_desc">Navigation Header</string>
+    <string name="menu_signout">Cerrar Sesión</string>
+    <string name="menu_about">Acerca de</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="error_name">Requiere llenarlo</string>
+    <string name="error_email">Requiere llenarlo</string>
+    <string name="error_midlename">Requiere llenarlo</string>
+    <string name="error_nickname">Requiere llenarlo</string>
+    <string name="error_lastname">Requiere llenarlo</string>
+    <string name="error_telefono">Requiere llenarlo</string>
+    <string name="error_confirmar_password">Requiere llenarlo</string>
+    <string name="error_telefonoo">Requiere llenarlo</string>
+    <string name="error_datebirt">Requiere llenarlo</string>
+    <string name="hint_nickname">Nombre Usuario</string>
+    <string name="hint_midlename">Apellido Paterno</string>
+    <string name="hint_lastname">Apellido Materno</string>
+    <string name="hint_telefonoo">Telefono</string>
+    <string name="hint_datebirt">YYYY</string>
+    <string name="hint_datebirt3">YYYY-MM-DD</string>
+    <string name="hint_confirmar_password">Confirmar Contraseña</string>
+    <string name="hint_datebirt4">AAAA-MM-DD</string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
+    <string name="hint_gender">Genero</string>
+    <string name="menu_configuracion">Configuración</string>
+    <string name="edit">Editar</string>
+    <string name="save">Guardar</string>
+    <string name="title_configuration">Configuración</string>
+    <string name="text_button_reset">Cambiar Contraseña</string>
+    <string name="text_olvide_pass">Olvide mi contraseña</string>
+
+</resources>

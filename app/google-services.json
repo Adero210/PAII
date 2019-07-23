@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "649354094525",
+    "firebase_url": "https://proyecto-pai.firebaseio.com",
+    "project_id": "proyecto-pai",
+    "storage_bucket": "proyecto-pai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649354094525:android:792b8d8da404e66b",
+        "android_client_info": {
+          "package_name": "ceti.edu.paii"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649354094525-i5nk1bar2mibg4au41vbd3ng8j6obtfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBu5zizK0HYM14XmEHZsncq3d3uXyDrok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649354094525-i5nk1bar2mibg4au41vbd3ng8j6obtfb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

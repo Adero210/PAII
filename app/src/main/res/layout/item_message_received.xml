@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/image_message_profile"
+        android:layout_width="@dimen/activity_vertical_margin"
+        android:layout_height="@dimen/activity_vertical_margin"
+        android:src="@drawable/fb_img_1491560392251"
+        app:civ_border_color="@android:color/black"
+        app:civ_border_width="@dimen/height_divider"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="@dimen/dp8" />
+
+
+        <TextView
+            android:id="@+id/text_message_name"
+            android:text="@string/username_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_message"
+            app:layout_constraintLeft_toRightOf="@+id/image_message_profile"
+            android:layout_marginLeft="@dimen/dp8"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/cornerradius_cardview" />
+
+        <TextView
+            android:id="@+id/text_message_body"
+            android:text="@string/test_message"
+            android:background="@drawable/rounded_rentangle_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="@dimen/dp240"
+            android:padding="@dimen/dp8"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="@dimen/cornerradius_cardview"
+            app:layout_constraintTop_toBottomOf="@+id/text_message_name"
+            app:layout_constraintLeft_toRightOf="@+id/image_message_profile"
+            android:layout_marginLeft="@dimen/dp8" />
+
+        <TextView
+            android:id="@+id/text_message_time"
+            android:text="@string/message_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/message_hourdimen"
+            app:layout_constraintLeft_toRightOf="@+id/text_message_body"
+            android:layout_marginLeft="@dimen/cornerradius_cardview"
+            app:layout_constraintBottom_toBottomOf="@+id/text_message_body" />
+
+</android.support.constraint.ConstraintLayout>
