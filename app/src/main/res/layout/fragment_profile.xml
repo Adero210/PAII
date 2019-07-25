@@ -13,30 +13,39 @@
         android:id="@+id/appBarProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
         android:background="@color/colorPrimary"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsingToolbarProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:statusBarScrim="@color/colorPrimary"
+            app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="@color/colorPrimary">
+            app:statusBarScrim="@color/colorPrimary">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="200dp"
-                android:paddingBottom="20dp"
                 android:layout_gravity="center|top"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                >
+                android:orientation="vertical"
+                android:paddingTop="200dp"
+                android:paddingBottom="20dp">
+
+                <Button
+                    android:id="@+id/edit_photo_button"
+                    style="@style/Widget.AppCompat.ActionButton.CloseMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:layout_below="@id/imageuser_profile"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/hint_editar" />
 
                 <TextView
                     android:id="@+id/userNameProfile"
@@ -44,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/username_card"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/usernameprofile"/>
+                    android:textSize="@dimen/usernameprofile" />
             </LinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -67,6 +76,7 @@
         />
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageuser_profile"
         android:layout_width="@dimen/dimen_circleimageprofile"
         android:layout_height="@dimen/dimen_circleimageprofile"
         android:src="@drawable/image1"
@@ -83,6 +93,7 @@
         app:targetHeight="@dimen/height_circleimagetoolbar"
         />
 
+
     <TextView
         android:id="@+id/userNameToolbarProfile"
         android:layout_width="wrap_content"
@@ -96,7 +107,7 @@
         android:textColor="@android:color/white"
         android:alpha="0"
         app:layout_behavior="com.zoonref.SimpleViewBehavior"
-        app:dependsOn="@+id/appBarProfile"
+        app:dependsOn="@id/appBarProfile"
         app:dependType="y"
         app:dependTargetY="@dimen/limitY_usernametoolbarprofile"
         app:targetY="@dimen/margintoptargetY_toolbar_usernametoolbarprofile"

@@ -3,6 +3,9 @@ package ceti.edu.paii.view;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,7 +44,6 @@ public class Settings extends AppCompatActivity {
     String getId;
     private static String URL_READ = "http://192.168.0.6/proyecto/read_detail.php";
     private static String URL_EDIT = "http://192.168.0.6/proyecto/edit_detail.php";
-
     private Menu action;
 
     @Override
@@ -65,7 +68,6 @@ public class Settings extends AppCompatActivity {
         getId = user.get(sessionManager.ID);
 
     }
-
 
     private void getUserDetail() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -96,6 +98,8 @@ public class Settings extends AppCompatActivity {
                                     String strNac = object.getString("nacimiento").trim();
                                     String strGender = object.getString("gender").trim();
 
+                                    comun.userName = strName;
+                                    comun.getId = getId;
                                     name.setText(strName);
                                     email.setText(strEmail);
                                     username.setText(strUserName);
@@ -231,7 +235,7 @@ public class Settings extends AppCompatActivity {
         final String appa = this.appa.getText().toString().trim();
         final String apma = this.apma.getText().toString().trim();
         final String tel = this.tel.getText().toString().trim();
-        comun.userName = name;
+
 
         final String id = getId;
 
@@ -252,6 +256,7 @@ public class Settings extends AppCompatActivity {
                             if (success.equals("1")) {
                                 Toast.makeText(Settings.this, "Exito!", Toast.LENGTH_SHORT).show();
                                 sessionManager.createSession(name, email, id);
+                                comun.sessionManager = sessionManager;
                             }
 
                         } catch (JSONException e) {

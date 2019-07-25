@@ -73,5 +73,6 @@
     <string name="title_configuration">Configuración</string>
     <string name="text_button_reset">Cambiar Contraseña</string>
     <string name="text_olvide_pass">Olvide mi contraseña</string>
+    <string name="hint_editar">Editar foto</string>
 
 </resources>

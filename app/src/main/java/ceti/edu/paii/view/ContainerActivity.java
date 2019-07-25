@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import ceti.edu.paii.MainActivity;
 import ceti.edu.paii.R;
+import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.view.fragment.HomeFragment;
 import ceti.edu.paii.view.fragment.ProfileFragment;
 import ceti.edu.paii.view.fragment.SearchFragment;
@@ -117,7 +118,8 @@ public class ContainerActivity extends AppCompatActivity{
                 if(LoginManager.getInstance()!= null){
                     LoginManager.getInstance().logOut();
                 }
-
+                SessionManager sessionManager = comun.sessionManager;
+                sessionManager.logout();
                 Toast.makeText(this, "Sesion Cerrada", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(ContainerActivity.this, MainActivity.class);
                 startActivity(i);
