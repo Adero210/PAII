@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private CallbackManager callbackManager;
     String mEmail;
-    private static final String URL_LOGIN="http://192.168.0.6/proyecto/login2.php";
+    private static final String URL_LOGIN="http://192.168.0.28/proyecto/login2.php";
     SessionManager sessionManager;
 
     @Override
@@ -275,7 +275,9 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("email", user.getEmail());
                             editor.commit();
                             Toast.makeText(MainActivity.this,"LOGIN" ,Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(MainActivity.this,ContainerActivity.class));
+                            Intent intent  = new Intent(MainActivity.this,ContainerActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                         }else{
                             Toast.makeText(MainActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                         }

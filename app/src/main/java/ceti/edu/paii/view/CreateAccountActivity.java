@@ -60,7 +60,7 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
     private TextInputEditText edtEmail, edtcPassword, edtPassword, edttel, edtbirt, edtapp, edtmpp, edtnick, edtnombre;
     private TextInputLayout tilEmail, tilcpass, tilPassword, tilttel, tilbirt, tlapp, tilmpp, tilnick, tilnombre;
     private Log log;
-    private static String URL_REGIST = "http://192.168.0.6/proyecto/register.php";
+    private static String URL_REGIST = "http://192.168.0.28/proyecto/register.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -326,6 +326,7 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
                     if (success.equals("1")) {
                         Toast.makeText(CreateAccountActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 } catch (JSONException e) {

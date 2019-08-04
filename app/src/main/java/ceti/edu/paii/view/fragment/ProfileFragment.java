@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
 
     private CircleImageView profile_image;
     private Bitmap bitmap;
-    private static String URL_UPLOAD = "http://192.168.0.6/proyecto/upload.php";
+    private static String URL_UPLOAD = "http://192.168.0.28/proyecto/upload.php";
 
 
     private Button btn_photo_upload;

@@ -42,8 +42,8 @@ public class Settings extends AppCompatActivity {
     private EditText name, email,username,appa,apma,tel,date,gender;
     SessionManager sessionManager;
     String getId;
-    private static String URL_READ = "http://192.168.0.6/proyecto/read_detail.php";
-    private static String URL_EDIT = "http://192.168.0.6/proyecto/edit_detail.php";
+    private static String URL_READ = "http://192.168.0.28/proyecto/read_detail.php";
+    private static String URL_EDIT = "http://192.168.0.28/proyecto/edit_detail.php";
     private Menu action;
 
     @Override
