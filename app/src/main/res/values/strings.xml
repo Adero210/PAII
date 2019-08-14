@@ -74,5 +74,8 @@
     <string name="text_button_reset">Cambiar Contraseña</string>
     <string name="text_olvide_pass">Olvide mi contraseña</string>
     <string name="hint_editar">Editar foto</string>
+    <string name="Chat">Chat</string>
+    <string name="hint_cambiar_status">Descripción</string>
+    <string name="descripcion">Mi Descrpción</string>
 
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.provider.Contacts;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -29,6 +30,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 
 import org.json.JSONException;
@@ -47,6 +50,7 @@ import java.util.Map;
 
 import ceti.edu.paii.MainActivity;
 import ceti.edu.paii.R;
+import ceti.edu.paii.comun.comun;
 
 public class CreateAccountActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -60,7 +64,9 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
     private TextInputEditText edtEmail, edtcPassword, edtPassword, edttel, edtbirt, edtapp, edtmpp, edtnick, edtnombre;
     private TextInputLayout tilEmail, tilcpass, tilPassword, tilttel, tilbirt, tlapp, tilmpp, tilnick, tilnombre;
     private Log log;
-    private static String URL_REGIST = "http://192.168.0.28/proyecto/register.php";
+    private static String URL_REGIST = comun.URL + "proyecto/register.php";
+
+    private DatabaseReference mDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -287,19 +293,37 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
     }
 
     private void createAccount() {
+        final String name = edtnick.getText().toString().trim();
         final String email = edtEmail.getText().toString().trim();
-        final
-        String password = edtPassword.getText().toString().trim();
+        final String password = edtPassword.getText().toString().trim();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser passu = FirebaseAuth.getInstance().getCurrentUser();
-                            idUser = FirebaseAuth.getInstance().getCurrentUser().getUid().trim();
-                           // Toast.makeText(CreateAccountActivity.this, "TOAST" + cuser, Toast.LENGTH_LONG).show();
-                            Log.d("cuser", idUser);
-                            regist();
+                            String UID = passu.getUid();
+
+                            mDataBase = FirebaseDatabase.getInstance().getReference().child("user").child(UID);
+                            HashMap<String, String> userMap = new HashMap<>();
+                            userMap.put("name",name);
+                            userMap.put("status","Hello! there");
+                            userMap.put("image","default");
+                            userMap.put("thumb_image","default");
+
+                            mDataBase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        idUser = FirebaseAuth.getInstance().getCurrentUser().getUid().trim();
+                                        // Toast.makeText(CreateAccountActivity.this, "TOAST" + cuser, Toast.LENGTH_LONG).show();
+                                        Log.d("cuser", idUser);
+                                        regist();
+
+                                    }
+
+                                }
+                            });
                         } else {
                             Toast.makeText(CreateAccountActivity.this, "Cuenta No creada", Toast.LENGTH_LONG).show();
                         }

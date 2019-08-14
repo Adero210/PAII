@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,8 +63,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
     private CircleImageView profile_image;
+    private TextView mName, mStatus;
     private Bitmap bitmap;
-    private static String URL_UPLOAD = "http://192.168.0.28/proyecto/upload.php";
+    private static String URL_UPLOAD = comun.URL + "proyecto/upload.php";
+    private DatabaseReference mUserDatabase;
+    private FirebaseUser mCurrentUser;
+
 
 
     private Button btn_photo_upload;
@@ -70,12 +83,40 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         showToolbar("",false,view);
-        profile_image  = view.findViewById(R.id.imageuser_profile);
-        TextView title    = (TextView) view.findViewById(R.id.userNameProfile);
-        String username =  comun.userName;
 
-        Log.i("nombre",username+"");
-        title.setText(comun.userName);
+
+        profile_image  = view.findViewById(R.id.imageuser_profile);
+        mName   = view.findViewById(R.id.userNameProfile);
+        mStatus = view.findViewById(R.id.descriptionProfile);
+        //String username =  comun.userName;
+
+
+        /*obtenemos el ususario y el uid de firebase y posicionamos en la base de datos
+         * para obtener valores desde firebase */
+        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String current_uid = mCurrentUser.getUid();
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(current_uid);
+
+        mUserDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String name = dataSnapshot.child("name").getValue().toString().trim();
+                String image = dataSnapshot.child("image").getValue().toString().trim();
+                String status = dataSnapshot.child("status").getValue().toString().trim();
+                String thumb_image = dataSnapshot.child("thumb_image").getValue().toString().trim();
+
+                mName.setText(name);
+                mStatus.setText(status);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        //Log.i("nombre",username+"");
+        //mName.setText(comun.userName);
 
         RecyclerView picturesProfileRecycler = (RecyclerView) view.findViewById(R.id.pictureProfileRecycler);
 
@@ -93,19 +134,16 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
-
-
-        PictureAdapterRecyclerView pictureAdapterRecyclerView = new PictureAdapterRecyclerView(
+        /*PictureAdapterRecyclerView pictureAdapterRecyclerView = new PictureAdapterRecyclerView(
                 buidPictures(), R.layout.cardview_picture,getActivity());
 
-        picturesProfileRecycler.setAdapter(pictureAdapterRecyclerView);
+        picturesProfileRecycler.setAdapter(pictureAdapterRecyclerView);*/
 
 
         return view;
     }
 
-    public ArrayList<Picture> buidPictures(){
+   /* public ArrayList<Picture> buidPictures(){
         ArrayList<Picture> pictures = new ArrayList<>();
        pictures.add(new Picture("https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.redhillsadventure.ie%2Fwp-content%2Fuploads%2F2018%2F02%2Farchery3.jpg&imgrefurl=https%3A%2F%2Fwww.redhillsadventure.ie%2Factivities%2Ftarget-archery%2F&docid=pOW-tz3lxkzg-M&tbnid=WBbkn0Cr8vUP1M%3A&vet=10ahUKEwiThIfCrOLhAhXKhVQKHUqPAMsQMwhDKAQwBA..i&w=780&h=500&safe=active&bih=868&biw=872&q=imagenes%20archery&ved=0ahUKEwiThIfCrOLhAhXKhVQKHUqPAMsQMwhDKAQwBA&iact=mrc&uact=8",
                 "Luis Cornejo"));
@@ -116,7 +154,7 @@ public class ProfileFragment extends Fragment {
         pictures.add(new Picture("https://http2.mlstatic.com/trucos-con-cartas-gods-creation-by-miquel-roman-promocion-D_NQ_NP_731000-MLM25606087106_052017-F.jpg",
                 "Miquel Roman"));
         return pictures;
-    }
+    }*/
 
     public void showToolbar(String tittle, boolean upButton,View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);

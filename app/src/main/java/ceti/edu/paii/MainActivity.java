@@ -1,5 +1,6 @@
 package ceti.edu.paii;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -49,6 +50,7 @@ import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
+import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.view.ContainerActivity;
 import ceti.edu.paii.view.CreateAccountActivity;
 import ceti.edu.paii.view.ResetPassword;
@@ -66,9 +68,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private CallbackManager callbackManager;
-    String mEmail;
-    private static final String URL_LOGIN="http://192.168.0.28/proyecto/login2.php";
+    String mEmail, emailFaceBook,userNameFaceBook;
+    private static final String URL_LOGIN= comun.URL+"proyecto/login2.php";
+    private static final String URL_INSERT_FACE= comun.URL+"proyecto/registerFace.php";
+
     SessionManager sessionManager;
+    String getId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +106,13 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
-                    String emailFaceBook = firebaseUser.getEmail();
-                    String userNameFaceBook = firebaseUser.getDisplayName();
+                    emailFaceBook = firebaseUser.getEmail();
+                    userNameFaceBook = firebaseUser.getDisplayName();
                     String telface = firebaseUser.getPhoneNumber();
                     Log.i("Dataface",emailFaceBook + userNameFaceBook + telface);
-
+                    getId = firebaseAuth.getUid();
                     Log.w(TAG, "USER LOGIN" + firebaseUser.getEmail());
+                 //   insertDataFacebook();
                     goHome();
                 } else {
                     Log.w(TAG, "USER no LOGIN");
@@ -204,6 +211,65 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+
+
+    private void insertDataFacebook(){
+
+        final String email = emailFaceBook;
+        final String nickName = userNameFaceBook;
+        final String idUser = getId;
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Guardando...");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_INSERT_FACE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        try{
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            if (success.equals("1")) {
+                               // Toast.makeText(MainActivity.this, "Exito!", Toast.LENGTH_SHORT).show();
+                                sessionManager.createSession(email, nickName, idUser);
+                                comun.sessionManager = sessionManager;
+                            }
+
+                        } catch (JSONException e) {
+                            progressDialog.dismiss();
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "Error del catch! " + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(MainActivity.this, "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("idUser", idUser);
+                params.put("nickName",nickName);
+                //params.put("phone",tel);
+                return params;
+
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
     private void loginData(final String email){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
@@ -306,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void goCreateAccount(View view){
         Intent intent = new Intent(this, CreateAccountActivity.class);
