@@ -26,42 +26,51 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:statusBarScrim="@color/colorPrimary">
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floating_profile_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera_new"
+                android:layout_gravity="right|center"
+                android:layout_marginRight="@dimen/dp70"
+                app:backgroundTint="@color/colorPrimaryDark"
+                app:elevation="@dimen/dp10"
+                app:fabSize="normal"
+                app:layout_anchor="@+id/imageuser_profile"
+                 />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="@dimen/dp10"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingTop="200dp"
                 android:paddingBottom="20dp">
 
-                <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
 
-                    <Button
+                <!--  <Button
                         android:id="@+id/edit_photo_button"
                         style="@style/Widget.AppCompat.ActionButton.CloseMode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/hint_editar"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white" />-->
 
-                    <Button
-                        android:id="@+id/change_status_buttom"
-                        style="@style/Widget.AppCompat.ActionButton.CloseMode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hint_cambiar_status"
-                        android:textColor="@android:color/white" />
+                <Button
+                    android:id="@+id/change_status_buttom"
+                    style="@style/Widget.AppCompat.ActionButton.CloseMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:text="@string/hint_cambiar_descripcion"
+                    android:textColor="@android:color/white" />
 
-                </LinearLayout>
 
-                <TextView
+                 <TextView
                     android:id="@+id/userNameProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,6 +89,8 @@
 
             </LinearLayout>
 
+
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
         <android.support.v7.widget.Toolbar
@@ -90,6 +101,9 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pictureProfileRecycler"
@@ -118,6 +132,8 @@
         />
 
 
+
+
     <TextView
         android:id="@+id/userNameToolbarProfile"
         android:layout_width="wrap_content"
@@ -137,5 +153,6 @@
         app:targetY="@dimen/margintoptargetY_toolbar_usernametoolbarprofile"
         app:targetAlpha="1"
         />
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.listening.Listening_1_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp70"
+            android:text="@string/Selecciona_la_imagen"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/edittext_textsize" />
+
+        <Button
+            android:id="@+id/play_pause_activity_listening_1"
+            android:layout_width="104dp"
+            android:layout_height="71dp"
+            android:layout_marginLeft="@dimen/dp10"
+            android:background="@drawable/play"
+            android:theme="@style/RaisedButtonDark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp10"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/image1_activity_listening_1"
+                android:layout_width="170dp"
+                android:layout_height="136dp"
+                android:layout_marginRight="@dimen/dp10"
+                android:src="@drawable/fb_img_1491560392251" />
+
+
+            <ImageButton
+                android:id="@+id/image2_activity_listening_1"
+                android:layout_width="170dp"
+                android:layout_height="136dp"
+                android:src="@drawable/fb_img_1491560392251" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp25"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/image3_activity_listening_1"
+                android:layout_width="170dp"
+                android:layout_height="136dp"
+                android:layout_marginRight="@dimen/dp10"
+                android:src="@drawable/fb_img_1491560392251" />
+
+
+            <ImageButton
+                android:id="@+id/image4_activity_listening_1"
+                android:layout_width="170dp"
+                android:layout_height="136dp"
+                android:src="@drawable/fb_img_1491560392251" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/button_activity_listening_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded_signin"
+            android:text="@string/bottom_calificar"
+            android:theme="@style/RaisedButtonDark" />
+
+    </LinearLayout>
+
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout >

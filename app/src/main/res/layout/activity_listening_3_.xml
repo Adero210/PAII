@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.listening.Listening_3_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/dp25"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Escucha_selecciona"
+            android:textAlignment="center"
+            android:textSize="@dimen/edittext_textsize"
+            android:textStyle="bold"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/text_listening_activity_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem"
+            android:textColor="@android:color/black"/>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/play_pause_activity_listening_3"
+            android:layout_width="76dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:background="@drawable/play"
+            android:theme="@style/RaisedButtonDark" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginBottom="@dimen/dp10"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/opcion1_activity_listening_3"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:theme="@style/RaisedButtonDark"
+                android:text="@string/opcion" />
+
+            <Button
+                android:id="@+id/opcion2_activity_listening_3"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_signin"
+                android:theme="@style/RaisedButtonDark"
+                android:layout_marginRight="@dimen/dp5"
+                android:text="@string/opcion"/>
+            <Button
+                android:id="@+id/opcion3_activity_listening_3"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_signin"
+                android:theme="@style/RaisedButtonDark"
+                android:layout_marginRight="@dimen/dp5"
+                android:text="@string/opcion"/>
+            <Button
+                android:id="@+id/opcion4_activity_listening_3"
+                android:layout_width="@dimen/dp80"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_signin"
+                android:theme="@style/RaisedButtonDark"
+                android:text="@string/opcion"/>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/button_activity_listening_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded_signin"
+            android:layout_marginTop="@dimen/dp25"
+            android:text="@string/bottom_calificar"
+            android:theme="@style/RaisedButtonDark" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

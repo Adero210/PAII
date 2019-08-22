@@ -1,6 +1,7 @@
 package ceti.edu.paii.view;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -114,6 +115,7 @@ public class ContainerActivity extends AppCompatActivity{
 
         switch (item.getItemId()){
             case R.id.mSignOut:
+
                 firebaseAuth.signOut();
                 if(LoginManager.getInstance()!= null){
                     LoginManager.getInstance().logOut();
@@ -139,4 +141,5 @@ public class ContainerActivity extends AppCompatActivity{
         Intent i = new Intent(ContainerActivity.this, Settings.class);
         startActivity(i);
     }
+
 }

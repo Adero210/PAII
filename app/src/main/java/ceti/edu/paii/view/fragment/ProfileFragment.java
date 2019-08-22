@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +41,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,13 +58,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.activities.listening.Listening_1_Activity;
+import ceti.edu.paii.activities.listening.Listening_2_Activity;
+import ceti.edu.paii.activities.listening.Listening_3_Activity;
+import ceti.edu.paii.activities.listening.Listening_4_Activity;
 import ceti.edu.paii.adapter.PictureAdapterRecyclerView;
 import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.model.Picture;
+import ceti.edu.paii.view.ContainerActivity;
 import ceti.edu.paii.view.SessionManager;
 import ceti.edu.paii.view.Settings;
+import ceti.edu.paii.view.StatusActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -69,16 +86,21 @@ public class ProfileFragment extends Fragment {
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
 
+    private Button mStatusbtn;
+    private FloatingActionButton btn_photo_upload;
+
+    //Storage Firebase
+    private StorageReference mImageStorage;
+
+    ProgressDialog progressDialog;
 
 
-    private Button btn_photo_upload;
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -90,8 +112,10 @@ public class ProfileFragment extends Fragment {
         mStatus = view.findViewById(R.id.descriptionProfile);
         //String username =  comun.userName;
 
+        mImageStorage = FirebaseStorage.getInstance().getReference();
 
-        /*obtenemos el ususario y el uid de firebase y posicionamos en la base de datos
+
+                /*obtenemos el ususario y el uid de firebase y posicionamos en la base de datos
          * para obtener valores desde firebase */
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
@@ -108,6 +132,9 @@ public class ProfileFragment extends Fragment {
 
                 mName.setText(name);
                 mStatus.setText(status);
+
+                Picasso.with(getActivity()).load(image).into(profile_image);
+
             }
 
             @Override
@@ -124,13 +151,29 @@ public class ProfileFragment extends Fragment {
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
         picturesProfileRecycler.setLayoutManager(linearLayoutManager);
 
-        btn_photo_upload = view.findViewById(R.id.edit_photo_button);
+        btn_photo_upload = view.findViewById(R.id.floating_profile_button);
+        mStatusbtn = view.findViewById(R.id.change_status_buttom);
 
 
         btn_photo_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseFile();
+                /*CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(getActivity());*/
+            }
+        });
+
+        mStatusbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String status_value = mStatus.getText().toString();
+
+                //Intent i = new Intent(getContext(), StatusActivity.class);
+                Intent i = new Intent(getContext(), Listening_4_Activity.class);
+                i.putExtra("Descripción",status_value);
+                startActivity(i);
             }
         });
 
@@ -168,26 +211,55 @@ public class ProfileFragment extends Fragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),1);
-
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1 && resultCode == getActivity().RESULT_OK && data!= null && data.getData() !=null){
-            Uri filePath = data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap((getActivity()).getContentResolver(),filePath);
-                profile_image.setImageBitmap(bitmap);
+       if(requestCode == 1 && resultCode == getActivity().RESULT_OK) {
+           
+           progressDialog = new ProgressDialog(getActivity());
+           progressDialog.setTitle("Subiendo Imagen");
+           progressDialog.setMessage("Estamos subiendo la imagen, por favor espera");
+           progressDialog.setCanceledOnTouchOutside(false);
+           progressDialog.show();
+           Uri imageUrl = data.getData();
+           final String current_user_id = mCurrentUser.getUid();
+           Log.i("helppppp", String.valueOf(imageUrl));
+           StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id+"jpg");
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            
-            uploadPicture(comun.getId,getStringImage(bitmap));
-        }
+           filepath.putFile(imageUrl).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+               @Override
+               public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> task) {
+                   if(task.isSuccessful()){
+
+
+                        mImageStorage.child("profile_images/"+current_user_id+"jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Log.i("Url_image", String.valueOf(uri));
+                                mUserDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(current_user_id);
+                                String Url_download = uri.toString();
+                                mUserDatabase.child("image").setValue(Url_download).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            progressDialog.dismiss();
+                                        }
+
+                                    }
+                                });
+
+                            }
+                        });
+
+                   }else{
+                       progressDialog.dismiss();
+                       Toast.makeText(getActivity(),"Mal",Toast.LENGTH_LONG).show();
+
+                   }
+               }
+           });
+       }
     }
-
     private void uploadPicture(final String id, final String photo) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Subiendo...");
@@ -234,8 +306,6 @@ public class ProfileFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
-
-
     public  String getStringImage(Bitmap bitmap){
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
@@ -245,5 +315,6 @@ public class ProfileFragment extends Fragment {
 
         return encodeImage;
     }
+
 
 }

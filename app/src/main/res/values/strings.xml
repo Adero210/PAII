@@ -77,5 +77,10 @@
     <string name="Chat">Chat</string>
     <string name="hint_cambiar_status">Descripción</string>
     <string name="descripcion">Mi Descrpción</string>
+    <string name="hint_cambiar_descripcion">Cambiar Descripción</string>
+    <string name="Selecciona_la_imagen">Seleciona las imagenes</string>
+    <string name="bottom_calificar">Calificar</string>
+    <string name="Escucha_selecciona">Escucha y selecciona</string>
+    <string name="opcion">opcion</string>
 
 </resources>
