@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -81,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        miAsyncTask miAsyncTask = new miAsyncTask();
+        miAsyncTask.execute(20);
         sessionManager = new SessionManager(this);
 
 
@@ -401,4 +403,62 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,data);
         callbackManager.onActivityResult(requestCode,resultCode,data);
     }
+
+    class miAsyncTask extends AsyncTask<Integer,Integer,String>{
+
+        @Override
+        protected String doInBackground(Integer... integers) {
+            int maximo = integers[0];
+            for (int i =1;i<= maximo;i++ ){
+                try{
+                    Thread.sleep(1000);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                publishProgress(i);
+            }
+
+            return "fin de la ejecucion";
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+            int contador = values[0];
+            String Texto = "contador" + contador;
+
+
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

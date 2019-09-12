@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.listening.writing.Writing_1_Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp10"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/completa"
+                android:textAlignment="center"
+                android:textSize="@dimen/edittext_textsize"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp5"
+                    android:layout_weight="0.4"
+                    android:fillViewport="true">
+
+
+                    <TextView
+                        android:id="@+id/parrafo_Reading_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Yesterday I got ¬up¬ at 8:30 in the morning. After I ¬made¬ some coffee, I got ¬dressed¬ and ¬went¬ to the bank because I ¬had¬ to pay the rent.
+
+"
+                        android:textSize="@dimen/sp25" />
+
+                </ScrollView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/word_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:text="@string/word"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp20"
+                    android:layout_toRightOf="@id/dontHaveAccount"
+                    />
+                <TextView
+                    android:id="@+id/word_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/word"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp20"
+                    android:layout_toRightOf="@id/dontHaveAccount"
+                    />
+                <TextView
+                    android:id="@+id/word_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/word"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp20"
+                    android:layout_toRightOf="@id/dontHaveAccount"
+                    />
+                <TextView
+                    android:id="@+id/word_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/word"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp20"
+                    android:layout_toRightOf="@id/dontHaveAccount"
+                    />
+                <TextView
+                    android:id="@+id/word_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:text="@string/word"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp20"
+                    />
+
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_activity_Reading_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/bottom_calificar"
+                android:theme="@style/RaisedButtonDark" />
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

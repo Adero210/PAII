@@ -4,6 +4,7 @@
     package="ceti.edu.paii">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -15,7 +16,20 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activities.listening.Listening_4_Activity"></activity>
+        <activity android:name=".activities.listening.writing.Writing_2_Activity"></activity>
+        <activity android:name=".activities.listening.writing.Writing_4_Activity" />
+        <activity android:name=".activities.listening.writing.Writing_3_Activity" />
+        <activity android:name=".activities.listening.reading.Reading_4_Activity" />
+        <activity
+            android:name=".activities.listening.reading.Reading_3_Activity"
+            android:label="@string/title_activity_reading_3_"
+            android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
+        <activity android:name=".activities.listening.reading.Reading_2_Activity" />
+        <activity android:name=".activities.listening.reading.Reading_paragraph_2_Activity" />
+        <activity android:name=".activities.listening.reading.Reading_Paragraph_Activity" />
+        <activity android:name=".activities.listening.reading.Reading_1_Activity" />
+        <activity android:name=".activities.listening.writing.Writing_1_Activity" />
+        <activity android:name=".activities.listening.Listening_4_Activity" />
         <activity android:name=".activities.listening.Listening_3_Activity" />
         <activity android:name=".activities.listening.Listening_2_Activity" />
         <activity android:name=".activities.listening.Listening_1_Activity" />
@@ -83,6 +97,8 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver android:name=".notification.AlarmReceiver" />
     </application>
 
 </manifest>

@@ -44,6 +44,11 @@
             android:background="@drawable/play"
             android:theme="@style/RaisedButtonDark" />
 
+        <SeekBar
+            android:id="@+id/seekbar_activity_listening_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

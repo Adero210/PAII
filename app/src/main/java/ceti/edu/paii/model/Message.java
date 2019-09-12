@@ -5,7 +5,7 @@ public class Message {
     private User sender;
     private long createdAr;
 
-    public Message(String message, User sender, long createdAr) {
+    public Message() {
         this.message = message;
         this.sender = sender;
         this.createdAr = createdAr;

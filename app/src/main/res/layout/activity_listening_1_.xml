@@ -14,19 +14,67 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp70"
+            android:layout_marginTop="@dimen/dp50"
             android:text="@string/Selecciona_la_imagen"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="@dimen/edittext_textsize" />
 
-        <Button
-            android:id="@+id/play_pause_activity_listening_1"
-            android:layout_width="104dp"
-            android:layout_height="71dp"
-            android:layout_marginLeft="@dimen/dp10"
-            android:background="@drawable/play"
-            android:theme="@style/RaisedButtonDark" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/play_pause_activity_listening_1"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="274dp"
+                android:background="@drawable/play"
+                android:theme="@style/RaisedButtonDark" />
+
+
+            <SeekBar
+                android:id="@+id/seekbar_activity_listening_1"
+                android:layout_width="383dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="62dp"
+                android:layout_marginEnd="17dp" />
+
+
+            <TextView
+                android:id="@+id/tiempo2"
+                android:layout_width="59dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="83dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="520dp" />
+
+
+            <TextView
+                android:id="@+id/tiempo"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="85dp"
+                android:layout_marginEnd="273dp"
+                android:layout_marginBottom="520dp" />
+
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

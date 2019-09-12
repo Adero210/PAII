@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,29 +46,29 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.activities.listening.Listening_1_Activity;
 import ceti.edu.paii.activities.listening.Listening_2_Activity;
 import ceti.edu.paii.activities.listening.Listening_3_Activity;
 import ceti.edu.paii.activities.listening.Listening_4_Activity;
-import ceti.edu.paii.adapter.PictureAdapterRecyclerView;
+import ceti.edu.paii.activities.listening.reading.Reading_1_Activity;
+import ceti.edu.paii.activities.listening.reading.Reading_2_Activity;
+import ceti.edu.paii.activities.listening.reading.Reading_3_Activity;
+import ceti.edu.paii.activities.listening.reading.Reading_4_Activity;
+import ceti.edu.paii.activities.listening.reading.Reading_Paragraph_Activity;
+import ceti.edu.paii.activities.listening.reading.Reading_paragraph_2_Activity;
+import ceti.edu.paii.activities.listening.writing.Writing_1_Activity;
+import ceti.edu.paii.activities.listening.writing.Writing_2_Activity;
+import ceti.edu.paii.activities.listening.writing.Writing_3_Activity;
+import ceti.edu.paii.activities.listening.writing.Writing_4_Activity;
 import ceti.edu.paii.comun.comun;
-import ceti.edu.paii.model.Picture;
-import ceti.edu.paii.view.ContainerActivity;
-import ceti.edu.paii.view.SessionManager;
-import ceti.edu.paii.view.Settings;
 import ceti.edu.paii.view.StatusActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -159,7 +157,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 chooseFile();
-                /*CropImage.activity()
+               /* CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(getActivity());*/
             }
@@ -169,9 +167,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String status_value = mStatus.getText().toString();
+               // Intent i = new Intent(getContext(), StatusActivity.class);
 
-                //Intent i = new Intent(getContext(), StatusActivity.class);
-                Intent i = new Intent(getContext(), Listening_4_Activity.class);
+                Intent i = new Intent(getContext(), Writing_2_Activity.class);
                 i.putExtra("Descripción",status_value);
                 startActivity(i);
             }

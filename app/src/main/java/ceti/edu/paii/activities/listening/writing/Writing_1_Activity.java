@@ -1,41 +1,42 @@
-package ceti.edu.paii.activities.listening;
+package ceti.edu.paii.activities.listening.writing;
 
 import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import ceti.edu.paii.R;
 
-public class Listening_1_Activity extends AppCompatActivity {
+public class Writing_1_Activity extends AppCompatActivity {
+
 
     Button play_pause;
-    //AUDIO
-    TextView tiempo, tiempo2;
     SeekBar seekBar;
     MediaPlayer mp;
     int totalTime;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listening_1_);
-        play_pause = findViewById(R.id.play_pause_activity_listening_1);
-        tiempo = findViewById(R.id.tiempo);
-        tiempo2 = findViewById(R.id.tiempo2);
+        setContentView(R.layout.activity_writing_1_);
+        play_pause = findViewById(R.id.play_pause_1_activity_writing_1);
 
         mp = MediaPlayer.create(this, R.raw.musicromeo);
         mp.setLooping(true);
         mp.seekTo(0);
         totalTime = mp.getDuration();
 
-        seekBar = findViewById(R.id.seekbar_activity_listening_1);
+
+        seekBar = findViewById(R.id.seekbar_1_activity_writing_1);
         seekBar.setMax(totalTime);
+
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -94,27 +95,9 @@ public class Listening_1_Activity extends AppCompatActivity {
             // Update positionBar.
             seekBar.setProgress(currentPosition);
 
-            // Update Labels.
-            String elapsedTime = createTimeLabel(currentPosition);
-            tiempo.setText(elapsedTime);
 
-            String remainingTime = createTimeLabel(totalTime-currentPosition);
-            tiempo2.setText("- " + remainingTime);
         }
     };
-
-    public String createTimeLabel(int time) {
-        String timeLabel = "";
-        int min = time / 1000 / 60;
-        int sec = time / 1000 % 60;
-
-        timeLabel = min + ":";
-        if (sec < 10) timeLabel += "0";
-        timeLabel += sec;
-
-        return timeLabel;
-    }
-
 
     @Override
     protected void onDestroy() {
@@ -122,4 +105,3 @@ public class Listening_1_Activity extends AppCompatActivity {
         super.onDestroy();
     }
 }
-

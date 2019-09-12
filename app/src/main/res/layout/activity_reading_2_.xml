@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.listening.writing.Writing_1_Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp10"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/selecciona"
+                android:textAlignment="center"
+                android:textSize="@dimen/edittext_textsize"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/prgunta_1_reading_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preguntas"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/edittext_textsize"
+                    android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/opcion1_1_activity_Reading_2"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:background="@drawable/button_rounded_signin"
+                    android:text="@string/opcion"
+                    android:theme="@style/RaisedButtonDark" />
+
+                <Button
+                    android:id="@+id/opcion2_1_activity_Reading_2"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:background="@drawable/button_rounded_signin"
+                    android:text="@string/opcion"
+                    android:theme="@style/RaisedButtonDark" />
+
+                <Button
+                    android:id="@+id/opcion3_1_activity_Reading_2"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:background="@drawable/button_rounded_signin"
+                    android:text="@string/opcion"
+                    android:theme="@style/RaisedButtonDark" />
+
+                <Button
+                    android:id="@+id/opcion4_1_activity_Reading_2"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:background="@drawable/button_rounded_signin"
+                    android:text="@string/opcion"
+                    android:theme="@style/RaisedButtonDark" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/prgunta_2_reading_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preguntas"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/edittext_textsize"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/opcion1_2_activity_Reading_2"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark" />
+
+                    <Button
+                        android:id="@+id/opcion2_2_activity_Reading_2"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark" />
+
+                    <Button
+                        android:id="@+id/opcion3_2_activity_Reading_2"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark" />
+
+                    <Button
+                        android:id="@+id/opcion4_2_activity_Reading_1"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/prgunta_3_reading_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preguntas"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/edittext_textsize"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/opcion1_3_activity_Reading_2"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark" />
+
+                    <Button
+                        android:id="@+id/opcion2_3_activity_Reading_2"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark" />
+
+                    <Button
+                        android:id="@+id/opcion3_3_activity_Reading_2"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark" />
+
+                    <Button
+                        android:id="@+id/opcion4_3_activity_Reading_1"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/button_back_activity_Reading_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/bottom_back"
+                android:theme="@style/RaisedButtonDark" />
+
+            <Button
+                android:id="@+id/button_activity_Reading_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/bottom_calificar"
+                android:theme="@style/RaisedButtonDark" />
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

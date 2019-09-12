@@ -30,14 +30,27 @@
                 android:layout_marginBottom="@dimen/dp10"
                 android:background="@drawable/image1" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
                 <Button
-                    android:id="@+id/play_pause_1__activity_listening_2"
-                    android:layout_width="104dp"
-                    android:layout_height="71dp"
+                    android:id="@+id/play_pause_1_activity_listening_2"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp10"
                     android:layout_marginTop="@dimen/dp25"
                     android:background="@drawable/play"
-                    android:theme="@style/RaisedButtonDark" />
+                android:theme="@style/RaisedButtonDark" />
+
+                    <SeekBar
+                        android:id="@+id/seekbar_1_activity_listening_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,15 +62,27 @@
                     android:layout_height="100dp"
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/image1" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/play_pause_2_activity_listening_2"
+                        android:layout_width="62dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp25"
+                        android:background="@drawable/play"
+                        android:theme="@style/RaisedButtonDark" />
 
-                <Button
-                    android:id="@+id/play_pause_2__activity_listening_2"
-                    android:layout_width="104dp"
-                    android:layout_height="71dp"
-                    android:layout_marginLeft="@dimen/dp10"
-                    android:layout_marginTop="@dimen/dp25"
-                    android:background="@drawable/play"
-                    android:theme="@style/RaisedButtonDark" />
+                    <SeekBar
+                        android:id="@+id/seekbar_2_activity_listening_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -71,14 +96,25 @@
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/image1" />
 
-                <Button
-                    android:id="@+id/play_pause_3__activity_listening_2"
-                    android:layout_width="104dp"
-                    android:layout_height="71dp"
-                    android:layout_marginTop="@dimen/dp25"
-                    android:layout_marginLeft="@dimen/dp10"
-                    android:background="@drawable/play"
-                    android:theme="@style/RaisedButtonDark" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/play_pause_3_activity_listening_2"
+                        android:layout_width="62dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp25"
+                        android:background="@drawable/play"
+                        android:theme="@style/RaisedButtonDark" />
+
+                    <SeekBar
+                        android:id="@+id/seekbar_3_activity_listening_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -91,15 +127,25 @@
                     android:layout_height="100dp"
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/image1" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/play_pause_4_activity_listening_2"
+                        android:layout_width="62dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:layout_marginTop="@dimen/dp25"
+                        android:background="@drawable/play"
+                        android:theme="@style/RaisedButtonDark" />
 
-                <Button
-                    android:id="@+id/play_pause_4__activity_listening_2"
-                    android:layout_width="104dp"
-                    android:layout_height="71dp"
-                    android:layout_marginTop="@dimen/dp25"
-                    android:layout_marginLeft="@dimen/dp10"
-                    android:background="@drawable/play"
-                    android:theme="@style/RaisedButtonDark" />
+                    <SeekBar
+                        android:id="@+id/seekbar_4_activity_listening_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

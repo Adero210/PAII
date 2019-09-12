@@ -82,5 +82,24 @@
     <string name="bottom_calificar">Calificar</string>
     <string name="Escucha_selecciona">Escucha y selecciona</string>
     <string name="opcion">opcion</string>
+    <string name="selecciona">Selecciona la respuesta correcta</string>
+    <string name="mm">nkdsnakdndfnjsdga dfshdfashbdfsadhfasbdfhghasjhfbsdlhfasb s dbfsahfibjdfgd adsajblfasfandkgbhbdafdjfuahsrfsdhabflasjbfuaf bebabfjbeja</string>
+    <string name="bottom_sig">Siguiente</string>
+    <string name="preguntas">Pregunta</string>
+    <string name="bottom_back">Regresar</string>
+    <string name="title_activity_reading_3_">Reading_3_Activity</string>
+    <string name="hint_true">T</string>
+    <string name="hint_false">F</string>
+    <string name="escribe">Escucha y escribe</string>
+    <string name="completa">Completa el parrafo</string>
+    <string name="parrafo">Shawn’s family is not very big. His mother and father live in a flat in London. His father works in an insurance company, and his mother is a nurse. Shawn shares a flat with two friends and works in a restaurant. He has two sisters, Lucy and Millie, who live together in Southampton.  Shawn has a girlfriend, and Lucy has a boyfriend, but Millie is single.  Shawn’s girlfriend’s name is Maria, and she’s Italian. He’s in love with her, and with her dog. He loves going for a walk with Maria and her dog.</string>
+    <string name="parrafo2">Yesterday I got up at 8:30 in the morning. After I made some coffee, I got dressed and went to the bank because I had to pay the rent. The bank is only a couple blocks away, so I got there in a few minutes. There wasn’t a long line when I got in, so I paid the rent and left.  Afterwards I went to the butcher’s to get some meat. I also stopped at the market to get some tomatoes. I wanted to make pasta. When I got home I wrote a couple of emails.   After a while I started getting hungry, so I decided to get to work on lunch. I put the tomatoes in a pot to cook with the meat, and I put some water on to boil.  After a while the water got hot and I put in the pasta. I cooked it for a few minutes and then sat down to eat.  After lunch, I drank some more coffee and then got ready for work. It takes me about 20 minutes to get to work from where I live.   I was at work for a few hours, on Fridays I only give 2 classes.  I got off work at 8:30 and went to my girlfriend’s house. We went to drink a beer in her neighborhood. I was getting very hungry, so when I got home I made some fried eggs. After that I did some reading and went to sleep.  The end.</string>
+    <string name="parrafo3">Yesterday I got up at 8:30 in the morning. After I made some coffee, I got dressed and went to the bank because I had to pay the rent. The bank is only a couple blocks away, so I got there in a few minutes. There wasn’t a long line when I got in, so I paid the rent and left.  Afterwards I went to the butcher’s to get some meat. I also stopped at the market to get some tomatoes. I wanted to make pasta. When I got home I wrote a couple of emails.  After a while I started getting hungry, so I decided to get to work on lunch. I put the tomatoes in a pot to cook with the meat, and I put some water on to boil.  After a while the water got hot and I put in the pasta. I cooked it for a few minutes and then sat down to eat.    After lunch, I drank some more coffee and then got ready for work. It takes me about 20 minutes to get to work from where I live.  I was at work for a few hours, on Fridays I only give 2 classes.    I got off work at 8:30 and went to my girlfriend’s house. We went to drink a beer in her neighborhood. I was getting very hungry, so when I got home I made some fried eggs. After that I did some reading and went to sleep.    The end.</string>
+    <string name="word">palabra</string>
+    <string name="escribe2">Escribe una historia</string>
+    <string name="describe">Describe la imagen</string>
+    <string name="text">Text</string>
+    <string name="acomoda">Ordena el parrafo</string>
+    <string name="Adivina">Adivina la palabra</string>
 
 </resources>
