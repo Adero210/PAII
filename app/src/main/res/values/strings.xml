@@ -101,5 +101,14 @@
     <string name="text">Text</string>
     <string name="acomoda">Ordena el parrafo</string>
     <string name="Adivina">Adivina la palabra</string>
+    <string name="titulo_vocabulary_1">What´s the girl?</string>
+    <string name="pares">Toca los pares</string>
+    <string name="Traduce">Traduce</string>
+    <string name="traduce">Escoge la Traduccion correcta</string>
+    <string name="oracionprueba">You \'re missing the period at the end of this sentence.</string>
+    <string name="traduce1">Treaduce la oración</string>
+    <string name="completa_1">Elige lo faltante</string>
+    <string name="listenamdrepeat">Listen And repeat</string>
+    <string name="speak">Read</string>
 
 </resources>

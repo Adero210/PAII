@@ -366,6 +366,7 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(CreateAccountActivity.this, "Register error2" + error.toString(), Toast.LENGTH_SHORT).show();
+                        Log.i("helperror",error.toString());
 
                     }
                 }) {

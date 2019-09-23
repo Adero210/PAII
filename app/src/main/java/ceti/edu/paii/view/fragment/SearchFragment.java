@@ -42,7 +42,6 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         showToolbar(getResources().getString(R.string.Chat),false,view);
         viewPager =  view.findViewById(R.id.message_tabpager);
-        mSpA = new SectionPagerAdapter(getActivity().getSupportFragmentManager());
 
 
         viewPager.setAdapter(mSpA);

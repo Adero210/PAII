@@ -58,12 +58,23 @@ import ceti.edu.paii.activities.listening.Listening_1_Activity;
 import ceti.edu.paii.activities.listening.Listening_2_Activity;
 import ceti.edu.paii.activities.listening.Listening_3_Activity;
 import ceti.edu.paii.activities.listening.Listening_4_Activity;
+import ceti.edu.paii.activities.listening.grammar.Grammar_1_Activity;
+import ceti.edu.paii.activities.listening.grammar.Grammar_2_Activity;
+import ceti.edu.paii.activities.listening.grammar.Grammar_3_Activity;
+import ceti.edu.paii.activities.listening.grammar.Grammar_4_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_1_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_2_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_3_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_4_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_Paragraph_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_paragraph_2_Activity;
+import ceti.edu.paii.activities.listening.speaking.Speaking_1_Activity;
+import ceti.edu.paii.activities.listening.speaking.Speaking_2_Activity;
+import ceti.edu.paii.activities.listening.speaking.Speaking_3_Activity;
+import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_1_Activity;
+import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_2_Activity;
+import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_3_Activity;
+import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_4_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_1_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_2_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_3_Activity;
@@ -157,7 +168,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 chooseFile();
-               /* CropImage.activity()
+                /*CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(getActivity());*/
             }
@@ -169,7 +180,7 @@ public class ProfileFragment extends Fragment {
                 String status_value = mStatus.getText().toString();
                // Intent i = new Intent(getContext(), StatusActivity.class);
 
-                Intent i = new Intent(getContext(), Writing_2_Activity.class);
+                Intent i = new Intent(getContext(), Speaking_3_Activity.class);
                 i.putExtra("Descripción",status_value);
                 startActivity(i);
             }
@@ -258,7 +269,7 @@ public class ProfileFragment extends Fragment {
            });
        }
     }
-    private void uploadPicture(final String id, final String photo) {
+  /*  private void uploadPicture(final String id, final String photo) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Subiendo...");
         progressDialog.show();
@@ -312,7 +323,7 @@ public class ProfileFragment extends Fragment {
         String encodeImage = Base64.encodeToString(imageByteArray,Base64.DEFAULT);
 
         return encodeImage;
-    }
+    }*/
 
 
 }

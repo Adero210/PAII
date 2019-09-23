@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -16,7 +17,18 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activities.listening.writing.Writing_2_Activity"></activity>
+        <activity android:name=".activities.listening.speaking.Speaking_3_Activity"></activity>
+        <activity android:name=".activities.listening.speaking.Speaking_2_Activity" />
+        <activity android:name=".activities.listening.speaking.Speaking_1_Activity" />
+        <activity android:name=".activities.listening.grammar.Grammar_4_Activity" />
+        <activity android:name=".activities.listening.grammar.Grammar_3_Activity" />
+        <activity android:name=".activities.listening.grammar.Grammar_2_Activity" />
+        <activity android:name=".activities.listening.grammar.Grammar_1_Activity" />
+        <activity android:name=".activities.listening.vocabulary.Vocabulary_4_Activity" />
+        <activity android:name=".activities.listening.vocabulary.Vocabulary_3_Activity" />
+        <activity android:name=".activities.listening.vocabulary.Vocabulary_2_Activity" />
+        <activity android:name=".activities.listening.vocabulary.Vocabulary_1_Activity" />
+        <activity android:name=".activities.listening.writing.Writing_2_Activity" />
         <activity android:name=".activities.listening.writing.Writing_4_Activity" />
         <activity android:name=".activities.listening.writing.Writing_3_Activity" />
         <activity android:name=".activities.listening.reading.Reading_4_Activity" />

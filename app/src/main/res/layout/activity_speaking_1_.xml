@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.listening.writing.Writing_1_Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp10"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_speaking_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/listenamdrepeat"
+                android:textAlignment="center"
+                android:textSize="@dimen/edittext_textsize"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="@dimen/dp10"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/play_pause_activity_speaking_1"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp25"
+                    android:background="@drawable/play"
+                    android:theme="@style/RaisedButtonDark" />
+
+
+                <SeekBar
+                    android:id="@+id/seekbar_activity_speaking_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:layout_marginBottom="@dimen/sp20"
+                    android:layout_marginRight="@dimen/sp20"/>
+
+                <Button
+                    android:id="@+id/play_activity_speaking_1"
+                    android:layout_width="62dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_marginTop="@dimen/dp25"
+                    android:background="@drawable/play"
+                    android:theme="@style/RaisedButtonDark" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/play_pause_recorder_activity_speaking_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mic_none_black_24dp"
+                    android:layout_marginRight="@dimen/dp30"
+                    app:backgroundTint="@color/colorAccent"
+                    app:fabSize="normal" />
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/pause_recorder_activity_speaking_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pause"
+                        app:backgroundTint="@color/colorAccent"
+                        app:fabSize="normal" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/button_activity_speaking_1"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/sp20"
+                android:layout_marginRight="@dimen/sp20"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/bottom_calificar"
+                android:theme="@style/RaisedButtonDark" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

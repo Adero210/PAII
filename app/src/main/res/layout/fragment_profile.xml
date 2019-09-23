@@ -26,6 +26,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:statusBarScrim="@color/colorPrimary">
 
+
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/floating_profile_button"
                 android:layout_width="match_parent"
@@ -113,6 +114,8 @@
 
         />
 
+
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageuser_profile"
         android:layout_width="@dimen/dimen_circleimageprofile"
@@ -129,7 +132,7 @@
         app:targetY="@dimen/margintop_toolbar_cicleimageprofile"
         app:targetWidth="@dimen/widtg_circleimagetoolbar"
         app:targetHeight="@dimen/height_circleimagetoolbar"
-        />
+        />>
 
 
 
