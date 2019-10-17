@@ -102,7 +102,6 @@ public class Reading_4_Activity extends AppCompatActivity {
             }
         }
 
-        functiond();
 
         brinTheInfo(lessonint - 1, "0");
 
@@ -110,8 +109,6 @@ public class Reading_4_Activity extends AppCompatActivity {
 
     }
 
-
-    }
 
     private void brinTheInfo(final Integer lessonint2, final String numAle) {
 
@@ -140,7 +137,7 @@ public class Reading_4_Activity extends AppCompatActivity {
                             String datos[] = act.split(":");
                             String p = datos[4];
 
-                            String correcta =datos[5];
+                            String correcta = datos[5];
                             correcta = correcta.substring(0,correcta.length()-1);
 
                             p = p.substring(0,p.length()-11);
@@ -287,6 +284,9 @@ public class Reading_4_Activity extends AppCompatActivity {
 
                 String p[] = auxParrafo.split("____");
                 p[0].replace("____",auxWord);
+
+                auxParrafo = p[0]+p.length;
+                parrafo.setText(auxParrafo);
 
                 palabrasCorrectas[1] = auxParrafo;
 
