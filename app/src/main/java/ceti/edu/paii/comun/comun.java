@@ -1,10 +1,10 @@
 package ceti.edu.paii.comun;
 
-import ceti.edu.paii.view.SessionManager;
+        import ceti.edu.paii.view.SessionManager;
 
 public class comun {
     public static String userName;
     public static String getId;
     public static SessionManager sessionManager;
-    public static String URL = "http://192.168.0.3/";
+    public static String URL = "http://192.168.43.125/";
 }

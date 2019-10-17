@@ -35,6 +35,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -42,6 +43,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
     private Button userLogin,resetPassword;
     private LoginButton loginButtonFacebook;
     private FirebaseAuth firebaseAuth;
+
+    private DatabaseReference mUserDatabase;
+
     private FirebaseAuth.AuthStateListener authStateListener;
     private CallbackManager callbackManager;
     String mEmail, emailFaceBook,userNameFaceBook;
@@ -86,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         miAsyncTask.execute(20);
         sessionManager = new SessionManager(this);
 
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("user");
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -127,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
        userLogin.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 confirmInput();
             }
 
@@ -334,18 +343,35 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull final Task<AuthResult> task) {
                         if(task.isSuccessful()){
 
-                            FirebaseUser user = task.getResult().getUser();
-                            SharedPreferences pref = getSharedPreferences("USER", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putString("email", user.getEmail());
-                            editor.commit();
-                            Toast.makeText(MainActivity.this,"LOGIN" ,Toast.LENGTH_SHORT).show();
-                            Intent intent  = new Intent(MainActivity.this,ContainerActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+                            final FirebaseUser user = task.getResult().getUser();
+
+                            String mCurrentUserId = firebaseAuth.getCurrentUser().getUid();
+
+                            String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+                            mUserDatabase.child(mCurrentUserId).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+
+
+                                    SharedPreferences pref = getSharedPreferences("USER", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putString("email", user.getEmail());
+                                    editor.commit();
+                                    Toast.makeText(MainActivity.this,"LOGIN" ,Toast.LENGTH_SHORT).show();
+                                    Intent intent  = new Intent(MainActivity.this,ContainerActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+
+
+
+                                }
+                            });
+
+
                         }else{
                             Toast.makeText(MainActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                         }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="text_button_login">Login</string>
+    <string name="dont_have_account">Have acount? </string>
+    <string name="create_here">Crea una aquí!</string>
+    <string name="CargandoUserData">Loading User Data</string>
+    <string name="MessageDialogProfile">Please wait while we load the user data</string>
+    <string name="Enviar">Send Friend Request</string>
+    <string name="Cancelarsolicitud">Decline Friend Request</string>
+    <string name="Cancelarsolicitud1">Cancel Request</string>
+    <string name="Aceptarsolicitud1">Accept Request</string>
+
+
+
+
+</resources>

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.listening.writing.Writing_1_Activity">
+    tools:context=".activities.listening.reading.Reading_1_Activity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,7 +40,8 @@
                     android:layout_width="135dp"
                     android:layout_height="162dp"
                     android:layout_marginLeft="@dimen/dp10"
-                    android:background="@drawable/image1" />
+                    />
+
 
                 <TextView
                     android:id="@+id/description_text_activity_Reading_1"
@@ -62,44 +62,106 @@
                 android:layout_marginBottom="@dimen/dp10"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
                 <Button
-                    android:layout_marginTop="@dimen/dp10"
-                    android:id="@+id/opcion1_activity_Reading_1"
+                android:id="@+id/opcion1_activity_Reading_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:theme="@style/RaisedButtonDark"
+                android:text="@string/opcion" />
+
+                <Button
+                    android:id="@+id/opcion1_activity_Reading_1.1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginRight="@dimen/dp5"
-                    android:background="@drawable/button_rounded_signin"
+                    android:background="@drawable/button_design"
                     android:theme="@style/RaisedButtonDark"
                     android:text="@string/opcion" />
 
-                <Button
-                    android:id="@+id/opcion2_activity_Reading_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_rounded_signin"
-                    android:layout_marginBottom="@dimen/dp10"
-                    android:theme="@style/RaisedButtonDark"
-                    android:layout_marginRight="@dimen/dp5"
-                    android:text="@string/opcion"/>
-                <Button
-                    android:id="@+id/opcion3_activity_Reading_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_rounded_signin"
-                    android:layout_marginBottom="@dimen/dp10"
-                    android:theme="@style/RaisedButtonDark"
-                    android:layout_marginRight="@dimen/dp5"
-                    android:text="@string/opcion"/>
-                <Button
-                    android:id="@+id/opcion4_activity_Reading_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_rounded_signin"
-                    android:layout_marginBottom="@dimen/dp10"
-                    android:theme="@style/RaisedButtonDark"
-                    android:text="@string/opcion"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
+                    <Button
+                        android:id="@+id/opcion2_activity_Reading_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:background="@drawable/button_rounded_signin"
+                        android:theme="@style/RaisedButtonDark"
+                        android:text="@string/opcion" />
+
+                    <Button
+                        android:id="@+id/opcion2_activity_Reading_1.1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:background="@drawable/button_design"
+                        android:theme="@style/RaisedButtonDark"
+                        android:text="@string/opcion" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/opcion3_activity_Reading_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:background="@drawable/button_rounded_signin"
+                        android:theme="@style/RaisedButtonDark"
+                        android:text="@string/opcion" />
+
+                    <Button
+                        android:id="@+id/opcion3_activity_Reading_1.1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:background="@drawable/button_design"
+                        android:theme="@style/RaisedButtonDark"
+                        android:text="@string/opcion" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/opcion4_activity_Reading_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:background="@drawable/button_rounded_signin"
+                        android:theme="@style/RaisedButtonDark"
+                        android:text="@string/opcion" />
+
+                    <Button
+                        android:id="@+id/opcion4_activity_Reading_1.1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:background="@drawable/button_design"
+                        android:theme="@style/RaisedButtonDark"
+                        android:text="@string/opcion" />
+
+                </RelativeLayout>
             </LinearLayout>
 
             <Button

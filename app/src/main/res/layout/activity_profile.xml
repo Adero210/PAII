@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+       >
+
+        <ImageView
+            android:id="@+id/profile_display_image"
+            android:layout_width="match_parent"
+            android:layout_height="217dp"
+            android:src="@drawable/logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical"
+            >
+
+        <TextView
+            android:id="@+id/profile_display_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp30"
+            android:gravity="center"
+            android:textColor="@color/editTextColorWhite"
+            android:text="@string/username_card"/>
+
+        <TextView
+            android:id="@+id/profile_display_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/editTextColorWhite"
+            android:textSize="@dimen/sp20"
+            android:gravity="center"
+            android:text="@string/username_status"/>
+
+            <Button
+                android:id="@+id/profile_display_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp100"
+                android:layout_marginLeft="@dimen/dp30"
+                android:layout_marginRight="@dimen/dp30"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/Enviar"
+                android:theme="@style/RaisedButtonDark" />
+
+            <Button
+                android:id="@+id/profile_display_Rechazar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sp20"
+                android:layout_marginLeft="@dimen/dp30"
+                android:layout_marginRight="@dimen/dp30"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/rechazar"
+                android:theme="@style/RaisedButtonDark" />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

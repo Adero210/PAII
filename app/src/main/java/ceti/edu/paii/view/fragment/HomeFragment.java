@@ -26,6 +26,10 @@ import ceti.edu.paii.R;
 import ceti.edu.paii.adapter.PictureAdapterRecyclerView;
 import ceti.edu.paii.model.Picture;
 
+import static ceti.edu.paii.R.id.parrafo_Reading_2;
+import static ceti.edu.paii.R.id.pictureProfileRecycler;
+import static ceti.edu.paii.R.id.pictureRecycler;
+
 /**
  * A simple {@link Fragment} subclass.
  *
@@ -50,12 +54,16 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         showToolbar(getResources().getString(R.string.tab_home),false,view);
-        RecyclerView picturesRecycler = (RecyclerView) view.findViewById(R.id.pictureRecycler);
 
+        //Crea un linerLayout para acomodar los recyclerviews
+
+        RecyclerView picturesRecycler = (RecyclerView) view.findViewById(pictureRecycler);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
         picturesRecycler.setLayoutManager(linearLayoutManager);
 
+
+        ///Sube datos a firebase el dato es un 0
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("not").child(current_uid);
@@ -76,19 +84,26 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        PictureAdapterRecyclerView pictureAdapterRecyclerView = new PictureAdapterRecyclerView(buidPictures(), R.layout.cardview_picture,getActivity());
+        //////////termina de enviar datos a firebase
+
+
+        PictureAdapterRecyclerView pictureAdapterRecyclerView =
+                new PictureAdapterRecyclerView(buidPictures(), R.layout.cardview_picture,getActivity());
 
         picturesRecycler.setAdapter(pictureAdapterRecyclerView);
+
         return view;
     }
 
 
     public ArrayList<Picture> buidPictures(){
+        String userNameIn = "Curso Ingles";
+        String userNameIt = "Curso Italiano";
         ArrayList<Picture> pictures = new ArrayList<>();
         pictures.add(new Picture("https://mlstaticquic-a.akamaihd.net/bandera-estados-unidos-eeuu-usa-150x90-envio-gratis-D_NQ_NP_962788-MLU26870601027_022018-F.jpg",
-                "Curso Ingles"));
+                userNameIn));
         pictures.add(new Picture("https://wallpapercave.com/wp/wp1841290.jpg",
-                "Curso Italiano"));
+                userNameIt));
         return pictures;
     }
 

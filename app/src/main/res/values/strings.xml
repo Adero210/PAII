@@ -110,5 +110,21 @@
     <string name="completa_1">Elige lo faltante</string>
     <string name="listenamdrepeat">Listen And repeat</string>
     <string name="speak">Read</string>
+    <string name="Reading">Reading</string>
+    <string name="Writing">Writing</string>
+    <string name="Listenig">Listening</string>
+    <string name="Vocabulary">Vocabulary</string>
+    <string name="grammar">Grammar</string>
+    <string name="Speaking">Speaking</string>
+    <string name="username_status">status</string>
+    <string name="Enviar">Enviar solicitud</string>
+    <string name="CargandoUserData">Cargando Datos</string>
+    <string name="MessageDialogProfile">Por favor espere mientras cargamos los datos</string>
+    <string name="Cancelarsolicitud">Cancelar Solicitud</string>
+    <string name="Cancelarsolicitud1">Cancelar Solicitud</string>
+    <string name="Aceptarsolicitud1">Aceptar Solicitud</string>
+    <string name="bottom_calificacion">Calificacion</string>
+    <string name="rechazar">Rechazar Solicitud</string>
+
 
 </resources>

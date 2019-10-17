@@ -32,7 +32,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
     FloatingActionButton record, recordpause;
     String pathSave = "";
     MediaRecorder mediaRecorder;
-    MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer = new MediaPlayer();
     MediaPlayer mp;
     int totalTime;
 
@@ -100,7 +100,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
             }
         }).start();
 
-        Playpause.setOnClickListener(new View.OnClickListener() {
+                Playpause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mp.isPlaying()) {
@@ -166,7 +166,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ////////////////////////////////////////////////////////////////////////REVISAR///////////////////////////////////////////////////////////////////////////////
-                if (1==3) {
+               if (1==3) {
                     //
                     recordpause.setEnabled(false);
                     record.setEnabled(true);
@@ -176,8 +176,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
                     mediaPlayer.release();
                     setupMediaRecorder();
                 } else {
-                    //
-                    mediaPlayer = new MediaPlayer();
+
                     try {
                         mediaPlayer.setDataSource(pathSave);
                         mediaPlayer.prepare();
@@ -193,9 +192,6 @@ public class Speaking_1_Activity extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
     private void setupMediaRecorder() {
@@ -204,8 +200,6 @@ public class Speaking_1_Activity extends AppCompatActivity {
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         mediaRecorder.setOutputFile(pathSave);
-
-
     }
 
     private void requestPermission() {
@@ -257,7 +251,6 @@ public class Speaking_1_Activity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         mp.stop();
-        mp.release();
         super.onDestroy();
     }
 }

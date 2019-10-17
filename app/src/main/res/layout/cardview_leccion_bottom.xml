@@ -53,17 +53,19 @@
                     android:layout_marginLeft="@dimen/completado_leccion_card"
                     />
 
+                <TextView
+                    android:id="@+id/lenguajeCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lenguaje_card"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textsize_username_card"
+                    android:layout_marginLeft="@dimen/completado_leccion_card"
+
+                    />
+
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/lenguajeCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lenguaje_card"
-                android:textColor="@android:color/white"
-                android:layout_marginTop="@dimen/like_margintop_card"
-
-                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,10 +89,35 @@
                 android:textSize="@dimen/completado_leccion_card"
                 android:layout_marginLeft="@dimen/timecard_marginleft_card"
                 />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/calificacionwordCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/completado_leccion_card"
+                        android:text="@string/bottom_calificacion"/>
+
+                    <TextView
+                        android:id="@+id/calificacionnumbercard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/number_card"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/completado_leccion_card"
+                        android:layout_marginLeft="@dimen/dp5"/>
+
+                </LinearLayout>
 
 
             </LinearLayout>
-            
+
+
         </LinearLayout>
 
 

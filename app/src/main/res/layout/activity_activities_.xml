@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Activities_Activity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_reading_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_design"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/Reading"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/calific_reading_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bottom_calificacion"/>
+
+                        <TextView
+                            android:id="@+id/number_reading_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number_card"
+                            android:layout_marginLeft="@dimen/dp5"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_writing_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_design"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/Writing"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/calific_writing_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_calificacion"/>
+
+                        <TextView
+                            android:id="@+id/number_writing_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number_card"
+                            android:layout_marginLeft="@dimen/dp5"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_listening_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_design"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/Listenig"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/calific_listening_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_calificacion"/>
+
+                        <TextView
+                            android:id="@+id/number_listenig_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number_card"
+                            android:layout_marginLeft="@dimen/dp5"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_vocabulary_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_design"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/Vocabulary"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/calific_vocabulary_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_calificacion"/>
+
+                        <TextView
+                            android:id="@+id/number_vocabulary_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number_card"
+                            android:layout_marginLeft="@dimen/dp5"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_grammar_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_design"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/grammar"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/calific_grammar_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_calificacion"/>
+
+                        <TextView
+                            android:id="@+id/number_grammar_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number_card"
+                            android:layout_marginLeft="@dimen/dp5"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_speaking_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_design"
+                    android:layout_marginTop="@dimen/sp20"
+                    android:text="@string/Speaking"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sp20"
+                    android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/calific_speaking_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bottom_calificacion"/>
+
+                        <TextView
+                            android:id="@+id/number_speaking_activity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/number_card"
+                            android:layout_marginLeft="@dimen/dp5"/>
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>
