@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -50,6 +53,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,6 +87,7 @@ import ceti.edu.paii.activities.listening.writing.Writing_4_Activity;
 import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.view.StatusActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,36 +119,61 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        showToolbar("",false,view);
+        showToolbar("", false, view);
 
 
-        profile_image  = view.findViewById(R.id.imageuser_profile);
-        mName   = view.findViewById(R.id.userNameProfile);
+        profile_image = view.findViewById(R.id.imageuser_profile);
+        mName = view.findViewById(R.id.userNameProfile);
         mStatus = view.findViewById(R.id.descriptionProfile);
         //String username =  comun.userName;
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
 
-                /*obtenemos el ususario y el uid de firebase y posicionamos en la base de datos
+        /*obtenemos el ususario y el uid de firebase y posicionamos en la base de datos
          * para obtener valores desde firebase */
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
+
+
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(current_uid);
+        mUserDatabase.keepSynced(true);
+
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 String name = dataSnapshot.child("name").getValue().toString().trim();
-                String image = dataSnapshot.child("image").getValue().toString().trim();
+                final String image = dataSnapshot.child("image").getValue().toString().trim();
                 String status = dataSnapshot.child("status").getValue().toString().trim();
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString().trim();
 
                 mName.setText(name);
                 mStatus.setText(status);
 
-                Picasso.with(getActivity()).load(image).into(profile_image);
+
+                if(! image.equals("default")){
+                    //Picasso.with(getActivity()).load(image).placeholder(R.drawable.logo).into(profile_image);
+                    Picasso.with(getActivity()).load(image).networkPolicy(NetworkPolicy.OFFLINE)
+                            .placeholder(R.drawable.logo).into(profile_image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError() {
+
+                            Picasso.with(getActivity()).load(image).placeholder(R.drawable.logo).into(profile_image);
+
+
+                        }
+                    });
+
+
+                }
+
 
             }
 
@@ -155,10 +186,10 @@ public class ProfileFragment extends Fragment {
         //mName.setText(comun.userName);
 
         RecyclerView picturesProfileRecycler = (RecyclerView) view.findViewById(R.id.pictureProfileRecycler);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
         picturesProfileRecycler.setLayoutManager(linearLayoutManager);
+
 
         btn_photo_upload = view.findViewById(R.id.floating_profile_button);
         mStatusbtn = view.findViewById(R.id.change_status_buttom);
@@ -178,9 +209,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String status_value = mStatus.getText().toString();
-               // Intent i = new Intent(getContext(), StatusActivity.class);
+                Intent i = new Intent(getContext(), StatusActivity.class);
 
-                Intent i = new Intent(getContext(), Speaking_3_Activity.class);
+               // Intent i = new Intent(getContext(), Speaking_3_Activity.class);
                 i.putExtra("Descripción",status_value);
                 startActivity(i);
             }
@@ -222,7 +253,7 @@ public class ProfileFragment extends Fragment {
         startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"),1);
     }
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
        if(requestCode == 1 && resultCode == getActivity().RESULT_OK) {
            
            progressDialog = new ProgressDialog(getActivity());
@@ -231,27 +262,78 @@ public class ProfileFragment extends Fragment {
            progressDialog.setCanceledOnTouchOutside(false);
            progressDialog.show();
            Uri imageUrl = data.getData();
+
+           File thumb_filePath = new File(imageUrl.getPath());
+
            final String current_user_id = mCurrentUser.getUid();
-           Log.i("helppppp", String.valueOf(imageUrl));
+           //Log.i("ValueString", String.valueOf(imageUrl));
+
+
+           ByteArrayOutputStream baos = new ByteArrayOutputStream();
+           try {
+                Bitmap thumb_bitmap = new Compressor(getActivity())
+                       .setMaxWidth(200)
+                       .setMaxHeight(200)
+                       .setQuality(75)
+                       .compressToBitmap(thumb_filePath);
+
+               thumb_bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+           final byte[] thumb_byte = baos.toByteArray();
+
+
            StorageReference filepath = mImageStorage.child("profile_images").child(current_user_id+"jpg");
+           StorageReference thumb_filepath = mImageStorage.child("profile_images").child("thumbs").child(current_user_id+"jpg");
+           final UploadTask uploadTask = thumb_filepath.putBytes(thumb_byte);
 
            filepath.putFile(imageUrl).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                @Override
                public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> task) {
                    if(task.isSuccessful()){
 
-
                         mImageStorage.child("profile_images/"+current_user_id+"jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Log.i("Url_image", String.valueOf(uri));
-                                mUserDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(current_user_id);
-                                String Url_download = uri.toString();
-                                mUserDatabase.child("image").setValue(Url_download).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                Log.i("thumb_uri", String.valueOf(uri));
+
+                                final String Url_download = uri.toString();
+
+
+                                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                     @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if(task.isSuccessful()){
-                                            progressDialog.dismiss();
+                                    public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> thutask) {
+                                        if(thutask.isSuccessful()) {
+
+                                            mImageStorage.child("profile_images/" +current_user_id+"jpg").getDownloadUrl()
+                                                    .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri thumb_uri) {
+
+                                                    String thumb_downloadUrl = thumb_uri.toString();
+
+                                                    Log.i("thumb_uri", thumb_downloadUrl);
+                                                        Map update_hashMap = new HashMap();
+                                                        update_hashMap.put("image", Url_download);
+                                                        update_hashMap.put("thumb_image", thumb_downloadUrl);
+
+
+                                                        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(current_user_id);
+                                                        mUserDatabase.updateChildren(update_hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    progressDialog.dismiss();
+                                                                }
+
+                                                            }
+                                                        });
+
+                                                }
+                                            });
+
                                         }
 
                                     }

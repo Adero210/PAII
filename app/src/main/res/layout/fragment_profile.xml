@@ -120,7 +120,7 @@
         android:id="@+id/imageuser_profile"
         android:layout_width="@dimen/dimen_circleimageprofile"
         android:layout_height="@dimen/dimen_circleimageprofile"
-        android:src="@drawable/image1"
+        android:src="@drawable/logo"
         android:layout_gravity="center|top"
         android:layout_marginTop="@dimen/magintop_circleimageprofile"
         android:elevation="@dimen/elevation_circleimageprofile"
@@ -132,10 +132,7 @@
         app:targetY="@dimen/margintop_toolbar_cicleimageprofile"
         app:targetWidth="@dimen/widtg_circleimagetoolbar"
         app:targetHeight="@dimen/height_circleimagetoolbar"
-        />>
-
-
-
+        />
 
     <TextView
         android:id="@+id/userNameToolbarProfile"
@@ -156,6 +153,9 @@
         app:targetY="@dimen/margintoptargetY_toolbar_usernametoolbarprofile"
         app:targetAlpha="1"
         />
+
+
+
 
 
 </android.support.design.widget.CoordinatorLayout>

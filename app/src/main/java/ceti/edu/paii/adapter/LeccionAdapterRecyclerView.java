@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.model.Leccion;
+import ceti.edu.paii.view.Activities_Activity;
+import ceti.edu.paii.view.StatusActivity;
 
 public class LeccionAdapterRecyclerView extends RecyclerView.Adapter<LeccionAdapterRecyclerView.LeccionViewHolder> {
 
@@ -36,7 +38,7 @@ public class LeccionAdapterRecyclerView extends RecyclerView.Adapter<LeccionAdap
 
     @NonNull
     @Override
-    public LeccionAdapterRecyclerView.LeccionViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public LeccionViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
        View view = LayoutInflater.from(viewGroup.getContext()).inflate(resource,viewGroup, false);
         return new LeccionViewHolder(view);
     }
@@ -45,13 +47,36 @@ public class LeccionAdapterRecyclerView extends RecyclerView.Adapter<LeccionAdap
 
     @Override
     public void onBindViewHolder(@NonNull LeccionAdapterRecyclerView.LeccionViewHolder pictureViewHolder, int i) {
-        Leccion leccion = lecciones.get(i);
+        final Leccion leccion = lecciones.get(i);
         pictureViewHolder.leccionNumberCard.setText(leccion.getLeccionWord());
         pictureViewHolder.NumberCard.setText(leccion.getLeccionNumber());
         pictureViewHolder.lenguajeCard.setText(leccion.getLeccionLenguaje());
         pictureViewHolder.completadoCard.setText(leccion.getPorcentajeWord());
         pictureViewHolder.porcentajeCard.setText(leccion.getPorcentajeNumber());
         Picasso.with(this.activity).load(leccion.getLeccionBack()).into(pictureViewHolder.leccionBackCard);
+
+
+       pictureViewHolder.leccionBackCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent i = new Intent(activity, Activities_Activity.class);
+                i.putExtra("curse_name", leccion.getLeccionLenguaje());
+                i.putExtra("lesson",leccion.getLeccionNumber());
+
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    Explode explode = new Explode();
+                    explode.setDuration(100);
+                    activity.getWindow().setExitTransition(explode);
+                    activity.startActivity(i,
+                            ActivityOptionsCompat.makeSceneTransitionAnimation(activity, v, activity.getString(R.string.transitionname_picture)).toBundle());
+                }else {
+                    activity.startActivity(i);
+                }
+            }
+        });
 
     }
 

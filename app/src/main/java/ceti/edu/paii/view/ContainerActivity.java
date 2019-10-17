@@ -2,6 +2,7 @@ package ceti.edu.paii.view;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -44,6 +45,7 @@ public class ContainerActivity extends AppCompatActivity{
     private FirebaseAuth.AuthStateListener authStateListener;
     private static final String TAG = "ContainerActivity" ;
     private DatabaseReference mStatusDatabase;
+    private  DatabaseReference mUserRef;
     private FirebaseUser mCurrentUser;
 
     @Override
@@ -52,7 +54,8 @@ public class ContainerActivity extends AppCompatActivity{
         setContentView(R.layout.activity_container);
          firebaseInitialize();
 
-
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("user").
+                 child(firebaseAuth.getCurrentUser().getUid());
 
         final HomeFragment homeFragment = new HomeFragment();
         final ProfileFragment profileFragment = new ProfileFragment();
@@ -87,10 +90,12 @@ public class ContainerActivity extends AppCompatActivity{
                                 .addToBackStack(null).commit();
                         break;
                     case R.id.search_menu:
-                        SearchFragment searchFragment = new SearchFragment();
+                        Intent chatActivity = new Intent(ContainerActivity.this,ChatActivity.class);
+                        startActivity(chatActivity);
+                        /*SearchFragment searchFragment = new SearchFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,searchFragment)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                .addToBackStack(null).commit();
+                                .addToBackStack(null).commit();*/
                         break;
 
                 }
@@ -101,6 +106,7 @@ public class ContainerActivity extends AppCompatActivity{
 
 
     }
+
 
 
     private void firebaseInitialize(){
@@ -119,6 +125,7 @@ public class ContainerActivity extends AppCompatActivity{
             }
         };
     }
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

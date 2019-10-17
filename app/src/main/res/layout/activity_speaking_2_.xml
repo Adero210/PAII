@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.listening.writing.Writing_1_Activity">
+    tools:context=".activities.listening.speaking.Speaking_2_Activity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,8 +41,6 @@
                     android:textSize="@dimen/edittext_textsize"
                     android:layout_marginBottom="@dimen/sp20"
                     />
-
-
                 <Button
                     android:id="@+id/play_activity_speaking_2"
                     android:layout_width="62dp"

@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
     private String idUser, gender;
     private static final String TAG = "CreateAccountActivity";
     private FirebaseAuth firebaseAuth;
+
     private FirebaseAuth.AuthStateListener authStateListener;
 
     RadioGroup radioGroup;
@@ -102,6 +104,8 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
 
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -304,8 +308,11 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
                             FirebaseUser passu = FirebaseAuth.getInstance().getCurrentUser();
                             String UID = passu.getUid();
 
+                            String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
                             mDataBase = FirebaseDatabase.getInstance().getReference().child("user").child(UID);
                             HashMap<String, String> userMap = new HashMap<>();
+                            userMap.put("device_token",deviceToken);
                             userMap.put("name",name);
                             userMap.put("status","Hello! there");
                             userMap.put("image","default");

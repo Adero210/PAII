@@ -3,6 +3,7 @@ package ceti.edu.paii.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
@@ -41,9 +42,10 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
         return new PictureViewHolder(view);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull final PictureViewHolder pictureViewHolder, int i) {
-        Picture picture = pictures.get(i);
+    public void onBindViewHolder(@NonNull final PictureAdapterRecyclerView.PictureViewHolder pictureViewHolder, int i) {
+        final Picture picture = pictures.get(i);
         pictureViewHolder.usernameCard.setText(picture.getUserName());
         Picasso.with(this.activity).load(picture.getPicture()).into(pictureViewHolder.pictureCard);
 
@@ -51,6 +53,8 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, PictureDetailActivity.class);
+                intent.putExtra("curse_name", picture.getUserName());
+
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     Explode explode = new Explode();

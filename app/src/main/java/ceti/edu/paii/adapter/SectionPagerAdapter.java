@@ -7,11 +7,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import ceti.edu.paii.view.fragment.ChatsFragment;
 import ceti.edu.paii.view.fragment.FriendsFragment;
 import ceti.edu.paii.view.fragment.RequestsFragment;
+import ceti.edu.paii.view.fragment.UsersFragemts;
 
 public class SectionPagerAdapter extends FragmentPagerAdapter {
     public SectionPagerAdapter(FragmentManager fm) {
         super(fm);
     }
+
 
     @Override
     public Fragment getItem(int position) {
@@ -29,16 +31,19 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
                 FriendsFragment friendsFragment = new FriendsFragment();
                 return friendsFragment;
 
+            case 3:
+                UsersFragemts usersFragemts = new UsersFragemts();
+                return usersFragemts;
+
+
             default:
                 return null;
-
-
         }
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     public CharSequence getPageTitle(int position){
@@ -50,6 +55,8 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
                 return "Chat";
             case 2:
                 return "Lista de Amigos";
+            case 3:
+                return "Lista Todos";
             default:
                 return null;
         }

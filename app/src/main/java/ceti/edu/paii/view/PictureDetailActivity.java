@@ -30,33 +30,45 @@ public class PictureDetailActivity extends AppCompatActivity {
 
         RecyclerView leccionesRecycler = (RecyclerView) findViewById(R.id.leccionRecycler);
         leccionesRecycler.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL,false);
         leccionesRecycler.setLayoutManager(linearLayoutManager);
+
+        String lessonName = getDta();
+
 
 
         LeccionAdapterRecyclerView leccionAdapterRecyclerView =
-                new LeccionAdapterRecyclerView(buidLeccines(),R.layout.cardview_leccion_bottom, new PictureDetailActivity());
+                new LeccionAdapterRecyclerView(buidLeccines(lessonName),R.layout.cardview_leccion_bottom,
+                        PictureDetailActivity.this);
 
         leccionesRecycler.setAdapter(leccionAdapterRecyclerView);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            getWindow().setEnterTransition(new Fade());
-        }
+
     }
 
-    public ArrayList<Leccion> buidLeccines(){
+    public ArrayList<Leccion> buidLeccines(String r){
+        String n = r;
         ArrayList<Leccion> lecciones = new ArrayList<>();
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "1", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "2", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "3", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "4", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "5", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "6", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "7", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "8", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "9", "Ingles","Completed","0%"));
-        lecciones.add(new Leccion("http://quinientostres.com/wp-content/uploads/2018/01/Fondo-de-agua1-750x450.jpg","Lesson", "10", "Ingles","Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "1", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "2", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "3", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "4", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "5", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "6", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "7", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "8", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "9", n,"Completed","0%"));
+        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "10", n,"Completed","0%"));
 
         return lecciones;
+    }
+
+    private String getDta(){
+        String lessonName = "";
+        if(getIntent().hasExtra("curse_name")){
+             lessonName = getIntent().getStringExtra("curse_name");
+        }
+        return  lessonName;
     }
 
     public void showToolbar(String tittle, boolean upButton) {

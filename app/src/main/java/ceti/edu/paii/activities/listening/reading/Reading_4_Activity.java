@@ -102,11 +102,13 @@ public class Reading_4_Activity extends AppCompatActivity {
             }
         }
 
+        functiond();
 
         brinTheInfo(lessonint - 1, "0");
 
         functiond();
 
+    }
 
 
     }
@@ -124,8 +126,6 @@ public class Reading_4_Activity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
                     JSONArray jsonArray = jsonObject.getJSONArray("actr4");
-
-
 
                     if(success.equals("1")){
                         progressDialog.dismiss();

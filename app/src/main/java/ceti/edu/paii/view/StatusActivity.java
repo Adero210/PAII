@@ -1,6 +1,7 @@
 package ceti.edu.paii.view;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.view.fragment.ProfileFragment;
 
 public class StatusActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -73,7 +75,9 @@ public class StatusActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(),
                                     "Se guardo Exitosamente",
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
+
+
                         }else {
                             Toast.makeText(getApplicationContext(),
                                     "Se obtuvo un error mientras guardaba",
@@ -81,7 +85,9 @@ public class StatusActivity extends AppCompatActivity {
                         }
                     }
                 });
+
             }
+
         });
 
 
