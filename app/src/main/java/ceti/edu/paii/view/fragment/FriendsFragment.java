@@ -1,7 +1,10 @@
 package ceti.edu.paii.view.fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -25,7 +28,10 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.view.ChatActivity;
+import ceti.edu.paii.view.ChatActivity2;
 import ceti.edu.paii.view.Friends;
+import ceti.edu.paii.view.ProfileActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -76,7 +82,7 @@ public class FriendsFragment extends Fragment {
     public  void onStart(){
         super.onStart();
 
-        FirebaseRecyclerAdapter<Friends, FriendsViewHolder> friendsFriendsViewHolderFirebaseRecyclerAdapter
+        final FirebaseRecyclerAdapter<Friends, FriendsViewHolder> friendsFriendsViewHolderFirebaseRecyclerAdapter
                 = new FirebaseRecyclerAdapter<Friends, FriendsViewHolder>(
                 Friends.class,
                 R.layout.users_single_layout,
@@ -88,24 +94,61 @@ public class FriendsFragment extends Fragment {
 
                 viewHolder.setDate(model.getDate());
 
-                String listUserid = getRef(position).getKey();
+                final String listUserid = getRef(position).getKey();
 
                 mUserDtabase.child(listUserid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        String userName = dataSnapshot.child("name").getValue().toString();
+                        final String userName = dataSnapshot.child("name").getValue().toString();
                         String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
                         if(dataSnapshot.hasChild("online")){
 
-                            Boolean userOnline = (Boolean) dataSnapshot.child("online").getValue();
+                            Boolean userOnline = (boolean) dataSnapshot.child("online").getValue();
                             viewHolder.setOnline(userOnline);
 
                         }
 
                         viewHolder.setName(userName);
                         viewHolder.setUserImage(userThumb,getContext());
+
+
+                        viewHolder.mview.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                             CharSequence options[] = new CharSequence[]{"Open Profile", "Send message"};
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                                builder.setTitle("Selecciona las opciones ") ;
+                                builder.setItems(options, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        if(which == 0){
+                                            Intent profileIntent = new Intent(getActivity(), ProfileActivity.class);
+                                            profileIntent.putExtra("userId",listUserid);
+                                            startActivity(profileIntent );
+                                        }
+                                        if(which == 1){
+
+                                            Intent chatIntent = new Intent(getActivity(), ChatActivity2.class);
+                                            chatIntent.putExtra("userId",listUserid);
+                                            chatIntent.putExtra("name",userName);
+                                            startActivity(chatIntent );
+
+                                        }
+
+                                    }
+                                });
+
+                                builder.show();
+
+
+                            }
+                        });
+
 
                     }
 

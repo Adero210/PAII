@@ -125,6 +125,8 @@
     <string name="Aceptarsolicitud1">Aceptar Solicitud</string>
     <string name="bottom_calificacion">Calificacion</string>
     <string name="rechazar">Rechazar Solicitud</string>
+    <string name="last_seen">Last seen</string>
+    <string name="Escribemensaje">Envia un mensaje</string>
 
 
 </resources>

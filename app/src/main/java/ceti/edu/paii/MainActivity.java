@@ -406,13 +406,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CreateAccountActivity.class);
         startActivity(intent);
     }
-    public void goContainer(View view){
-        final Intent intent = new Intent(this, ContainerActivity.class);
-        startActivity(intent);
-    }
+
     public void goHome(){
         Intent intent = new Intent(this,ContainerActivity.class);
         startActivity(intent);
+        finish();
     }
     @Override
     protected void onStart() {

@@ -280,12 +280,20 @@ public class Reading_4_Activity extends AppCompatActivity {
 
                 String auxParrafo = parrafo.getText().toString();
 
-                String auxWord = word1.getText().toString();
+                String auxWord = word2.getText().toString();
+                String auxParrafo2 = "";
+
 
                 String p[] = auxParrafo.split("____");
+
+                Log.i("PARRAFO_WORD1", p[1]);
+
+
                 p[0].replace("____",auxWord);
 
-                auxParrafo = p[0]+p.length;
+                auxParrafo = p[0];
+
+
                 parrafo.setText(auxParrafo);
 
                 palabrasCorrectas[1] = auxParrafo;
@@ -301,7 +309,7 @@ public class Reading_4_Activity extends AppCompatActivity {
 
                 String auxParrafo = parrafo.getText().toString();
 
-                String auxWord = word1.getText().toString();
+                String auxWord = word3.getText().toString();
 
                 String p[] = auxParrafo.split("____");
                 p[0].replace("____",auxWord);
@@ -319,7 +327,7 @@ public class Reading_4_Activity extends AppCompatActivity {
 
                 String auxParrafo = parrafo.getText().toString();
 
-                String auxWord = word1.getText().toString();
+                String auxWord = word4.getText().toString();
 
                 String p[] = auxParrafo.split("____");
                 p[0].replace("____",auxWord);
@@ -337,7 +345,7 @@ public class Reading_4_Activity extends AppCompatActivity {
 
                 String auxParrafo = parrafo.getText().toString();
 
-                String auxWord = word1.getText().toString();
+                String auxWord = word5.getText().toString();
 
                 String p[] = auxParrafo.split("____");
                 p[0].replace("____",auxWord);

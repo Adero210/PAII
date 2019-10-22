@@ -12,21 +12,27 @@
     <application
         android:name=".PaiiApplication"
         android:allowBackup="true"
-        android:networkSecurityConfig="@xml/network_security_setings"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_setings"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.ChatActivity"
+        <activity android:name=".view.ChatActivity2"
+            android:parentActivityName=".view.ChatActivity">
+        </activity>
+        <activity
+            android:name=".view.ChatActivity"
             android:parentActivityName=".view.ContainerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.ContainerActivity" /></activity>
+                android:value=".view.ContainerActivity" />
+        </activity>
         <activity android:name=".view.ProfileActivity">
             <intent-filter>
-                <action android:name="activityProfile"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="activityProfile" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -107,10 +113,11 @@
             android:name=".view.CreateAccountActivity"
             android:parentActivityName=".MainActivity">
             <intent-filter>
-                <action android:name="activityContainer"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="activityContainer" />
 
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

@@ -88,7 +88,9 @@ public class ContainerActivity extends AppCompatActivity{
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                 .addToBackStack(null).commit();
-                        break;
+
+
+                    break;
                     case R.id.search_menu:
                         Intent chatActivity = new Intent(ContainerActivity.this,ChatActivity.class);
                         startActivity(chatActivity);
@@ -230,6 +232,13 @@ public class ContainerActivity extends AppCompatActivity{
 
         }
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // Toast.makeText(ContainerActivity.this,"Bye",Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 }

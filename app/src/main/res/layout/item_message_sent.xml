@@ -4,10 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/sent_messages_layout"
     android:paddingTop="@dimen/dp8">
 
     <TextView
-        android:id="@+id/text_message_body"
+        android:id="@+id/text_message_body_sent"
         android:text="@string/answer_message"
         android:background="@drawable/rounded_rentangle_orange"
         android:layout_width="wrap_content"
@@ -20,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_message_time"
+        android:id="@+id/text_message_time_sent"
         android:text="@string/message_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

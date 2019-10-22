@@ -93,6 +93,8 @@ public class HomeFragment extends Fragment {
         picturesRecycler.setAdapter(pictureAdapterRecyclerView);
 
         return view;
+
+
     }
 
 
@@ -114,6 +116,9 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(tittle);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
     }
+
+
+
 
 }
 
