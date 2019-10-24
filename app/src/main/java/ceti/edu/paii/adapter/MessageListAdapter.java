@@ -7,9 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -20,6 +26,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.MessageViewHolder> {
 
     private List<Message> mMessagesList;
+    private DatabaseReference mMsgRef;
+
+    private DatabaseReference mUserDatabase;
+
     private FirebaseAuth mAuth;
 
 
@@ -43,39 +53,99 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
-        public TextView messageText, messagesent;
-        public CircleImageView profileImage;
+
+        public LinearLayout leftMsgLayout;
+
+        public LinearLayout rightMsgLayout;
+
+        public TextView leftMsgTextView;
+
+        public TextView rightMsgTextView;
+
+        public TextView fromTime;
+
+        public TextView toTime;
+
 
         public MessageViewHolder(View view){
             super(view);
 
-            messagesent = view.findViewById(R.id.text_message_body_sent);
-            messageText = view.findViewById(R.id.text_message_body);
-            profileImage = view.findViewById(R.id.image_message_profile);
+            leftMsgLayout =  itemView.findViewById(R.id.chat_left_msg_layout);
+            rightMsgLayout =  itemView.findViewById(R.id.chat_right_msg_layout);
+            leftMsgTextView =  itemView.findViewById(R.id.chat_left_msg_text_view);
+            rightMsgTextView =  itemView.findViewById(R.id.chat_right_msg_text_view);
+            fromTime = itemView.findViewById(R.id.from_time);
+            toTime = itemView.findViewById(R.id.to_time);
+
 
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder messageViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final MessageViewHolder messageViewHolder, int i) {
 
         mAuth = FirebaseAuth.getInstance();
-        String current_user_id = mAuth.getCurrentUser().getUid();
-        Message c = mMessagesList.get(i);
 
-        String fromId = c.getFrom();
-        if(fromId.equals(current_user_id)){
+        final String current_user_id = mAuth.getCurrentUser().getUid();
 
-            messageViewHolder.messageText.setBackgroundColor(Color.WHITE);
-            messageViewHolder.messageText.setTextColor(Color.BLACK);
+        final Message msgDto = mMessagesList.get(i);
 
-        }else{
-            messageViewHolder.messageText.setBackgroundResource(R.drawable.rounded_rentangle_orange);
-            messageViewHolder.messageText.setTextColor(Color.WHITE);
+        String from_user = msgDto.getFrom();
+        final String message_type = msgDto.getType();
 
-        }
 
-        messageViewHolder.messageText.setText(c.getMessage());
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(from_user);
+
+
+        mUserDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                mMsgRef = FirebaseDatabase.getInstance().getReference().child("messages");
+
+                String name = dataSnapshot.child("name").getValue().toString();
+                String image = dataSnapshot.child("thumb_image").getValue().toString();
+
+
+                if(dataSnapshot.getKey().equals(current_user_id))
+                {
+
+                    messageViewHolder.rightMsgLayout.setVisibility(LinearLayout.VISIBLE);
+
+                    if(message_type.equals("text")) {
+
+                        messageViewHolder.rightMsgTextView.setText(msgDto.getMessage());
+
+                    }
+                    messageViewHolder.leftMsgLayout.setVisibility(LinearLayout.GONE);
+                }
+                else
+                {
+                    messageViewHolder.leftMsgLayout.setVisibility(LinearLayout.VISIBLE);
+
+                    if(message_type.equals("text")) {
+
+                        messageViewHolder.leftMsgTextView.setText(msgDto.getMessage());
+
+                    }
+                    messageViewHolder.rightMsgLayout.setVisibility(LinearLayout.GONE);
+                }
+
+
+
+//                viewHolder.displayName.setText(name);
+
+//                Picasso.with(viewHolder.profileImage.getContext()).load(image)
+//                        .placeholder(R.drawable.default_avatar).into(viewHolder.profileImage);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override

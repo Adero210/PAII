@@ -41,13 +41,12 @@
 
                     <ImageView
                         android:id="@+id/user_single_online_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_width="8dp"
+                        android:layout_height="12dp"
                         android:layout_marginLeft="@dimen/sp20"
+                        android:layout_marginTop="15dp"
                         android:src="@drawable/online_icon"
-                        android:visibility="invisible"
-                        />
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 
@@ -57,8 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/username_status"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/sp20" />
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/dp10" />
 
             </LinearLayout>
         </LinearLayout>

@@ -50,13 +50,13 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
 
         switch (position){
             case 0:
-                return "Buscar";
+                return "Solicitudes";
             case 1:
                 return "Chat";
             case 2:
                 return "Lista de Amigos";
             case 3:
-                return "Lista Todos";
+                return "Buscar";
             default:
                 return null;
         }
