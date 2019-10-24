@@ -83,7 +83,8 @@ public class ChatsFragment extends Fragment {
     public  void onStart(){
         super.onStart();
 
-        final FirebaseRecyclerAdapter<Chats, ChatsFragment.ChatsViewHolder> chatsChatsViewHolderFirebaseRecyclerAdapter
+        final FirebaseRecyclerAdapter<Chats, ChatsFragment.ChatsViewHolder>
+                chatsChatsViewHolderFirebaseRecyclerAdapter
                 = new FirebaseRecyclerAdapter<Chats, ChatsViewHolder>(
                 Chats.class,
                 R.layout.users_single_layout,
