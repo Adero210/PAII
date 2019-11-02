@@ -100,7 +100,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
             }
         }).start();
 
-                Playpause.setOnClickListener(new View.OnClickListener() {
+        Playpause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mp.isPlaying()) {
@@ -189,8 +189,8 @@ public class Speaking_1_Activity extends AppCompatActivity {
                     Toast.makeText(Speaking_1_Activity.this, "Playing...",
                             Toast.LENGTH_SHORT).show();
 
-                }
-            }
+        }
+    }
         });
     }
 

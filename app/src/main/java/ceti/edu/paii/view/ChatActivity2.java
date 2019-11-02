@@ -1,10 +1,17 @@
 package ceti.edu.paii.view;
 
+import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +22,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,15 +45,20 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.adapter.MessageListAdapter;
 import ceti.edu.paii.model.Message;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.http.Url;
 
 public class ChatActivity2 extends AppCompatActivity {
 
@@ -67,24 +82,30 @@ public class ChatActivity2 extends AppCompatActivity {
 
     private static final int GALLERY_PICK = 1;
 
-
     private final List<Message> messagesList = new ArrayList<ceti.edu.paii.model.Message>();
     private LinearLayoutManager linearLayoutManager;
 
     private MessageListAdapter messageListAdapter;
+
+    private FirebaseStorage storage;
     private StorageReference mImageStorage;
-
-
 
     private static final int TOTAL_ITEMS_TO_LOAD = 10;
     private int mCurrentPage = 1;
-
 
     private int itemPos = 0;
     private String mLastKey ="";
     private String mPrevKey = "";
 
+    //Mensaje Audio Media Recorder -----------------------------------------------------------------
 
+    private ImageButton mRocorderBtn;
+    private MediaRecorder recorder;
+    private String mFileName = null;
+    private StorageReference mStorageAudio;
+    private ProgressDialog progressDialog;
+
+    final int REQUEST_PERMISSION_CODE = 1000;
 
 
     @Override
@@ -92,28 +113,32 @@ public class ChatActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat2);
 
+        if (!checkPermissionFromDivice()) {
+            requestPermission();
+        }
+
         mChatAddbtn = findViewById(R.id.addButton);
         mChatSendbtn = findViewById(R.id.sendButton);
+        mRocorderBtn = findViewById(R.id.audioButton);
         mChatedittext = findViewById(R.id.messageEditText);
 
+        progressDialog = new ProgressDialog(this);
         messageListAdapter = new MessageListAdapter(messagesList);
 
         mMessageList = findViewById(R.id.messages_list);
         mRefreshLayout = findViewById(R.id.messages_swipe_layout);
-
 
         linearLayoutManager = new LinearLayoutManager(this);
 
         mMessageList.setHasFixedSize(true);
         mMessageList.setLayoutManager(linearLayoutManager);
 
-
         mMessageList.setAdapter(messageListAdapter);
 
-
-
+        storage = FirebaseStorage.getInstance();
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
+        mStorageAudio = FirebaseStorage.getInstance().getReference();
 
         mUserroot = FirebaseDatabase.getInstance().getReference();
 
@@ -124,8 +149,11 @@ public class ChatActivity2 extends AppCompatActivity {
         mChatUser = getIntent().getStringExtra("userId");
         userName = getIntent().getStringExtra("name");
 
-        showToolbar(userName,true);
+        mFileName = Environment.getExternalStorageDirectory()
+                .getAbsolutePath() + "/"
+                + UUID.randomUUID().toString() + "_audio_record.mp3";
 
+        showToolbar(userName,true);
 
         loadMessages();
 
@@ -181,6 +209,22 @@ public class ChatActivity2 extends AppCompatActivity {
             }
         });
 
+        mRocorderBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+
+                    startRecording();
+
+                }else if(event.getAction() == MotionEvent.ACTION_UP){
+
+                    stopRecording();
+
+                }
+                return false;
+            }
+        });
+
         mChatAddbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,8 +237,6 @@ public class ChatActivity2 extends AppCompatActivity {
 
             }
         });
-
-
 
         mChatSendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,83 +254,171 @@ public class ChatActivity2 extends AppCompatActivity {
                 itemPos = 0;
                 loadMoreMessages();
 
+            }
+        });
+    }
+
+    private void startRecording() {
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        recorder.setOutputFile(mFileName);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+
+            try {
+            recorder.prepare();
+        } catch (IOException e) {
+            Log.e("LOG_TAG_RECORD", "prepare() failed");
+        }
+
+        recorder.start();
+    }
+
+    private void stopRecording() {
+       // recorder.stop();
+        recorder.release();
+        recorder = null;
+
+        uploadAudio();
+
+    }
+
+    private void uploadAudio() {
+
+        progressDialog.setMessage("Enviando Audio");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        Uri uri = Uri.fromFile(new File(mFileName));
+
+
+        final StorageReference filepath = mStorageAudio.child("Audio").child(uri.getLastPathSegment());
+
+
+
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                progressDialog.dismiss();
+
+                filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uriAudio) {
+
+                        final String Url_Audio = uriAudio.toString();
+                        String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser;
+                        String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
+
+                        DatabaseReference user_message_push = mUserroot.child("messages")
+                                .child(mCurrentUserId).child(mChatUser).push();
+
+
+                        String push_id = user_message_push.getKey();
+
+                        Map messageMap = new HashMap();
+                        messageMap.put("urlAudio",Url_Audio);
+                        messageMap.put("type" , "Audio");
+                        messageMap.put("time", ServerValue.TIMESTAMP);
+                        messageMap.put("from", mCurrentUserId);
+
+                        Map messageUserMap = new HashMap();
+                        messageUserMap.put(current_user_ref + "/" + push_id,messageMap);
+                        messageUserMap.put(chat_user_ref + "/" + push_id,messageMap);
+
+                        mUserroot.child("Chat").child(mCurrentUserId).child(mChatUser).child("seen").setValue(true);
+                        mUserroot.child("Chat").child(mCurrentUserId).child(mChatUser).child("timestamp").setValue(ServerValue.TIMESTAMP);
+
+                        mUserroot.child("Chat").child(mChatUser).child(mCurrentUserId).child("seen").setValue(false);
+                        mUserroot.child("Chat").child(mChatUser).child(mCurrentUserId).child("timestamp").setValue(ServerValue.TIMESTAMP);
+
+                        mUserroot.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+
+                                if(databaseError != null){
+
+                                    Log.d("CHAT_LOG", databaseError.getMessage().toString());
+
+                                }
+                            }
+                        });
+                    }
+                });
 
             }
         });
 
-
-
-
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
         if(requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
 
             Uri imageUri = data.getData();
 
-
-                if (resultCode == RESULT_OK) {
-
-
-                    final String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser;
-                    final String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
-
-                    DatabaseReference user_message_push = mUserroot.child("messages")
-                            .child(mCurrentUserId).child(mChatUser).push();
-
-                    final String push_id = user_message_push.getKey();
+            mImageStorage = storage.getReference("message_images");
+            final StorageReference fotoreference = mImageStorage.child(imageUri.getLastPathSegment());
 
 
-                    StorageReference filepath = mImageStorage.child("message_images").child(push_id + ".jpg");
+            fotoreference.putFile(imageUri).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    final UploadTask uploadTask = filepath.putFile(imageUri);
-
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    fotoreference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        public void onSuccess(Uri uri) {
+                            Log.i("thumb_uri", String.valueOf(uri));
+
+                            final String Url_download = uri.toString();
+                            Log.i("thumb_uri", Url_download);
+
+                            String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser;
+                            String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
+
+                            DatabaseReference user_message_push = mUserroot.child("messages")
+                                    .child(mCurrentUserId).child(mChatUser).push();
+
+                            String push_id = user_message_push.getKey();
+
+                            Map messageMap = new HashMap();
+                            messageMap.put("message", "se envio una foto");
+                            messageMap.put("seen",false);
+                            messageMap.put("urlFoto",Url_download);
+                            messageMap.put("type" , "image");
+                            messageMap.put("time", ServerValue.TIMESTAMP);
+                            messageMap.put("from", mCurrentUserId);
+
+                            Map messageUserMap = new HashMap();
+                            messageUserMap.put(current_user_ref + "/" + push_id,messageMap);
+                            messageUserMap.put(chat_user_ref + "/" + push_id,messageMap);
+
+                            mUserroot.child("Chat").child(mCurrentUserId).child(mChatUser).child("seen").setValue(true);
+                            mUserroot.child("Chat").child(mCurrentUserId).child(mChatUser).child("timestamp").setValue(ServerValue.TIMESTAMP);
+
+                            mUserroot.child("Chat").child(mChatUser).child(mCurrentUserId).child("seen").setValue(false);
+                            mUserroot.child("Chat").child(mChatUser).child(mCurrentUserId).child("timestamp").setValue(ServerValue.TIMESTAMP);
+
+
+                            mUserroot.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                                 @Override
-                                public void onSuccess(Uri uri) {
-                                    String download_url = uri.toString();
+                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
 
-                                    Map messageMap = new HashMap();
-                                    messageMap.put("message", download_url);
-                                    messageMap.put("seen", false);
-                                    messageMap.put("type", "image");
-                                    messageMap.put("time", ServerValue.TIMESTAMP);
-                                    messageMap.put("from", mCurrentUserId);
+                                    if(databaseError != null){
 
-                                    Map messageUserMap = new HashMap();
-                                    messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
-                                    messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
+                                        Log.d("CHAT_LOG", databaseError.getMessage().toString());
 
-                                    mChatedittext.setText("");
-
-                                    mUserroot.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
-                                        @Override
-                                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-
-                                            if (databaseError != null) {
-
-                                                Log.d("CHAT_LOG", databaseError.getMessage().toString());
-
-                                            }
-
-                                        }
-                                    });
+                                    }
                                 }
                             });
+
                         }
                     });
 
 
                 }
-
-            }
+            });
+        }
 
     }
 
@@ -325,7 +455,7 @@ public class ChatActivity2 extends AppCompatActivity {
                 }
 
 
-                Log.d("TOTALKEYS", "Last Key : " + mLastKey + " | Prev Key : " + mPrevKey + " | Message Key : " + messageKey);
+                Log.i("TOTALKEYS", "Last Key : " + mLastKey + " | Prev Key : " + mPrevKey + " | Message Key : " + messageKey);
 
                 messageListAdapter.notifyDataSetChanged();
 
@@ -362,7 +492,7 @@ public class ChatActivity2 extends AppCompatActivity {
 
         DatabaseReference messageReference = mUserroot.child("messages")
                 .child(mCurrentUserId).child(mChatUser);
-        Query messageQuery = messageReference.limitToLast(mCurrentPage * TOTAL_ITEMS_TO_LOAD);
+        Query messageQuery = messageReference.limitToLast(mCurrentPage + TOTAL_ITEMS_TO_LOAD);
 
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
@@ -460,6 +590,38 @@ public class ChatActivity2 extends AppCompatActivity {
     }
 
 
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO
+
+        }, REQUEST_PERMISSION_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQUEST_PERMISSION_CODE:
+            {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this, "Permisos dados",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(this, "Permisos NO dados",Toast.LENGTH_SHORT).show();
+                }
+            }
+            break;
+
+        }
+    }
+    private boolean checkPermissionFromDivice() {
+        int write_external_storafe_result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int record_audio_result = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.RECORD_AUDIO);
+        return write_external_storafe_result == PackageManager.PERMISSION_GRANTED &&
+                record_audio_result == PackageManager.PERMISSION_GRANTED;
+    }
+
     public void showToolbar(String tittle, boolean upButton) {
         android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarchat);
         setSupportActionBar(toolbar);
@@ -471,11 +633,17 @@ public class ChatActivity2 extends AppCompatActivity {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View action_bar_view = inflater.inflate(R.layout.chat_custom_bar,null);
 
-
         actionbar.setCustomView(action_bar_view);
 
         mTitleView = findViewById(R.id.custom_bar_);
         mProfileIMage = findViewById(R.id.custom_bar_image);
 
+    }
+
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
     }
 }

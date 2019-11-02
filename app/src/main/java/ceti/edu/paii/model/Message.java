@@ -1,7 +1,11 @@
 package ceti.edu.paii.model;
 
 public class Message {
-    private String message, type, from;
+    private String message;
+    private String type;
+    private String from;
+    private String urlFoto;
+    private String urlAudio;
 
     private long time;
     private boolean seen;
@@ -9,10 +13,28 @@ public class Message {
     public Message() {
     }
 
+
+
     public Message(String message, String type, String from, long time, boolean seen) {
         this.message = message;
         this.type = type;
         this.from = from;
+        this.time = time;
+        this.seen = seen;
+    }
+
+    public Message(String type, String from, String urlAudio, long time) {
+        this.type = type;
+        this.from = from;
+        this.urlFoto = urlAudio;
+        this.time = time;
+    }
+
+    public Message(String message, String type, String from, String urlFoto, long time, boolean seen) {
+        this.message = message;
+        this.type = type;
+        this.from = from;
+        this.urlFoto = urlFoto;
         this.time = time;
         this.seen = seen;
     }
@@ -54,8 +76,26 @@ public class Message {
         return from;
     }
 
+
+
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
+    }
+
+    public String getUrlAudio() {
+        return urlAudio;
+    }
+
+    public void setUrlAudio(String urlAudio) {
+        this.urlAudio = urlAudio;
     }
 }
 

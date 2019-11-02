@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
 
 
         ///Sube datos a firebase el dato es un 0
-        mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+     /*   mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("not").child(current_uid);
 
@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
 
         //////////termina de enviar datos a firebase
 

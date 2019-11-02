@@ -142,25 +142,6 @@ public class ContainerActivity extends AppCompatActivity{
             case R.id.mSignOut:
 
                 notification("Logout");
-                mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String current_uid = mCurrentUser.getUid();
-
-                mStatusDatabase = FirebaseDatabase.getInstance().getReference().child("not").child(current_uid);
-                mStatusDatabase.child("dia").setValue("1").addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        if(task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(),
-                                    "Se guardo Exitosamente",
-                                    Toast.LENGTH_LONG).show();
-                        }else {
-                            Toast.makeText(getApplicationContext(),
-                                    "Se obtuvo un error mientras guardaba",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
                 firebaseAuth.signOut();
                 if(LoginManager.getInstance()!= null){
                     LoginManager.getInstance().logOut();
