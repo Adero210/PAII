@@ -127,6 +127,7 @@
     <string name="rechazar">Rechazar Solicitud</string>
     <string name="last_seen">Last seen</string>
     <string name="Escribemensaje">Envia un mensaje</string>
+    <string name="continuar">Continuar</string>
 
 
 </resources>

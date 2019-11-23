@@ -167,11 +167,15 @@ public class Activities_Activity extends AppCompatActivity {
 
                     case "1":
                         Intent intent = new Intent(Activities_Activity.this, Reading_Paragraph_Activity.class);
+                        intent.putExtra("curso",language);
+                        intent.putExtra("lesson",lesson);
                         startActivity(intent);
                         break;
 
                     case "2":
                         Intent intent1 = new Intent(Activities_Activity.this, Reading_paragraph_2_Activity.class);
+                        intent1.putExtra("curso",language);
+                        intent1.putExtra("lesson",lesson);
                         startActivity(intent1);
                         break;
 

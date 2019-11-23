@@ -38,6 +38,7 @@ import java.util.Stack;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.model.actividades;
 
 public class Reading_1_Activity extends AppCompatActivity {
 
@@ -49,11 +50,14 @@ public class Reading_1_Activity extends AppCompatActivity {
 
     private StorageReference mImageStorage;
 
+    private String boceto = "2";
+
+
     private  String res = "NO", resCheck ="";
 
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/actr2.php";
+    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
 
 
     @SuppressLint("WrongViewCast")
@@ -347,15 +351,18 @@ public class Reading_1_Activity extends AppCompatActivity {
        progressDialog.show();
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
 
                 try {
 
                     JSONObject jsonObject = new JSONObject(response);
+                    String numfilas = jsonObject.getString("filas");
                     String success = jsonObject.getString("success");
                     JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+
+                    int numFilas = Integer.parseInt(numfilas);
 
 
 
@@ -365,64 +372,38 @@ public class Reading_1_Activity extends AppCompatActivity {
 
                             JSONObject object =  jsonArray.getJSONObject(i);
 
-                            String act = object.getString("act").trim();
+                            for(int h = 0; h < numFilas; h++) {
+
+                                String pregunta = object.getString("pregunta" + h).trim();
+
+                                String opcArec = object.getString("opcA" + h).trim();
+                                String opcBrec = object.getString("opcB" + h).trim();
+                                String opcCrec = object.getString("opcC" + h).trim();
+                                String opcDrec = object.getString("opcD" + h).trim();
 
 
-                            Log.i("DATAFROMSQL", "success" + act);
-
-                            String datos[] = act.split(",");
-
-                           String pregunta[] = datos[3].split(":");
-                           String preguntaP = pregunta[1];
+                                String Imagen = object.getString("urlImage" + h);
+                                Log.i("DATAFROMSQL", "success" + Imagen);
 
 
-
-                            String imagen[]  = datos[10].split(":");
-
-                            String url  = imagen[2].replaceAll("\\\\","");
-
-                            String urlb = (imagen[1] + ":" + url);
-
-                            String correct[] = datos[4].split(":");
-
-                            resCheck = correct[1];
-
-                            String opcAant[] = datos[5].split(":");
-                            String opcAo = opcAant[1];
-                            String opcBant[] = datos[6].split(":");
-                            String opcBo = opcBant[1];
-                            String opcCant[] = datos[7].split(":");
-                            String opcCo = opcCant[1];
-                            String opcDant[] = datos[8].split(":");
-                            String opcDo = opcDant[1];
-
-                           // Log.i("DATAFROMSQL", "success" + datos[10]);
-                           // Log.i("DATAFROMSQL", "url" + url);
-                            Log.i("DATAFROMSQL", "urlb" + urlb);
+                                resCheck = object.getString("respuestac" + h).trim();
 
 
-                            String urlb2 = urlb.replaceAll("\"", "");
+                                Glide.with(Reading_1_Activity.this)
+                                        .load(Imagen)
+                                        .into(imagenVIew);
 
-                            String urlb3 =  urlb2.replaceAll("\\}", "");
+                                descriptionTextView.setText(pregunta);
+                                opcA.setText(opcArec);
+                                opcB.setText(opcBrec);
+                                opcC.setText(opcCrec);
+                                opcD.setText(opcDrec);
+                                opcA2.setText(opcArec);
+                                opcB2.setText(opcBrec);
+                                opcC2.setText(opcCrec);
+                                opcD2.setText(opcDrec);
+                            }
 
-                            Log.i("DATAFROMSQL", "urlb" + urlb3);
-
-
-                            Glide.with(Reading_1_Activity.this)
-                                    .load(urlb3)
-                                    .into(imagenVIew);
-
-
-
-                            descriptionTextView.setText(preguntaP);
-                            opcA.setText(opcAo);
-                            opcA2.setText(opcAo);
-                            opcB.setText(opcBo);
-                            opcB2.setText(opcBo);
-                            opcC.setText(opcCo);
-                            opcC2.setText(opcCo);
-                            opcD.setText(opcDo);
-                            opcD2.setText(opcDo);
                         }
                     }
 
@@ -454,6 +435,9 @@ public class Reading_1_Activity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("pregunta",numAle);
                 params.put("lesson", String.valueOf(lessonint2));
+                params.put("boceto",boceto);
+                params.put("type","reading");
+
 
                 return params;
             }

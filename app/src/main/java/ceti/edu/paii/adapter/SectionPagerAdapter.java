@@ -8,6 +8,7 @@ import ceti.edu.paii.view.fragment.ChatsFragment;
 import ceti.edu.paii.view.fragment.FriendsFragment;
 import ceti.edu.paii.view.fragment.RequestsFragment;
 import ceti.edu.paii.view.fragment.UsersFragemts;
+import ceti.edu.paii.view.fragment.matchMaking;
 
 public class SectionPagerAdapter extends FragmentPagerAdapter {
     public SectionPagerAdapter(FragmentManager fm) {
@@ -32,7 +33,7 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
                 return friendsFragment;
 
             case 3:
-                UsersFragemts usersFragemts = new UsersFragemts();
+                matchMaking usersFragemts = new matchMaking();
                 return usersFragemts;
 
 

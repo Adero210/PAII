@@ -18,9 +18,10 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.ChatActivity2"
-            android:parentActivityName=".view.ChatActivity">
-        </activity>
+        <activity android:name=".view.match"></activity>
+        <activity
+            android:name=".view.ChatActivity2"
+            android:parentActivityName=".view.ChatActivity"></activity>
         <activity
             android:name=".view.ChatActivity"
             android:parentActivityName=".view.ContainerActivity">

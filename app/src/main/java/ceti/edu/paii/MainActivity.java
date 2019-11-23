@@ -301,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
                                 String email = object.getString("email").trim();
                                 String id = object.getString("id").trim();
 
+
                                 sessionManager.createSession(name,email,id);
 
 

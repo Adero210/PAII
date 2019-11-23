@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.text.BreakIterator;
 import java.util.ArrayList;
 
@@ -48,6 +50,7 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
         final Picture picture = pictures.get(i);
         pictureViewHolder.usernameCard.setText(picture.getUserName());
         Picasso.with(this.activity).load(picture.getPicture()).into(pictureViewHolder.pictureCard);
+        pictureViewHolder.porcentajeCal.setText(picture.getPorcentaje()+"%");
 
         pictureViewHolder.pictureCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,13 +81,16 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
 
         private ImageView pictureCard;
         private TextView usernameCard;
+        private TextView porcentajeCal;
 
 
         public PictureViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            pictureCard     = (ImageView)  itemView.findViewById(R.id.image_card);
-            usernameCard    = (TextView)  itemView.findViewById(R.id.userName_card);
+            pictureCard     =  itemView.findViewById(R.id.image_card);
+            usernameCard    =  itemView.findViewById(R.id.userName_card);
+            porcentajeCal    = itemView.findViewById(R.id.porcentajeCard);
+
 
         }
     }

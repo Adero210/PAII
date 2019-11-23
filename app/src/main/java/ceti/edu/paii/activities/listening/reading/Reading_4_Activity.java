@@ -1,10 +1,12 @@
 package ceti.edu.paii.activities.listening.reading;
 
 import android.app.ProgressDialog;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +37,17 @@ import ceti.edu.paii.comun.comun;
 public class Reading_4_Activity extends AppCompatActivity {
 
     private TextView parrafo,word1,word2,word3,word4,word5;
-    private String palabrasCorrectas[]= new String[5];
-    private ProgressDialog progressDialog;
-    private static String URL_ACTR4 = comun.URL + "proyecto/actr4.php";
+    private MediaPlayer mediaPlayer,incorrect;
 
+    private String palabrasCorrectas[] = new String[5];
+    private ProgressDialog progressDialog;
+    private static String URL_ACTR4 = comun.URL + "proyecto/genericAct.php";
+    private String boceto = "1";
+    private Button revisar, continuar;
+    private String correcta = "";
+    private int cont = 0;
+
+    private String gre[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,8 @@ public class Reading_4_Activity extends AppCompatActivity {
 
         progressDialog.setCancelable(false);
 
+        mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
+        incorrect = MediaPlayer.create(this,R.raw.wrong);
 
         parrafo = findViewById(R.id.parrafo_Reading_4);
         word1 = findViewById(R.id.word_1);
@@ -56,8 +67,11 @@ public class Reading_4_Activity extends AppCompatActivity {
         word3 = findViewById(R.id.word_3);
         word4 = findViewById(R.id.word_4);
         word5 = findViewById(R.id.word_5);
+        revisar = findViewById(R.id.button_activity_Reading_4);
+        continuar = findViewById(R.id.button_continuar_activity_Reading_4);
 
 
+        continuar.setVisibility(View.GONE);
         String curso = getIntent().getStringExtra("curso");
         String lesson = getIntent().getStringExtra("lesson");
 
@@ -121,8 +135,11 @@ public class Reading_4_Activity extends AppCompatActivity {
                 try {
 
                     JSONObject jsonObject = new JSONObject(response);
+                    String numfilas = jsonObject.getString("filas");
                     String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("actr4");
+                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+
+                    int numFilas = Integer.parseInt(numfilas);
 
                     if(success.equals("1")){
                         progressDialog.dismiss();
@@ -130,86 +147,80 @@ public class Reading_4_Activity extends AppCompatActivity {
 
                             JSONObject object = jsonArray.getJSONObject(i);
 
-                            String act = object.getString("act").trim();
 
-                            Log.i("DATAFROMSQL", "success" + act);
+                            for(int h = 0; h < numFilas; h++) {
+                                String parrafo2 = object.getString("pregunta" + h);
 
-                            String datos[] = act.split(":");
-                            String p = datos[4];
+                                correcta = object.getString("respuestac" + h);
 
-                            String correcta = datos[5];
-                            correcta = correcta.substring(0,correcta.length()-1);
+                                Log.i("PARRAFOCORRECTO", correcta);
 
-                            p = p.substring(0,p.length()-11);
+                                gre = correcta.split(",");
 
-                            Log.i("DATAFROMSQL", String.valueOf(p));
-
-                            String words[] = p.split("~");
+                                String words[] = parrafo2.split("~");
 
 
-                           final String part1 = words[1];
-                            String part2 = words[3];
-                            String part3 = words[5];
-                            String part4 = words[7];
-                            String part5 = words[9];
+                                String part1 = words[1];
+                                String part2 = words[3];
+                                String part3 = words[5];
+                                String part4 = words[7];
+                                String part5 = words[9];
 
 
-                            String ss = p.replace(words[1], "____");
-                            String ssc2 = ss.replace(words[3], "____");
-                            String ssc3 = ssc2.replace(words[5], "____");
-                            String ssc4 = ssc3.replace(words[7], "____");
-                            String ssc5 = ssc4.replace(words[9], "____");
-                            ssc5 = ssc5.replaceAll("~","");
+                                String ss = parrafo2.replace(words[1], "____");
+                                String ssc2 = ss.replace(words[3], "____");
+                                String ssc3 = ssc2.replace(words[5], "____");
+                                String ssc4 = ssc3.replace(words[7], "____");
+                                String ssc5 = ssc4.replace(words[9], "____");
+                                ssc5 = ssc5.replaceAll("~", "");
 
 
-
-                            String[] r = new String[5];
-                            // AleatoriSinRepeticion();
-                            int pos,y=1;
-                            int nCartas = 5;
-                            Stack< Integer > pCartas = new Stack < Integer > ();
-                            for (int x = 0; x < nCartas ; x++) {
-                                pos = (int) Math.floor(Math.random() * nCartas );
-                                while (pCartas.contains(pos)) {
-                                    pos = (int) Math.floor(Math.random() * nCartas );
+                                String[] r = new String[5];
+                                // AleatoriSinRepeticion();
+                                int pos, y = 1;
+                                int nCartas = 5;
+                                Stack<Integer> pCartas = new Stack<Integer>();
+                                for (int x = 0; x < nCartas; x++) {
+                                    pos = (int) Math.floor(Math.random() * nCartas);
+                                    while (pCartas.contains(pos)) {
+                                        pos = (int) Math.floor(Math.random() * nCartas);
+                                    }
+                                    r[pos] = words[y];
+                                    pCartas.push(pos);
+                                    y = y + 2;
                                 }
-                                r[pos] = words[y];
-                                pCartas.push(pos);
-                                y=y+2;
+                                Log.i("Numeros", pCartas.toString());
+
+
+                                final String partR1 = r[0];
+                                String partR2 = r[1];
+                                String partR3 = r[2];
+                                String partR4 = r[3];
+                                String partR5 = r[4];
+
+
+                                Log.i("Partes1", part1);
+                                Log.i("Partes2", part2);
+                                Log.i("Partes3", part3);
+                                Log.i("Partes4", part4);
+                                Log.i("Partes4", part5);
+
+                                Log.i("Partes1", partR1);
+                                Log.i("Partes2", partR2);
+                                Log.i("Partes3", partR3);
+                                Log.i("Partes4", partR4);
+                                Log.i("Partes4", partR5);
+
+
+                                parrafo.setText(ssc5);
+
+
+                                word1.setText(partR1);
+                                word2.setText(partR2);
+                                word3.setText(partR3);
+                                word4.setText(partR4);
+                                word5.setText(partR5);
                             }
-                            Log.i("Numeros",pCartas.toString());
-
-
-                            final String partR1 = r[0];
-                            String partR2 = r[1];
-                            String partR3 = r[2];
-                            String partR4 = r[3];
-                            String partR5 = r[4];
-
-
-
-                            Log.i("Partes1", part1);
-                            Log.i("Partes2", part2);
-                            Log.i("Partes3", part3);
-                            Log.i("Partes4", part4);
-                            Log.i("Partes4", part5);
-
-                            Log.i("Partes1", partR1);
-                            Log.i("Partes2", partR2);
-                            Log.i("Partes3", partR3);
-                            Log.i("Partes4", partR4);
-                            Log.i("Partes4", partR5);
-
-
-                            parrafo.setText(ssc5);
-
-
-                            word1.setText(partR1);
-                            word2.setText(partR2);
-                            word3.setText(partR3);
-                            word4.setText(partR4);
-                            word5.setText(partR5);
-
 
                         }
                     }
@@ -243,6 +254,9 @@ public class Reading_4_Activity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("pregunta",numAle);
                 params.put("lesson", String.valueOf(lessonint2));
+                params.put("boceto",boceto);
+                params.put("type","reading");
+
 
                 return params;
             }
@@ -254,7 +268,6 @@ public class Reading_4_Activity extends AppCompatActivity {
 
     private void functiond() {
 
-
         word1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,12 +276,22 @@ public class Reading_4_Activity extends AppCompatActivity {
 
                 String auxWord = word1.getText().toString();
 
+                palabrasCorrectas[cont] = auxWord;
+                cont++;
+
+                Log.i("PARRAFO_WORD1", auxParrafo);
+
                 String p[] = auxParrafo.split("____");
-                p[0].replace("____",auxWord);
 
-                palabrasCorrectas[0] = auxParrafo;
+                String pauxParrafo = p[0];
 
-                Log.i("PARRAFO_WORD1",auxParrafo+auxWord);
+                String auxp = auxParrafo.substring(p[0].length()+4);
+
+                auxParrafo = pauxParrafo + auxWord + auxp;
+
+                parrafo.setText(auxParrafo);
+
+                word1.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -278,28 +301,27 @@ public class Reading_4_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 String auxParrafo = parrafo.getText().toString();
 
                 String auxWord = word2.getText().toString();
-                String auxParrafo2 = "";
 
+                palabrasCorrectas[cont] = auxWord;
+                cont++;
+
+                Log.i("PARRAFO_WORD1", auxParrafo);
 
                 String p[] = auxParrafo.split("____");
 
-                Log.i("PARRAFO_WORD1", p[1]);
+                String pauxParrafo = p[0];
 
+                String auxp = auxParrafo.substring(p[0].length()+4);
 
-                p[0].replace("____",auxWord);
-
-                auxParrafo = p[0];
-
+                auxParrafo = pauxParrafo + auxWord + auxp;
 
                 parrafo.setText(auxParrafo);
 
-                palabrasCorrectas[1] = auxParrafo;
-
-                Log.i("PARRAFO_WORD1",auxParrafo+auxWord);
-
+                word2.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -307,16 +329,26 @@ public class Reading_4_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 String auxParrafo = parrafo.getText().toString();
 
                 String auxWord = word3.getText().toString();
+                palabrasCorrectas[cont] = auxWord;
+                cont++;
+
+                Log.i("PARRAFO_WORD1", auxParrafo);
 
                 String p[] = auxParrafo.split("____");
-                p[0].replace("____",auxWord);
 
-                palabrasCorrectas[2] = auxParrafo;
+                String pauxParrafo = p[0];
 
-                Log.i("PARRAFO_WORD1",auxParrafo+auxWord);
+                String auxp = auxParrafo.substring(p[0].length()+4);
+
+                auxParrafo = pauxParrafo + auxWord + auxp;
+
+                parrafo.setText(auxParrafo);
+
+                word3.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -325,16 +357,27 @@ public class Reading_4_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 String auxParrafo = parrafo.getText().toString();
 
                 String auxWord = word4.getText().toString();
+                palabrasCorrectas[cont] = auxWord;
+                cont++;
+
+                Log.i("PARRAFO_WORD1", auxParrafo);
 
                 String p[] = auxParrafo.split("____");
-                p[0].replace("____",auxWord);
 
-                palabrasCorrectas[3] = auxParrafo;
+                String pauxParrafo = p[0];
 
-                Log.i("PARRAFO_WORD1",auxParrafo+auxWord);
+                String auxp = auxParrafo.substring(p[0].length()+4);
+
+                auxParrafo = pauxParrafo + auxWord + auxp;
+
+                parrafo.setText(auxParrafo);
+
+
+                word4.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -347,27 +390,55 @@ public class Reading_4_Activity extends AppCompatActivity {
 
                 String auxWord = word5.getText().toString();
 
+                palabrasCorrectas[cont] = auxWord;
+                cont++;
+
+                Log.i("PARRAFO_WORD1", auxParrafo);
+
                 String p[] = auxParrafo.split("____");
-                p[0].replace("____",auxWord);
 
-                palabrasCorrectas[4] = auxParrafo;
+                String pauxParrafo = p[0];
 
-                Log.i("PARRAFO_WORD1",auxParrafo+auxWord);
+                String auxp = auxParrafo.substring(p[0].length()+4);
+
+
+
+                auxParrafo = pauxParrafo + auxWord + auxp;
+
+                parrafo.setText(auxParrafo);
+
+
+                word5.setVisibility(View.INVISIBLE);
 
             }
         });
 
-    }
+        revisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    public void function(String word,String correct){
-        String wordcheck = word;
-        if(wordcheck==correct){
-            Toast.makeText(this,"FIRSTWORDCORRECT",Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(this,"nah",Toast.LENGTH_SHORT).show();
+                word1.setVisibility(View.INVISIBLE);
+                word2.setVisibility(View.INVISIBLE);
+                word3.setVisibility(View.INVISIBLE);
+                word4.setVisibility(View.INVISIBLE);
+                word5.setVisibility(View.INVISIBLE);
 
-        }
 
+                if(gre[0].equals(palabrasCorrectas[0])&&gre[1].equals(palabrasCorrectas[1])&&gre[2].equals(palabrasCorrectas[2])
+                &&gre[3].equals(palabrasCorrectas[3])&&gre[4].equals(palabrasCorrectas[4])){
+                    Toast.makeText(Reading_4_Activity.this,"CORRECT ",Toast.LENGTH_SHORT).show();
+                    revisar.setVisibility(View.GONE);
+                    continuar.setVisibility(View.VISIBLE);
+                    mediaPlayer.start();
+
+                }else{
+                    revisar.setVisibility(View.GONE);
+                    continuar.setVisibility(View.VISIBLE);
+                    incorrect.start();
+                }
+
+            }
+        });
 
     }
 
@@ -390,6 +461,5 @@ public class Reading_4_Activity extends AppCompatActivity {
 
         return num;
     }
-
 
 }
