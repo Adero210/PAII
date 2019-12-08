@@ -93,7 +93,7 @@ public class Reading_Paragraph_Activity extends AppCompatActivity {
 
         int lessonint = Integer.parseInt(lesson);
 
-        if(curso.equals("Curso Italiano")){
+        if(curso.equals("Italiano")){
             switch (lesson) {
 
                 case "1":

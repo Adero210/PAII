@@ -18,7 +18,13 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.match"></activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.ChatActivity2"
             android:parentActivityName=".view.ChatActivity"></activity>
@@ -55,7 +61,6 @@
         <activity android:name=".activities.listening.vocabulary.Vocabulary_2_Activity" />
         <activity android:name=".activities.listening.vocabulary.Vocabulary_1_Activity" />
         <activity android:name=".activities.listening.writing.Writing_2_Activity" />
-        <activity android:name=".activities.listening.writing.Writing_4_Activity" />
         <activity android:name=".activities.listening.writing.Writing_3_Activity" />
         <activity android:name=".activities.listening.reading.Reading_4_Activity" />
         <activity
@@ -123,13 +128,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>

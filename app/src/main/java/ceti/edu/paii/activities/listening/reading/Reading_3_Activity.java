@@ -1578,4 +1578,10 @@ public class Reading_3_Activity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        return;
+    }
+
+
 }

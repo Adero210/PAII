@@ -52,7 +52,6 @@ public class HomeFragment extends Fragment {
     String id;
     private FirebaseAuth firebaseAuth;
     private static String URL_READ = comun.URL + "proyecto/read_curso.php";
-    private static String URL_EDIT = comun.URL + "proyecto/edit_curso.php";
     private String terminadoIn;
     private String nameCurseIn;
     private String terminadoIt;
@@ -81,6 +80,7 @@ public class HomeFragment extends Fragment {
 
 
         id = firebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.i("idUserI",id);
 
         getUserDetail(picturesRecycler);
 
@@ -140,7 +140,12 @@ public class HomeFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             progressDialog.dismiss();
-                           //Toast.makeText(getContext(), "Error reading dialog: " + e.toString(), Toast.LENGTH_SHORT).show();
+                            terminadoIn = "0";
+                            terminadoIt = "0";
+                            nameCurseIn = "Ingles";
+                            nameCurseIt = "Italiano";
+
+                            //Toast.makeText(getContext(), "Error reading dialog: " + e.toString(), Toast.LENGTH_SHORT).show();
                            inflateView(picturesRecycler);
                         }
 

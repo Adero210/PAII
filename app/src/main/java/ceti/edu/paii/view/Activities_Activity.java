@@ -32,7 +32,6 @@ import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_4_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_1_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_2_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_3_Activity;
-import ceti.edu.paii.activities.listening.writing.Writing_4_Activity;
 
 public class Activities_Activity extends AppCompatActivity {
 
@@ -130,21 +129,29 @@ public class Activities_Activity extends AppCompatActivity {
                 switch (num){
                     case "0":
                         Intent i = new Intent(Activities_Activity.this, Writing_1_Activity.class);
+                        i.putExtra("curso",language);
+                        i.putExtra("lesson",lesson);
                         startActivity(i);
                         break;
 
                     case "1":
                         Intent intent = new Intent(Activities_Activity.this, Writing_2_Activity.class);
+                        intent.putExtra("curso",language);
+                        intent.putExtra("lesson",lesson);
                         startActivity(intent);
                         break;
 
                     case "2":
                         Intent intent1 = new Intent(Activities_Activity.this, Writing_3_Activity.class);
+                        intent1.putExtra("curso",language);
+                        intent1.putExtra("lesson",lesson);
                         startActivity(intent1);
                         break;
 
                     case "3":
                         Intent intent2 = new Intent(Activities_Activity.this, Writing_2_Activity.class);
+                        intent2.putExtra("curso",language);
+                        intent2.putExtra("lesson",lesson);
                         startActivity(intent2);
                         break;
                 }
@@ -239,6 +246,8 @@ public class Activities_Activity extends AppCompatActivity {
 
                    case "2":
                        Intent intent1 = new Intent(Activities_Activity.this, Grammar_3_Activity.class);
+                       intent1.putExtra("curso",language);
+                       intent1.putExtra("lesson",lesson);
                        startActivity(intent1);
                        break;
 

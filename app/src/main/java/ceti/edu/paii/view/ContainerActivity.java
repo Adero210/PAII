@@ -41,6 +41,7 @@ public class ContainerActivity extends AppCompatActivity{
 
     String estado = "";
 
+
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private static final String TAG = "ContainerActivity" ;
@@ -53,6 +54,9 @@ public class ContainerActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
          firebaseInitialize();
+
+        comun.ya = 1;
+
 
         mUserRef = FirebaseDatabase.getInstance().getReference().child("user").
                  child(firebaseAuth.getCurrentUser().getUid());

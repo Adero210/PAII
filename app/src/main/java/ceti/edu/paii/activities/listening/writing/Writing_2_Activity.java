@@ -1,73 +1,325 @@
 package ceti.edu.paii.activities.listening.writing;
 
+import android.app.ProgressDialog;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.activities.listening.reading.Reading_1_Activity;
+import ceti.edu.paii.comun.comun;
 
 public class Writing_2_Activity extends AppCompatActivity {
 
-    TextView  oracionText;
-    String oracionCorrecta = " She is¬ going to visit¬ her parents¬ a couple¬ of weeks";
+
+    private TextView  oracionText;
+    private ProgressDialog progressDialog;
+    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+
+    private String boceto = "2";
+
+    private String respuestaFromBD = "";
+    private EditText respuestaUser;
+    private MediaPlayer mediaPlayer,incorrect;
+
+    private Button calificar;
+
+    private Button continuar;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writing_2_);
 
+        progressDialog =  new ProgressDialog(Writing_2_Activity.this);
+
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
+
+        mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
+        incorrect = MediaPlayer.create(this,R.raw.wrong);
         oracionText = findViewById(R.id.textview_1_activity_writing_2);
+        respuestaUser = findViewById(R.id.editText_1_activity_writing_2);
 
-        String partesOra[] = oracionCorrecta.split("¬");
+        calificar = findViewById(R.id.button_activity_Writing_2);
+        continuar = findViewById(R.id.button_continuar_activity_writing_2);
 
-        String part1 = partesOra[0];
-        String part2 = partesOra[1];
+        String curso = getIntent().getStringExtra("curso");
+        String lesson = getIntent().getStringExtra("lesson");
 
-        String part3 = partesOra[2];
-        String part4 = partesOra[3];
-        String part5 = partesOra[4];
+        String numAletorio = aleatorio();
 
-        String[] r = new String[5];
+        int lessonint = Integer.parseInt(lesson);
+
+        if(curso.equals("Italiano")){
+            switch (lesson) {
+
+                case "1":
+                    lessonint = 11;
+                    break;
+                case "2":
+                    lessonint = 12;
+                    break;
+                case "3":
+                    lessonint = 13;
+                    break;
+                case "4":
+                    lessonint = 14;
+                    break;
+                case "5":
+                    lessonint = 15;
+                    break;
+                case "6":
+                    lessonint = 16;
+                    break;
+                case "7":
+                    lessonint = 17;
+                    break;
+                case "8":
+                    lessonint = 18;
+                    break;
+                case "9":
+                    lessonint = 19;
+                    break;
+                case "10":
+                    lessonint = 20;
+                    break;
+
+
+            }
+        }
+
+        bringTheInfo(lessonint - 1, numAletorio);
+
+        calificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                calificar.setVisibility(View.INVISIBLE);
+                continuar.setVisibility(View.VISIBLE);
+                //String fre = String.valueOf(respuestaUser.getText());
+                String ans = String.valueOf(respuestaUser.getText());
+                Log.i("respuestass",respuestaFromBD);
+                Log.i("respuestass", ans);
+
+                String resMay = respuestaFromBD.toUpperCase();
+                String resMin = respuestaFromBD.toLowerCase();
+
+                if(ans.equals(respuestaFromBD)){
+                    mediaPlayer.start();
+                    Toast.makeText(Writing_2_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
+
+                }else if(ans.equals(resMay)){
+                    mediaPlayer.start();
+                    Toast.makeText(Writing_2_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
+
+                }else if(ans.equals(resMin)){
+                    mediaPlayer.start();
+                    Toast.makeText(Writing_2_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
+                }else{
+                    incorrect.start();
+                    Toast.makeText(Writing_2_Activity.this,"Correct answer: " + respuestaFromBD,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void bringTheInfo(final Integer lessonint2, final String numAle) {
+
+        progressDialog.show();
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    String numfilas = jsonObject.getString("filas");
+                    String success = jsonObject.getString("success");
+                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+
+                    int numFilas = Integer.parseInt(numfilas);
+
+                    if(success.equals("1")){
+                        progressDialog.dismiss();
+                        for(int i = 0 ; i < jsonArray.length();i++){
+
+                            JSONObject object =  jsonArray.getJSONObject(i);
+
+                            for(int h = 0; h < numFilas; h++) {
+
+                                String pregunta = object.getString("pregunta" + h).trim();
+                                respuestaFromBD = object.getString("respuestac" + h);
+
+                                String partesOra[] = pregunta.split("~");
+
+                                int tam = partesOra.length;
+
+                                String[] r = new String[6];
+                                // AleatoriSinRepeticion();
+                                int pos,y=0;
+                                int nCartas = tam;
+                                Stack< Integer > pCartas = new Stack < Integer > ();
+                                for (int t = 0; t < nCartas ; t++) {
+                                    pos = (int) Math.floor(Math.random() * nCartas );
+                                    while (pCartas.contains(pos)) {
+                                        pos = (int) Math.floor(Math.random() * nCartas );
+                                    }
+                                    r[pos] = partesOra[y];
+                                    pCartas.push(pos);
+                                    y++;
+                                }
+                                Log.i("Numeros",pCartas.toString());
+
+                                String partR1;
+                                String partR2;
+                                String partR3;
+                                String partR4;
+                                String partR5;
+                                String partR6;
+                                String allOracion;
+
+                                switch (tam){
+                                    case 2:
+                                        partR1 = r[0];
+                                        partR2 = r[1];
+                                        allOracion = partR1+partR2;
+                                        oracionText.setText(allOracion);
+                                        break;
+                                    case 3:
+                                        partR1 = r[0];
+                                        partR2 = r[1];
+                                        partR3 = r[2];
+                                        allOracion = partR1+partR2+partR3;
+                                        oracionText.setText(allOracion);
+                                        break;
+                                    case 4:
+                                        partR1 = r[0];
+                                        partR2 = r[1];
+                                        partR3 = r[2];
+                                        partR4 = r[3];
+                                        allOracion = partR1+partR2+partR3+partR4;
+                                        oracionText.setText(allOracion);
+                                        break;
+                                    case 5:
+                                        partR1 = r[0];
+                                        partR2 = r[1];
+                                        partR3 = r[2];
+                                        partR4 = r[3];
+                                        partR5 = r[4];
+                                        allOracion = partR1+partR2+partR3+partR4+partR5;
+                                        oracionText.setText(allOracion);
+                                        break;
+                                    case 6:
+                                        partR1 = r[0];
+                                        partR2 = r[1];
+                                        partR3 = r[2];
+                                        partR4 = r[3];
+                                        partR5 = r[4];
+                                        partR6 = r[5];
+                                        allOracion = partR1+partR2+partR3+partR4+partR5+partR6;
+                                        oracionText.setText(allOracion);
+                                        break;
+
+                                }
+                            }
+
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.i("DATAFROMSQL", "success" + e.toString());
+
+                    // progressBar.setVisibility(View.GONE);
+
+                    Toast.makeText(Writing_2_Activity.this,"errorUNO" + e.toString(),Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //  progressBar.setVisibility(View.GONE);
+
+                        Toast.makeText(Writing_2_Activity.this,"error" + error.toString(),Toast.LENGTH_SHORT).show();
+
+
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("pregunta",numAle);
+                params.put("lesson", String.valueOf(lessonint2));
+                params.put("boceto",boceto);
+                params.put("type","writing");
+
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
+    private String aleatorio(){
         // AleatoriSinRepeticion();
-        int pos,y=0;
-        int nCartas = 5;
+        String num = "";
+        int pos;
+        int nCartas = 6;
         Stack< Integer > pCartas = new Stack < Integer > ();
         for (int i = 0; i < nCartas ; i++) {
             pos = (int) Math.floor(Math.random() * nCartas );
             while (pCartas.contains(pos)) {
                 pos = (int) Math.floor(Math.random() * nCartas );
             }
-            r[pos] = partesOra[y];
+
             pCartas.push(pos);
-            y++;
+            num = String.valueOf(pos);
         }
         Log.i("Numeros",pCartas.toString());
 
-
-        String partR1 = r[0];
-        String partR2 = r[1];
-        String partR3 = r[2];
-        String partR4 = r[3];
-        String partR5 = r[4];
-
-        String allOracion = partR1+partR2+partR3+partR4+partR5;
-        oracionText.setText(allOracion);
-
-        Log.i("Partes1", part1);
-        Log.i("Partes2", part2);
-        Log.i("Partes3", part3);
-        Log.i("Partes4", part4);
-        Log.i("Partes4", part5);
-
-        Log.i("Partes1", partR1);
-        Log.i("Partes2", partR2);
-        Log.i("Partes3", partR3);
-        Log.i("Partes4", partR4);
-        Log.i("Partes4", partR5);
-
-
+        return num;
     }
+
+    /*@Override
+    public void onBackPressed(){
+        return;
+    }*/
+
 }

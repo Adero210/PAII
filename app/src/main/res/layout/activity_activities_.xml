@@ -13,11 +13,12 @@
 
                 <Button
                     android:id="@+id/btn_reading_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_design"
+                    android:layout_width="350dp"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_gravity="center"
                     android:layout_marginTop="@dimen/sp20"
-                    android:text="@string/Reading"/>
+                    android:background="@drawable/blur_frame_fragment_books_reading_wallpapers_104492"
+                    android:text="@string/Reading" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -42,9 +43,10 @@
 
                 <Button
                     android:id="@+id/btn_writing_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_design"
+                    android:layout_width="350dp"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_gravity="center"
+                    android:background="@drawable/book10_7"
                     android:layout_marginTop="@dimen/sp20"
                     android:text="@string/Writing"/>
 
@@ -71,10 +73,12 @@
 
                 <Button
                     android:id="@+id/btn_listening_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_design"
+                    android:layout_width="350dp"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_gravity="center"
+                    android:background="@drawable/music_notes_video"
                     android:layout_marginTop="@dimen/sp20"
+                    android:textColor="@color/editTextColorWhite"
                     android:text="@string/Listenig"/>
 
                 <LinearLayout
@@ -100,9 +104,10 @@
 
                 <Button
                     android:id="@+id/btn_vocabulary_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_design"
+                    android:layout_width="350dp"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_gravity="center"
+                    android:background="@drawable/kkk"
                     android:layout_marginTop="@dimen/sp20"
                     android:text="@string/Vocabulary"/>
                 <LinearLayout
@@ -128,9 +133,10 @@
 
                 <Button
                     android:id="@+id/btn_grammar_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_design"
+                    android:layout_width="350dp"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_gravity="center"
+                    android:background="@drawable/engineering_gears_wallpaper_in_blue_vector"
                     android:layout_marginTop="@dimen/sp20"
                     android:text="@string/grammar"/>
                 <LinearLayout
@@ -156,9 +162,10 @@
 
                 <Button
                     android:id="@+id/btn_speaking_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_design"
+                    android:layout_width="350dp"
+                    android:layout_height="@dimen/dp50"
+                    android:layout_gravity="center"
+                    android:background="@drawable/fondo_manchas_abstractas_coloridas_acuarela_23_2148209195"
                     android:layout_marginTop="@dimen/sp20"
                     android:text="@string/Speaking"/>
 

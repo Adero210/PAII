@@ -396,15 +396,7 @@ android:layout_height="match_parent"
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/button_back_activity_Reading_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sp25"
-                android:layout_gravity="center"
-                android:background="@drawable/button_rounded_signin"
-                android:text="@string/bottom_back"
-                android:theme="@style/RaisedButtonDark" />
+
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -433,6 +425,15 @@ android:layout_height="match_parent"
 
             </RelativeLayout>
 
+            <Button
+                android:id="@+id/button_back_activity_Reading_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sp25"
+                android:layout_gravity="center"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/bottom_back"
+                android:theme="@style/RaisedButtonDark" />
 
         </LinearLayout>
 

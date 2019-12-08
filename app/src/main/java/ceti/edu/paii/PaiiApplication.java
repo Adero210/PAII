@@ -2,6 +2,7 @@ package ceti.edu.paii;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.facebook.FacebookSdk;
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,6 +14,8 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
+
+import ceti.edu.paii.comun.comun;
 
 public class PaiiApplication extends Application {
 
@@ -36,12 +39,12 @@ public class PaiiApplication extends Application {
         built.setLoggingEnabled(true);
         Picasso.setSingletonInstance(built);
 
-        mAuth = FirebaseAuth.getInstance();
-        mUserDatabase = FirebaseDatabase.getInstance().getReference()
-                .child("user").child(mAuth.getCurrentUser().getUid());
-
-
-        mUserDatabase.addValueEventListener(new ValueEventListener() {
+        if(comun.ya == 1) {
+            mAuth = FirebaseAuth.getInstance();
+            Log.i("mAuth", String.valueOf(mAuth));
+            mUserDatabase = FirebaseDatabase.getInstance().getReference()
+                    .child("user").child(mAuth.getCurrentUser().getUid());
+            mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -57,6 +60,9 @@ public class PaiiApplication extends Application {
 
             }
         });
+        }
+
+
     }
 
 

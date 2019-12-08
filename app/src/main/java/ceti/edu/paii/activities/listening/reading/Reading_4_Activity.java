@@ -78,7 +78,7 @@ public class Reading_4_Activity extends AppCompatActivity {
         String numAletorio = aleatorio();
         int lessonint = Integer.parseInt(lesson);
 
-        if(curso.equals("Curso Italiano")){
+        if(curso.equals("Italiano")){
             switch (lesson) {
 
                 case "1":

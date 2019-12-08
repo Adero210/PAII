@@ -1,6 +1,8 @@
 package ceti.edu.paii.adapter;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Parcelable;
@@ -8,26 +10,48 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Explode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.text.BreakIterator;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.model.Picture;
 import ceti.edu.paii.view.PictureDetailActivity;
+import ceti.edu.paii.view.Settings;
 
 public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdapterRecyclerView.PictureViewHolder> {
 
+    private String id;
+    private FirebaseAuth firebaseAuth;
     private ArrayList<Picture> pictures;
+    private static String URL_EDIT = comun.URL + "proyecto/edit_curso.php";
+    private Context context;
+
+
     private int resource;
     private Activity activity;
 
@@ -52,12 +76,26 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
         Picasso.with(this.activity).load(picture.getPicture()).into(pictureViewHolder.pictureCard);
         pictureViewHolder.porcentajeCal.setText(picture.getPorcentaje()+"%");
 
+
+        id = firebaseAuth.getInstance().getCurrentUser().getUid();
+
+
         pictureViewHolder.pictureCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, PictureDetailActivity.class);
                 intent.putExtra("curse_name", picture.getUserName());
 
+                String curso = picture.getUserName();
+                int cursoint = 0;
+                Log.i("cursuc",curso);
+                if (curso.equals("Ingles")){
+                    cursoint = 0;
+                }else if(curso.equals("Italiano")){
+                    cursoint = 1;
+                }
+
+                crearCurso(cursoint);
 
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                     Explode explode = new Explode();
@@ -70,6 +108,55 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
                 }
             }
         });
+    }
+
+    private void crearCurso(final int cursoint) {
+
+        final ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Guardando...");
+        progressDialog.show();
+
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_EDIT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")) {
+                             //   Toast.makeText(Settings.this, "Exito!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            progressDialog.dismiss();
+                            e.printStackTrace();
+                           // Toast.makeText(activity.this, "Error del catch! " + e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                       // Toast.makeText(Settings.this, "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
+
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", id);
+                params.put("cursoId", String.valueOf(cursoint));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(activity);
+        requestQueue.add(stringRequest);
     }
 
     @Override

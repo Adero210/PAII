@@ -121,7 +121,6 @@ public class ChatsFragment extends Fragment {
                             public void onClick(View v) {
 
 
-
                                             Intent chatIntent = new Intent(getActivity(), ChatActivity2.class);
                                             chatIntent.putExtra("userId",listUserid);
                                             chatIntent.putExtra("name",userName);
