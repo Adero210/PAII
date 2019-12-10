@@ -38,11 +38,15 @@
                 android:layout_marginBottom="@dimen/dp10"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
                 <Button
                     android:layout_marginTop="@dimen/dp10"
-                    android:id="@+id/opcion1_activity_vocabulary_1"
+                    android:id="@+id/opcion1_activity_vocabulary_2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginRight="@dimen/dp5"
                     android:background="@drawable/button_rounded_signin"
@@ -50,16 +54,23 @@
                     android:text="@string/opcion" />
 
                 <Button
-                    android:id="@+id/opcion2_activity_vocabulary_1"
+                    android:layout_marginTop="@dimen/dp10"
+                    android:id="@+id/opcion1_activity_sel_vocabulary_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_rounded_signin"
                     android:layout_marginBottom="@dimen/dp10"
-                    android:theme="@style/RaisedButtonDark"
                     android:layout_marginRight="@dimen/dp5"
-                    android:text="@string/opcion"/>
+                    android:background="@drawable/rounded_rentangle_orange"
+                    android:theme="@style/RaisedButtonDark"
+                    android:text="@string/opcion"
+                    android:visibility="gone"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 <Button
-                    android:id="@+id/opcion3_activity_vocabulary_1"
+                    android:id="@+id/opcion2_activity_vocabulary_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_rounded_signin"
@@ -68,7 +79,48 @@
                     android:layout_marginRight="@dimen/dp5"
                     android:text="@string/opcion"/>
 
+                <Button
+                    android:id="@+id/opcion2_activity_sel_vocabulary_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:background="@drawable/rounded_rentangle_orange"
+                    android:theme="@style/RaisedButtonDark"
+                    android:text="@string/opcion"
+                    android:visibility="invisible"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/opcion3_activity_vocabulary_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_rounded_signin"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:theme="@style/RaisedButtonDark"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:text="@string/opcion"/>
+
+                <Button
+                    android:id="@+id/opcion3_activity_sel_vocabulary_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:background="@drawable/rounded_rentangle_orange"
+                    android:theme="@style/RaisedButtonDark"
+                    android:text="@string/opcion"
+                    android:visibility="invisible"/>
+                </RelativeLayout>
+
+
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/button_activity_vocabulary_2"
@@ -78,6 +130,19 @@
                 android:background="@drawable/button_rounded_signin"
                 android:text="@string/bottom_calificar"
                 android:theme="@style/RaisedButtonDark" />
+
+            <Button
+                android:id="@+id/button_activity_con_vocabulary_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:visibility="invisible"
+                android:text="@string/continuar"
+                android:theme="@style/RaisedButtonDark" />
+            </RelativeLayout>
 
         </LinearLayout>
 

@@ -11,13 +11,11 @@ import java.util.Stack;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.activities.listening.Listening_1_Activity;
-import ceti.edu.paii.activities.listening.Listening_2_Activity;
 import ceti.edu.paii.activities.listening.Listening_3_Activity;
 import ceti.edu.paii.activities.listening.Listening_4_Activity;
 import ceti.edu.paii.activities.listening.grammar.Grammar_1_Activity;
 import ceti.edu.paii.activities.listening.grammar.Grammar_2_Activity;
 import ceti.edu.paii.activities.listening.grammar.Grammar_3_Activity;
-import ceti.edu.paii.activities.listening.grammar.Grammar_4_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_1_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_4_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_Paragraph_Activity;
@@ -69,11 +67,15 @@ public class Activities_Activity extends AppCompatActivity {
                 switch (num){
                     case "0":
                         Intent i = new Intent(Activities_Activity.this, Vocabulary_1_Activity.class);
+                        i.putExtra("curso",language);
+                        i.putExtra("lesson",lesson);
                         startActivity(i);
                         break;
 
                     case "1":
                         Intent intent = new Intent(Activities_Activity.this, Vocabulary_2_Activity.class);
+                        intent.putExtra("curso",language);
+                        intent.putExtra("lesson",lesson);
                         startActivity(intent);
                         break;
 
@@ -84,6 +86,8 @@ public class Activities_Activity extends AppCompatActivity {
 
                     case "3":
                         Intent intent2 = new Intent(Activities_Activity.this, Vocabulary_4_Activity.class);
+                        intent2.putExtra("curso",language);
+                        intent2.putExtra("lesson",lesson);
                         startActivity(intent2);
                         break;
                 }
@@ -210,7 +214,7 @@ public class Activities_Activity extends AppCompatActivity {
                         break;
 
                     case "1":
-                        Intent intent = new Intent(Activities_Activity.this, Listening_2_Activity.class);
+                        Intent intent = new Intent(Activities_Activity.this, Listening_3_Activity.class);
                         startActivity(intent);
                         break;
 
@@ -236,11 +240,15 @@ public class Activities_Activity extends AppCompatActivity {
                switch (num){
                    case "0":
                        Intent i = new Intent(Activities_Activity.this, Grammar_1_Activity.class);
+                       i.putExtra("curso",language);
+                       i.putExtra("lesson",lesson);
                        startActivity(i);
                        break;
 
                    case "1":
                        Intent intent = new Intent(Activities_Activity.this, Grammar_2_Activity.class);
+                       intent.putExtra("curso",language);
+                       intent.putExtra("lesson",lesson);
                        startActivity(intent);
                        break;
 
@@ -252,7 +260,9 @@ public class Activities_Activity extends AppCompatActivity {
                        break;
 
                    case "3":
-                       Intent intent2 = new Intent(Activities_Activity.this, Grammar_4_Activity.class);
+                       Intent intent2 = new Intent(Activities_Activity.this, Grammar_3_Activity.class);
+                       intent2.putExtra("curso",language);
+                       intent2.putExtra("lesson",lesson);
                        startActivity(intent2);
                        break;
                }

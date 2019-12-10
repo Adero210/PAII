@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -40,38 +39,61 @@
                     android:id="@+id/oracion_activity_grammar_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/oracionprueba"
-                    android:textSize="@dimen/edittext_textsize"
                     android:layout_marginBottom="@dimen/sp20"
-                    />
+                    android:text="@string/oracionprueba"
+                    android:textSize="@dimen/edittext_textsize" />
 
                 <TextView
                     android:id="@+id/colocar_traduccion_grammar_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="___________________________________________________
-                     ___________________________________________________"
+                    android:text="________________________________________________________________________________________________"
                     android:layout_marginBottom="@dimen/sp20"
 
                     />
+
                 <GridLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:columnCount="3"
                     android:layout_marginTop="@dimen/dp25"
-                    android:layout_marginBottom="@dimen/dp10">
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:columnCount="3">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/opcion1_activity_grammar_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignEnd="@+id/opcion1_activity_selected_grammar_2"
+                            android:layout_marginEnd="0dp"
+                            android:layout_marginRight="@dimen/dp5"
+                            android:layout_marginBottom="@dimen/dp10"
+                            android:background="@drawable/button_rounded_signin"
+                            android:text="@string/opcion"
+                            android:theme="@style/RaisedButtonDark"
+                            android:visibility="gone"
+                            />
 
                     <Button
-                        android:id="@+id/opcion1_activity_grammar_2"
+                        android:id="@+id/opcion1_activity_selected_grammar_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dp5"
                         android:layout_marginBottom="@dimen/dp10"
                         android:background="@drawable/button_rounded_signin"
                         android:text="@string/opcion"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
 
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/opcion2_activity_grammar_2"
                         android:layout_width="wrap_content"
@@ -80,8 +102,27 @@
                         android:layout_marginBottom="@dimen/dp10"
                         android:background="@drawable/button_rounded_signin"
                         android:text="@string/opcion"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:theme="@style/RaisedButtonDark"
+                        android:layout_row="0"
+                        android:visibility="gone"
+                        />
 
+                    <Button
+                        android:id="@+id/opcion2_activity_selected_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/opcion3_activity_grammar_2"
                         android:layout_width="wrap_content"
@@ -90,9 +131,25 @@
                         android:layout_marginBottom="@dimen/dp10"
                         android:background="@drawable/button_rounded_signin"
                         android:text="@string/opcion"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
 
-
+                    <Button
+                        android:id="@+id/opcion3_activity_selected_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/opcion4_activity_grammar_2"
                         android:layout_width="wrap_content"
@@ -101,8 +158,26 @@
                         android:layout_marginBottom="@dimen/dp10"
                         android:background="@drawable/button_rounded_signin"
                         android:text="@string/opcion"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
 
+                    <Button
+                        android:id="@+id/opcion4_activity_selected_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/opcion5_activity_grammar_2"
                         android:layout_width="wrap_content"
@@ -111,8 +186,25 @@
                         android:layout_marginBottom="@dimen/dp10"
                         android:background="@drawable/button_rounded_signin"
                         android:text="@string/opcion"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
 
+                    <Button
+                        android:id="@+id/opcion5_activity_selected_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/opcion6_activity_grammar_2"
                         android:layout_width="wrap_content"
@@ -121,8 +213,25 @@
                         android:layout_marginBottom="@dimen/dp10"
                         android:background="@drawable/button_rounded_signin"
                         android:text="@string/opcion"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
 
+                    <Button
+                        android:id="@+id/opcion6_activity_selected_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/opcion7_activity_grammar_2"
                         android:layout_width="wrap_content"
@@ -131,8 +240,25 @@
                         android:layout_marginBottom="@dimen/dp10"
                         android:background="@drawable/button_rounded_signin"
                         android:text="@string/opcion"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
 
+                    <Button
+                        android:id="@+id/opcion7_activity_selected_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="invisible"
+                        />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                     <Button
                         android:id="@+id/opcion8_activity_grammar_2"
                         android:layout_width="wrap_content"
@@ -141,11 +267,56 @@
                         android:layout_marginBottom="@dimen/dp10"
                         android:background="@drawable/button_rounded_signin"
                         android:text="@string/opcion"
-                        android:theme="@style/RaisedButtonDark" />
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+
+                    <Button
+                        android:id="@+id/opcion8_activity_selected_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/opcion9_activity_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+
+                    <Button
+                        android:id="@+id/opcion9_activity_selected_grammar_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:background="@drawable/button_rounded_signin"
+                        android:text="@string/opcion"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="gone"
+                        />
+                    </RelativeLayout>
 
                 </GridLayout>
             </LinearLayout>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <Button
                 android:id="@+id/button_activity_grammar_2"
                 android:layout_width="match_parent"
@@ -154,6 +325,20 @@
                 android:background="@drawable/button_rounded_signin"
                 android:text="@string/bottom_calificar"
                 android:theme="@style/RaisedButtonDark" />
+
+            <Button
+                android:id="@+id/button_continuar_activity_grammar_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:visibility="invisible"
+                android:text="@string/continuar"
+                android:theme="@style/RaisedButtonDark" />
+            </RelativeLayout>
+
 
         </LinearLayout>
 

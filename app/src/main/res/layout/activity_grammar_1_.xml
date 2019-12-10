@@ -44,16 +44,35 @@
                     android:text="@string/oracionprueba"
                     android:textSize="@dimen/edittext_textsize" />
 
-                <Button
-                    android:id="@+id/opcion1_activity_grammar_1"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content">
+
+                <Button
+                android:id="@+id/opcion1_activity_grammar_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:theme="@style/RaisedButtonDark"
+                android:text="@string/opcion" />
+
+                <Button
+                    android:id="@+id/opcion1_activity_selected_grammar_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginRight="@dimen/dp5"
-                    android:background="@drawable/button_rounded_signin"
+                    android:background="@drawable/rounded_rentangle_orange"
                     android:theme="@style/RaisedButtonDark"
+                    android:visibility="invisible"
                     android:text="@string/opcion" />
 
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/opcion2_activity_grammar_1"
                     android:layout_width="match_parent"
@@ -63,6 +82,24 @@
                     android:theme="@style/RaisedButtonDark"
                     android:layout_marginRight="@dimen/dp5"
                     android:text="@string/opcion"/>
+
+
+                <Button
+                    android:id="@+id/opcion2_activity_selected_grammar_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginRight="@dimen/dp5"
+                    android:background="@drawable/rounded_rentangle_orange"
+                    android:theme="@style/RaisedButtonDark"
+                    android:visibility="invisible"
+                    android:text="@string/opcion" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
                 <Button
                     android:id="@+id/opcion3_activity_grammar_1"
                     android:layout_width="match_parent"
@@ -72,6 +109,20 @@
                     android:theme="@style/RaisedButtonDark"
                     android:layout_marginRight="@dimen/dp5"
                     android:text="@string/opcion"/>
+
+                    <Button
+                        android:id="@+id/opcion3_activity_selected_grammar_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:background="@drawable/rounded_rentangle_orange"
+                        android:theme="@style/RaisedButtonDark"
+                        android:visibility="invisible"
+                        android:text="@string/opcion" />
+
+                </RelativeLayout>
+
 
             </LinearLayout>
 

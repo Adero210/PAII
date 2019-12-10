@@ -53,14 +53,18 @@
                     android:layout_width="180dp"
                     android:layout_height="190dp"
                     android:src="@drawable/pp" />
+
+
                 <TextView
                     android:id="@+id/textimage_1_vocabulary_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:textColor="@color/editTextColorWhite"
+                    android:visibility="gone"
                     android:text="Texto Texto" />
             </FrameLayout>
+
 
                 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
@@ -77,6 +81,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center"
                         android:textColor="@color/editTextColorWhite"
+                        android:visibility="gone"
+
                         android:text="Texto Texto" />
                 </FrameLayout>
 
@@ -103,6 +109,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center"
                         android:textColor="@color/editTextColorWhite"
+                        android:visibility="gone"
+
                         android:text="Texto Texto" />
                 </FrameLayout>
 
@@ -121,11 +129,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center"
                         android:textColor="@color/editTextColorWhite"
+                        android:visibility="gone"
+
                         android:text="Texto Texto" />
                 </FrameLayout>
 
             </LinearLayout>
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
               <Button
                 android:id="@+id/button_activity_vocabulary_1"
@@ -135,6 +149,18 @@
                 android:layout_marginTop="@dimen/dp25"
                 android:text="@string/bottom_calificar"
                 android:theme="@style/RaisedButtonDark" />
+            <Button
+                android:id="@+id/button_activity_con_vocabulary_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:visibility="invisible"
+                android:text="@string/continuar"
+                android:theme="@style/RaisedButtonDark" />
+            </RelativeLayout>
 
         </LinearLayout>
 

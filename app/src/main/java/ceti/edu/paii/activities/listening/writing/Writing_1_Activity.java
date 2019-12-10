@@ -59,9 +59,8 @@ public class Writing_1_Activity extends AppCompatActivity {
     private Button continuar;
 
     Button play_pause;
-    SeekBar seekBar;
     MediaPlayer mp;
-    int totalTime;
+
 
 
 

@@ -5,9 +5,25 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 import ceti.edu.paii.R;
@@ -20,6 +36,9 @@ public class Grammar_1_Activity extends AppCompatActivity {
     private Button opc1;
     private Button opc2;
     private Button opc3;
+    private Button opc1Sel;
+    private Button opc2Sel;
+    private Button opc3Sel;
     private Button calificar;
     private Button continuar;
 
@@ -50,6 +69,9 @@ public class Grammar_1_Activity extends AppCompatActivity {
         opc1 = findViewById(R.id.opcion1_activity_grammar_1);
         opc2 = findViewById(R.id.opcion2_activity_grammar_1);
         opc3 = findViewById(R.id.opcion3_activity_grammar_1);
+        opc1Sel = findViewById(R.id.opcion1_activity_selected_grammar_1);
+        opc2Sel = findViewById(R.id.opcion2_activity_selected_grammar_1);
+        opc3Sel = findViewById(R.id.opcion3_activity_selected_grammar_1);
         calificar = findViewById(R.id.button_activity_grammar_1);
         continuar = findViewById(R.id.button_continuar_activity_grammar_1);
 
@@ -111,10 +133,151 @@ public class Grammar_1_Activity extends AppCompatActivity {
 
     }
 
-    private void bringTheInfo(int i, String numAletorio) {
+    private void bringTheInfo(final Integer lessonint2, final String numAle) {
+
+        progressDialog.show();
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    String numfilas = jsonObject.getString("filas");
+                    String success = jsonObject.getString("success");
+                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+
+                    int numFilas = Integer.parseInt(numfilas);
+
+                    if(success.equals("1")){
+                        progressDialog.dismiss();
+                        for(int i = 0 ; i < jsonArray.length();i++){
+
+                            JSONObject object =  jsonArray.getJSONObject(i);
+
+                            for(int h = 0; h < numFilas; h++) {
+
+                                pregunta = object.getString("pregunta" + h).trim();
+                                respuestaFromBD = object.getString("respuestac" + h);
+                                String opcionA = object.getString("opcA" +h);
+                                String opcionB = object.getString("opcB" +h);
+                                String opcionC = object.getString("opcC" +h);
+
+                                oracion.setText(pregunta);
+
+                                opc1.setText(opcionA);
+                                opc2.setText(opcionB);
+                                opc3.setText(opcionC);
+                                opc1Sel.setText(opcionA);
+                                opc2Sel.setText(opcionB);
+                                opc3Sel.setText(opcionC);
+
+
+                            }
+
+                        }
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.i("DATAFROMSQL", "success" + e.toString());
+
+                    // progressBar.setVisibility(View.GONE);
+
+                    Toast.makeText(Grammar_1_Activity.this,"errorUNO" + e.toString(),Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //  progressBar.setVisibility(View.GONE);
+
+                        Toast.makeText(Grammar_1_Activity.this,"error" + error.toString(),Toast.LENGTH_SHORT).show();
+
+
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("pregunta",numAle);
+                params.put("lesson", String.valueOf(lessonint2));
+                params.put("boceto",boceto);
+                params.put("type","grammar");
+
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     private void opciones() {
+        opc1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opc1.setVisibility(View.INVISIBLE);
+                opc2Sel.setVisibility(View.INVISIBLE);
+                opc3Sel.setVisibility(View.INVISIBLE);
+
+                opc3.setVisibility(View.VISIBLE);
+                opc2.setVisibility(View.VISIBLE);
+                opc1Sel.setVisibility(View.VISIBLE);
+                respuestaSelected = (String) opc1Sel.getText();
+            }
+        });
+
+        opc2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opc2.setVisibility(View.INVISIBLE);
+                opc1Sel.setVisibility(View.INVISIBLE);
+                opc3Sel.setVisibility(View.INVISIBLE);
+
+                opc1.setVisibility(View.VISIBLE);
+                opc3.setVisibility(View.VISIBLE);
+                opc2Sel.setVisibility(View.VISIBLE);
+                respuestaSelected = (String) opc2Sel.getText();
+            }
+        });
+
+        opc3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                opc3.setVisibility(View.INVISIBLE);
+                opc2Sel.setVisibility(View.INVISIBLE);
+                opc1Sel.setVisibility(View.INVISIBLE);
+
+                opc1.setVisibility(View.VISIBLE);
+                opc2.setVisibility(View.VISIBLE);
+                opc3Sel.setVisibility(View.VISIBLE);
+                respuestaSelected = (String) opc3Sel.getText();
+            }
+        });
+
+        calificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calificar.setVisibility(View.INVISIBLE);
+                continuar.setVisibility(View.VISIBLE);
+                if(respuestaSelected.equals(respuestaFromBD)){
+                    mediaPlayer.start();
+                    Toast.makeText(Grammar_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
+                }else{
+                    incorrect.start();
+                    Toast.makeText(Grammar_1_Activity.this,"Correct answer: " + respuestaFromBD,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private String aleatorio(){

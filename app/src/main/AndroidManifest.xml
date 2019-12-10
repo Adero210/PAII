@@ -52,7 +52,6 @@
         <activity android:name=".activities.listening.speaking.Speaking_3_Activity" />
         <activity android:name=".activities.listening.speaking.Speaking_2_Activity" />
         <activity android:name=".activities.listening.speaking.Speaking_1_Activity" />
-        <activity android:name=".activities.listening.grammar.Grammar_4_Activity" />
         <activity android:name=".activities.listening.grammar.Grammar_3_Activity" />
         <activity android:name=".activities.listening.grammar.Grammar_2_Activity" />
         <activity android:name=".activities.listening.grammar.Grammar_1_Activity" />
@@ -74,7 +73,6 @@
         <activity android:name=".activities.listening.writing.Writing_1_Activity" />
         <activity android:name=".activities.listening.Listening_4_Activity" />
         <activity android:name=".activities.listening.Listening_3_Activity" />
-        <activity android:name=".activities.listening.Listening_2_Activity" />
         <activity android:name=".activities.listening.Listening_1_Activity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
