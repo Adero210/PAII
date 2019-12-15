@@ -81,6 +81,8 @@ public class Activities_Activity extends AppCompatActivity {
 
                     case "2":
                         Intent intent1 = new Intent(Activities_Activity.this, Vocabulary_3_Activity.class);
+                        intent1.putExtra("curso",language);
+                        intent1.putExtra("lesson",lesson);
                         startActivity(intent1);
                         break;
 
@@ -103,11 +105,15 @@ public class Activities_Activity extends AppCompatActivity {
                 switch (num){
                     case "0":
                         Intent i = new Intent(Activities_Activity.this, Speaking_1_Activity.class);
+                        i.putExtra("curso",language);
+                        i.putExtra("lesson",lesson);
                         startActivity(i);
                         break;
 
                     case "1":
                         Intent intent = new Intent(Activities_Activity.this, Speaking_2_Activity.class);
+                        intent.putExtra("curso",language);
+                        intent.putExtra("lesson",lesson);
                         startActivity(intent);
                         break;
 
@@ -118,6 +124,8 @@ public class Activities_Activity extends AppCompatActivity {
 
                     case "3":
                         Intent intent2 = new Intent(Activities_Activity.this, Speaking_1_Activity.class);
+                        intent2.putExtra("curso",language);
+                        intent2.putExtra("lesson",lesson);
                         startActivity(intent2);
                         break;
                 }
@@ -210,21 +218,30 @@ public class Activities_Activity extends AppCompatActivity {
                 switch (num){
                     case "0":
                         Intent i = new Intent(Activities_Activity.this, Listening_1_Activity.class);
+                        i.putExtra("curso",language);
+                        i.putExtra("lesson",lesson);
+
                         startActivity(i);
                         break;
 
                     case "1":
-                        Intent intent = new Intent(Activities_Activity.this, Listening_3_Activity.class);
+                        Intent intent = new Intent(Activities_Activity.this, Listening_1_Activity.class);
+                        intent.putExtra("curso",language);
+                        intent.putExtra("lesson",lesson);
                         startActivity(intent);
                         break;
 
                     case "2":
-                        Intent intent1 = new Intent(Activities_Activity.this, Listening_3_Activity.class);
+                        Intent intent1 = new Intent(Activities_Activity.this, Listening_4_Activity.class);
+                        intent1.putExtra("curso",language);
+                        intent1.putExtra("lesson",lesson);
                         startActivity(intent1);
                         break;
 
                     case "3":
                         Intent intent2 = new Intent(Activities_Activity.this, Listening_4_Activity.class);
+                        intent2.putExtra("curso",language);
+                        intent2.putExtra("lesson",lesson);
                         startActivity(intent2);
                         break;
                 }

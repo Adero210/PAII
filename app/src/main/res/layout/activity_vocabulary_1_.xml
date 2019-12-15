@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -41,20 +39,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp10"
                 android:layout_marginBottom="@dimen/dp10"
-
                 android:orientation="horizontal">
 
             <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
                 <ImageView
                     android:id="@+id/image_1_vocabulary_1"
                     android:layout_width="180dp"
                     android:layout_height="190dp"
                     android:src="@drawable/pp" />
-
-
                 <TextView
                     android:id="@+id/textimage_1_vocabulary_1"
                     android:layout_width="wrap_content"
@@ -63,9 +57,13 @@
                     android:textColor="@color/editTextColorWhite"
                     android:visibility="gone"
                     android:text="Texto Texto" />
+                <ImageView
+                    android:id="@+id/palomita1_voca_1"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/palomita_azul_png" />
             </FrameLayout>
-
-
                 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -75,6 +73,12 @@
                         android:layout_width="180dp"
                         android:layout_height="190dp"
                         android:src="@drawable/pp" />
+                    <ImageView
+                        android:id="@+id/palomita2_voca_1"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/palomita_azul_png" />
                     <TextView
                         android:id="@+id/textimage_2_vocabulary_1"
                         android:layout_width="wrap_content"
@@ -82,7 +86,6 @@
                         android:layout_gravity="bottom|center"
                         android:textColor="@color/editTextColorWhite"
                         android:visibility="gone"
-
                         android:text="Texto Texto" />
                 </FrameLayout>
 
@@ -97,12 +100,17 @@
                 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
                     <ImageView
                         android:id="@+id/image_3_vocabulary_1"
                         android:layout_width="180dp"
                         android:layout_height="190dp"
                         android:src="@drawable/pp" />
+                    <ImageView
+                        android:id="@+id/palomita3_voca_1"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/palomita_azul_png" />
                     <TextView
                         android:id="@+id/textimage_3_vocabulary_1"
                         android:layout_width="wrap_content"
@@ -110,7 +118,6 @@
                         android:layout_gravity="bottom|center"
                         android:textColor="@color/editTextColorWhite"
                         android:visibility="gone"
-
                         android:text="Texto Texto" />
                 </FrameLayout>
 
@@ -123,6 +130,12 @@
                         android:layout_width="180dp"
                         android:layout_height="190dp"
                         android:src="@drawable/pp" />
+                    <ImageView
+                        android:id="@+id/palomita4_voca_1"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/palomita_azul_png" />
                     <TextView
                         android:id="@+id/textimage_4_vocabulary_1"
                         android:layout_width="wrap_content"
@@ -130,7 +143,6 @@
                         android:layout_gravity="bottom|center"
                         android:textColor="@color/editTextColorWhite"
                         android:visibility="gone"
-
                         android:text="Texto Texto" />
                 </FrameLayout>
 
@@ -140,7 +152,6 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
               <Button
                 android:id="@+id/button_activity_vocabulary_1"
                 android:layout_width="match_parent"

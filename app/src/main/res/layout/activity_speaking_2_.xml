@@ -37,6 +37,7 @@
                     android:id="@+id/oracion_activity_speaking_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/oracionprueba"
                     android:textSize="@dimen/edittext_textsize"
                     android:layout_marginBottom="@dimen/sp20"
@@ -50,32 +51,29 @@
                     android:background="@drawable/play"
                     android:theme="@style/RaisedButtonDark" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/answer_speak_2"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal">
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/play_pause_recorder_activity_speaking_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_mic_none_black_24dp"
-                        android:layout_marginRight="@dimen/dp30"
-                        app:backgroundTint="@color/colorAccent"
-                        app:fabSize="normal" />
+                    />
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/pause_recorder_activity_speaking_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/pause"
-                        app:backgroundTint="@color/colorAccent"
-                        app:fabSize="normal" />
-                </LinearLayout>
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/play_pause_recorder_activity_speaking_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_mic_none_black_24dp"
+                    android:layout_gravity="center|bottom"
+                    app:backgroundTint="@color/colorAccent"
+                    app:fabSize="normal" />
 
 
             </LinearLayout>
 
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/button_activity_speaking_2"
@@ -87,6 +85,19 @@
                 android:background="@drawable/button_rounded_signin"
                 android:text="@string/bottom_calificar"
                 android:theme="@style/RaisedButtonDark" />
+            <Button
+                android:id="@+id/button_activity_con_speaking_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:visibility="invisible"
+                android:text="@string/continuar"
+                android:theme="@style/RaisedButtonDark" />
+            </RelativeLayout>
+
 
         </LinearLayout>
 

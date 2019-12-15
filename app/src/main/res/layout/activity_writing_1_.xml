@@ -28,10 +28,6 @@
                 android:background="@drawable/play"
                 android:theme="@style/RaisedButtonDark" />
 
-
-
-
-
             <TextView
                 android:id="@+id/textview_1_activity_writing_1"
                 android:layout_width="match_parent"

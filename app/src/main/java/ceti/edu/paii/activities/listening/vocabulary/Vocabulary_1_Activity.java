@@ -54,6 +54,11 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
     private String curso;
     private String lesson;
 
+    private ImageView imap1;
+    private ImageView imap2;
+    private ImageView imap3;
+    private ImageView imap4;
+
     private ProgressDialog progressDialog;
     private static String URL_ACTR2 = comun.URL + "proyecto/vocabulary1Act.php";
     private String respuestaFromBD = "";
@@ -81,16 +86,23 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
         img3 = findViewById(R.id.image_3_vocabulary_1);
         img4 = findViewById(R.id.image_4_vocabulary_1);
 
+        imap1 = findViewById(R.id.palomita1_voca_1);
+        imap2 = findViewById(R.id.palomita2_voca_1);
+        imap3 = findViewById(R.id.palomita3_voca_1);
+        imap4 = findViewById(R.id.palomita4_voca_1);
+
         text1 = findViewById(R.id.textimage_1_vocabulary_1);
         text2 = findViewById(R.id.textimage_2_vocabulary_1);
         text3 = findViewById(R.id.textimage_3_vocabulary_1);
         text4 = findViewById(R.id.textimage_4_vocabulary_1);
 
+        imap1.setVisibility(View.GONE);
+        imap2.setVisibility(View.GONE);
+        imap3.setVisibility(View.GONE);
+        imap4.setVisibility(View.GONE);
 
         revisar = findViewById(R.id.button_activity_vocabulary_1);
         continuar = findViewById(R.id.button_activity_con_vocabulary_1);
-
-
 
         curso = getIntent().getStringExtra("curso");
         lesson = getIntent().getStringExtra("lesson");
@@ -148,6 +160,10 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(Vocabulary_1_Activity.this, R.xml.image_click));
+                imap1.setVisibility(View.VISIBLE);
+                imap2.setVisibility(View.GONE);
+                imap3.setVisibility(View.GONE);
+                imap4.setVisibility(View.GONE);
                 respuestaUser = (String) text1.getText();
             }
         });
@@ -156,6 +172,10 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(Vocabulary_1_Activity.this, R.xml.image_click));
+                imap2.setVisibility(View.VISIBLE);
+                imap1.setVisibility(View.GONE);
+                imap3.setVisibility(View.GONE);
+                imap4.setVisibility(View.GONE);
                 respuestaUser = (String) text2.getText();
             }
         });
@@ -164,6 +184,10 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(Vocabulary_1_Activity.this, R.xml.image_click));
+                imap3.setVisibility(View.VISIBLE);
+                imap2.setVisibility(View.GONE);
+                imap1.setVisibility(View.GONE);
+                imap4.setVisibility(View.GONE);
                 respuestaUser = (String) text3.getText();
             }
         });
@@ -172,6 +196,10 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 v.startAnimation(AnimationUtils.loadAnimation(Vocabulary_1_Activity.this, R.xml.image_click));
+                imap4.setVisibility(View.VISIBLE);
+                imap2.setVisibility(View.GONE);
+                imap3.setVisibility(View.GONE);
+                imap1.setVisibility(View.GONE);
                 respuestaUser = (String) text4.getText();
             }
         });

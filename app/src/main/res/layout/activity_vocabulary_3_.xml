@@ -88,6 +88,7 @@
                     android:theme="@style/RaisedButtonDark" />
 
                 <Button
+
                     android:id="@+id/opcion6_activity_vocabulary_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

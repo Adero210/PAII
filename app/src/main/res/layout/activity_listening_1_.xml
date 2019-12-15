@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/titulo_listening_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp50"
@@ -20,61 +21,16 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/edittext_textsize" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginBottom="8dp">
 
-            <Button
-                android:id="@+id/play_pause_activity_listening_1"
-                android:layout_width="121dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="@dimen/dp10"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="274dp"
-                android:background="@drawable/play"
-                android:theme="@style/RaisedButtonDark" />
+        <Button
+            android:id="@+id/play_pause_activity_listening_1"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp25"
+            android:background="@drawable/play"
+            android:theme="@style/RaisedButtonDark" />
 
-
-            <SeekBar
-                android:id="@+id/seekbar_activity_listening_1"
-                android:layout_width="383dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="11dp"
-                android:layout_marginTop="62dp"
-                android:layout_marginEnd="17dp" />
-
-
-            <TextView
-                android:id="@+id/tiempo2"
-                android:layout_width="59dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="83dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="520dp" />
-
-
-            <TextView
-                android:id="@+id/tiempo"
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="85dp"
-                android:layout_marginEnd="273dp"
-                android:layout_marginBottom="520dp" />
-
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,19 +41,57 @@
             android:layout_marginBottom="@dimen/dp10"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/image1_activity_listening_1"
-                android:layout_width="170dp"
-                android:layout_height="136dp"
-                android:layout_marginRight="@dimen/dp10"
-                android:src="@drawable/fb_img_1491560392251" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+                <ImageButton
+                    android:id="@+id/image1_activity_listening_1"
+                    android:layout_width="170dp"
+                    android:layout_height="136dp"
+                    android:layout_marginRight="@dimen/dp10"
+                    android:src="@drawable/fb_img_1491560392251" />
+
+                <TextView
+                    android:id="@+id/text_L11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/palomita1_listening_1"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/palomita_azul_png" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/image2_activity_listening_1"
                 android:layout_width="170dp"
                 android:layout_height="136dp"
                 android:src="@drawable/fb_img_1491560392251" />
+
+            <TextView
+                android:id="@+id/text_L12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/palomita2_listening_1"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:src="@drawable/palomita_azul_png"
+                android:layout_gravity="right"/>
+
+            </FrameLayout>
+
 
         </LinearLayout>
 
@@ -111,6 +105,10 @@
             android:layout_marginBottom="@dimen/dp25"
             android:orientation="horizontal">
 
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
             <ImageButton
                 android:id="@+id/image3_activity_listening_1"
                 android:layout_width="170dp"
@@ -118,6 +116,22 @@
                 android:layout_marginRight="@dimen/dp10"
                 android:src="@drawable/fb_img_1491560392251" />
 
+            <TextView
+                android:id="@+id/text_L13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+                <ImageView
+                    android:id="@+id/palomita3_listening_1"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:src="@drawable/palomita_azul_png"
+                    android:layout_gravity="right"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
             <ImageButton
                 android:id="@+id/image4_activity_listening_1"
@@ -125,16 +139,49 @@
                 android:layout_height="136dp"
                 android:src="@drawable/fb_img_1491560392251" />
 
+            <TextView
+                android:id="@+id/text_L14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/palomita4_listening_1"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:src="@drawable/palomita_azul_png"
+                android:layout_gravity="right"/>
+            </FrameLayout>
+
+
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/button_activity_listening_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_rounded_signin"
-            android:text="@string/bottom_calificar"
-            android:theme="@style/RaisedButtonDark" />
+
+            <Button
+                android:id="@+id/button_activity_listening_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/bottom_calificar"
+                android:theme="@style/RaisedButtonDark" />
+
+            <Button
+                android:id="@+id/button_continuar_activity_listening_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp5"
+                android:layout_marginRight="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/continuar"
+                android:theme="@style/RaisedButtonDark"
+                android:visibility="invisible" />
+
+
+        </RelativeLayout>
 
     </LinearLayout>
 

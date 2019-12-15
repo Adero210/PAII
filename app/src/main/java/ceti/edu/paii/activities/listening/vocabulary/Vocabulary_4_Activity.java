@@ -365,7 +365,7 @@ public class Vocabulary_4_Activity extends AppCompatActivity {
                 opc2.setVisibility(View.VISIBLE);
                 opc3.setVisibility(View.VISIBLE);
                 opc4Sel.setVisibility(View.VISIBLE);
-                respuestaUser = (String) opc3Sel.getText();
+                respuestaUser = (String) opc4Sel.getText();
             }
         });
 

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -49,13 +50,14 @@ import static ceti.edu.paii.R.id.pictureRecycler;
 
 public class HomeFragment extends Fragment {
 
-    String id;
+    private String id;
     private FirebaseAuth firebaseAuth;
     private static String URL_READ = comun.URL + "proyecto/read_curso.php";
     private String terminadoIn;
     private String nameCurseIn;
     private String terminadoIt;
     private String nameCurseIt;
+    private TextView mensajeError;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -79,6 +81,7 @@ public class HomeFragment extends Fragment {
         picturesRecycler.setLayoutManager(linearLayoutManager);
 
 
+        mensajeError = view.findViewById(R.id.mensajeerror);
         id = firebaseAuth.getInstance().getCurrentUser().getUid();
         Log.i("idUserI",id);
 
@@ -157,7 +160,8 @@ public class HomeFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
                         Toast.makeText(getContext(), "Error reading dialog: " + error.toString(), Toast.LENGTH_SHORT).show();
-
+                        mensajeError.setVisibility(View.VISIBLE);
+                        mensajeError.setText("Sin Conexion Sorry");
                     }
                 }) {
             @Override

@@ -245,6 +245,7 @@ public class Writing_3_Activity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("pregunta",numAle);
                 params.put("lesson", String.valueOf(lessonint2));
+                params.put("type","writing");
                 return params;
             }
         };

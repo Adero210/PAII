@@ -3,38 +3,92 @@ package ceti.edu.paii.activities.listening.speaking;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.activities.listening.Listening_4_Activity;
+import ceti.edu.paii.comun.comun;
 
 public class Speaking_1_Activity extends AppCompatActivity {
 
-    Button play, Playpause;
-    SeekBar seekBar;
-    FloatingActionButton record, recordpause;
-    String pathSave = "";
-    MediaRecorder mediaRecorder;
-    MediaPlayer mediaPlayer = new MediaPlayer();
+    Button play;
     MediaPlayer mp;
-    int totalTime;
+
+    private FloatingActionButton record;
+
+    private TextView titulo;
+    //////////////////////////////////////////////////
+    private TextView tvxResult;
+    private SpeechRecognizer speechRecognizer;
+    private Intent speechRecognizerIntent;
+    ////////////////////////////////////////////////
+
+    private StorageReference mAudioStorage;
+
+    private Button revisar;
+    private Button continuar;
+
+    private String curso;
+    private String lesson;
+
+    private String boceto = "1";
+
+    private int numerosPreuntas = 5;
+
+
+
+    private ProgressDialog progressDialog;
+    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+    private String respuestaFromBD = "";
+    private String respuestaUser="";
+    private MediaPlayer mediaPlayer,incorrect;
 
 
     final int REQUEST_PERMISSION_CODE = 1000;
@@ -44,163 +98,292 @@ public class Speaking_1_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speaking_1_);
-
         if (!checkPermissionFromDivice()) {
             requestPermission();
         }
         //Botones
-        Playpause = findViewById(R.id.play_pause_activity_speaking_1);
-        play = findViewById(R.id.play_activity_speaking_1);
+        play = findViewById(R.id.play_pause_activity_speaking_1);
         record = findViewById(R.id.play_pause_recorder_activity_speaking_1);
-        recordpause = findViewById(R.id.pause_recorder_activity_speaking_1);
 
         // se crea media player del audio a escuchar
-        mp = MediaPlayer.create(this, R.raw.musicromeo);
-        mp.setLooping(true);
-        mp.seekTo(0);
-        totalTime = mp.getDuration();
+        mp = new MediaPlayer();
 
+        progressDialog =  new ProgressDialog(Speaking_1_Activity.this);
 
+        mAudioStorage = FirebaseStorage.getInstance().getReference();
 
-        seekBar = findViewById(R.id.seekbar_activity_speaking_1);
-        seekBar.setMax(totalTime);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.setCancelable(false);
 
+        mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
+        incorrect = MediaPlayer.create(this,R.raw.wrong);
+        revisar = findViewById(R.id.button_activity_speaking_1);
+        continuar = findViewById(R.id.button_activity_con_speaking_1);
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        //////////////////////////Speech to text ///////////////////////////////////////////////////
+        tvxResult = findViewById(R.id.answer_speak);
+        titulo = findViewById(R.id.titulo_speaking_1);
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        speechRecognizer.setRecognitionListener(new RecognitionListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(fromUser){
-                    mp.seekTo(progress);
-                    seekBar.setProgress(progress);
+            public void onReadyForSpeech(Bundle params) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float rmsdB) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int error) {
+
+            }
+
+            @Override
+            public void onResults(Bundle results) {
+
+                ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+
+                if(matches!=null){
+                  // tvxResult.setText(matches.get(0));
+                   respuestaUser = matches.get(0);
                 }
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onPartialResults(Bundle partialResults) {
 
             }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onEvent(int eventType, Bundle params) {
 
             }
         });
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (mp != null) {
-                    try {
-                        Message msg = new Message();
-                        msg.what = mp.getCurrentPosition();
-                        handler.sendMessage(msg);
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {}
-                }
-            }
-        }).start();
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
-        Playpause.setOnClickListener(new View.OnClickListener() {
+
+        curso = getIntent().getStringExtra("curso");
+        lesson = getIntent().getStringExtra("lesson");
+
+        Log.i("curso",curso);
+        String numAletorio = comun.aleatorio(numerosPreuntas);
+
+        if(curso.equals("Ingles")){
+            titulo.setText("Listen and Repeat");
+        }else if(curso.equals("Italiano")){
+            titulo.setText("Ascolta e ripeti");
+        }
+
+        int lessonint = Integer.parseInt(lesson);
+
+        if(curso.equals("Italiano")){
+            switch (lesson) {
+
+                case "1":
+                    lessonint = 11;
+                    break;
+                case "2":
+                    lessonint = 12;
+                    break;
+                case "3":
+                    lessonint = 13;
+                    break;
+                case "4":
+                    lessonint = 14;
+                    break;
+                case "5":
+                    lessonint = 15;
+                    break;
+                case "6":
+                    lessonint = 16;
+                    break;
+                case "7":
+                    lessonint = 17;
+                    break;
+                case "8":
+                    lessonint = 18;
+                    break;
+                case "9":
+                    lessonint = 19;
+                    break;
+                case "10":
+                    lessonint = 20;
+                    break;
+            }
+        }
+
+        bringTheInfo(lessonint - 1, numAletorio);
+        opsciones();
+
+
+    }
+
+    private void bringTheInfo(final Integer lessonint2, final String numAle) {
+
+        progressDialog.show();
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(response);
+                    String numfilas = jsonObject.getString("filas");
+                    String success = jsonObject.getString("success");
+                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+
+                    int numFilas = Integer.parseInt(numfilas);
+
+                    if(success.equals("1")){
+                        progressDialog.dismiss();
+                        for(int i = 0 ; i < jsonArray.length();i++){
+
+                            JSONObject object =  jsonArray.getJSONObject(i);
+
+                            for(int h = 0; h < numFilas; h++) {
+
+                                respuestaFromBD = object.getString("respuestac" + h);
+                                String audio = object.getString("urlAudio" + h).trim();
+
+                                mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        try {
+                                            mp.reset();
+                                            mp.setDataSource(Speaking_1_Activity.this,uri);
+                                            mp.prepareAsync();
+
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                });
+
+                            }
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.i("DATAFROMSQL", "success" + e.toString());
+                    // progressBar.setVisibility(View.GONE);
+                    Toast.makeText(Speaking_1_Activity.this,"errorUNO" + e.toString(),Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //  progressBar.setVisibility(View.GONE);
+                        Toast.makeText(Speaking_1_Activity.this,"error" + error.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("pregunta",numAle);
+                params.put("lesson", String.valueOf(lessonint2));
+                params.put("boceto",boceto);
+                params.put("type","speaking");
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void opsciones() {
+        play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mp.isPlaying()) {
                     //
                     mp.pause();
-                    Playpause.setBackgroundResource(R.drawable.play);
                 } else {
                     //
                     mp.start();
-                    Playpause.setBackgroundResource(R.drawable.pause);
                 }
             }
         });
 
-        recordpause.setVisibility(View.GONE);
 
-        record.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        record.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
 
-                    if (checkPermissionFromDivice()) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_UP:
+                        speechRecognizer.stopListening();
+                        tvxResult.setText("yOU WILL SEE THE INPUT HERE");
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        tvxResult.setText("");
 
+                        tvxResult.setText("LISTENING...");
+                        speechRecognizer.startListening(speechRecognizerIntent);
+                        break;
 
-                        recordpause.setVisibility(View.VISIBLE);
-
-                        pathSave = Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + "/"
-                                + UUID.randomUUID().toString() + "_audio_record.3gp";
-
-                        setupMediaRecorder();
-                        try {
-                            mediaRecorder.prepare();
-                            mediaRecorder.start();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        play.setEnabled(false);
-                        Toast.makeText(Speaking_1_Activity.this, "Recording...",
-                                Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        requestPermission();
-
-
-                    }
                 }
-
-            });
-
-            recordpause.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                 mediaRecorder.stop();
-                 recordpause.setVisibility(View.GONE);
-                 play.setEnabled(true);
-                 record.setEnabled(true);
-                }
-            });
-
-        play.setOnClickListener(new View.OnClickListener() {
+                return false;
+            }
+        });
+        revisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ////////////////////////////////////////////////////////////////////////REVISAR///////////////////////////////////////////////////////////////////////////////
-               if (1==3) {
-                    //
-                    recordpause.setEnabled(false);
-                    record.setEnabled(true);
-
-                    play.setBackgroundResource(R.drawable.play);
-                    mediaPlayer.pause();
-                    mediaPlayer.release();
-                    setupMediaRecorder();
-                } else {
-
-                    try {
-                        mediaPlayer.setDataSource(pathSave);
-                        mediaPlayer.prepare();
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
+                revisar.setVisibility(View.INVISIBLE);
+                continuar.setVisibility(View.VISIBLE);
+                if(respuestaUser.equals(respuestaFromBD)){
                     mediaPlayer.start();
-                    Toast.makeText(Speaking_1_Activity.this, "Playing...",
-                            Toast.LENGTH_SHORT).show();
-
-        }
-    }
+                    if(curso.equals("Ingles")){
+                        Toast.makeText(Speaking_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
+                    }
+                    else if(curso.equals("Italiano")){
+                        Toast.makeText(Speaking_1_Activity.this,"corretta",Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    incorrect.start();
+                    if(curso.equals("Ingles")){
+                        Toast.makeText(Speaking_1_Activity.this,"wrong: " + respuestaFromBD,Toast.LENGTH_SHORT).show();
+                    }
+                    else if(curso.equals("Italiano")){
+                        Toast.makeText(Speaking_1_Activity.this,"sbagliata: " + respuestaFromBD,Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
         });
     }
 
-    private void setupMediaRecorder() {
-        mediaRecorder = new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        mediaRecorder.setOutputFile(pathSave);
-    }
 
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{
@@ -233,24 +416,12 @@ public class Speaking_1_Activity extends AppCompatActivity {
                 Manifest.permission.RECORD_AUDIO);
         return write_external_storafe_result == PackageManager.PERMISSION_GRANTED &&
                 record_audio_result == PackageManager.PERMISSION_GRANTED;
-
-
-
     }
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            int currentPosition = msg.what;
-            // Update positionBar.
-            seekBar.setProgress(currentPosition);
-        }
-    };
-
 
     @Override
     protected void onDestroy() {
         mp.stop();
         super.onDestroy();
     }
+
 }
