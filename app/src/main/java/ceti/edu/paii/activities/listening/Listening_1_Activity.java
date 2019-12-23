@@ -2,6 +2,7 @@ package ceti.edu.paii.activities.listening;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -40,13 +41,23 @@ import java.util.Map;
 import java.util.Stack;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.activities.listening.speaking.Speaking_1_Activity;
+import ceti.edu.paii.activities.listening.speaking.Speaking_2_Activity;
+import ceti.edu.paii.activities.listening.speaking.Speaking_3_Activity;
 import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_1_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_1_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_3_Activity;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.view.ResumenActividad;
 
 public class Listening_1_Activity extends AppCompatActivity {
 
+
+
+    int actHechas, cali;
+
+    private String b1,b2, calis, actHechasS;
+    private  String numAletorio ="";
 
 
     private TextView titulo;
@@ -66,7 +77,6 @@ public class Listening_1_Activity extends AppCompatActivity {
     private TextView text3;
     private TextView text4;
 
-    private FirebaseStorage storage;
     private StorageReference mAudioStorage;
 
     private Button revisar;
@@ -81,7 +91,7 @@ public class Listening_1_Activity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private static String URL_ACTR2 = comun.URL + "proyecto/writing3Act.php";
     private String respuestaFromBD = "";
-    private String respuestaUser;
+    private String respuestaUser ="";
     private MediaPlayer mediaPlayer,incorrect;
     //AUDIO
     Button play_pause;
@@ -93,105 +103,145 @@ public class Listening_1_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listening_1_);
 
-        progressDialog =  new ProgressDialog(Listening_1_Activity.this);
-
-        storage = FirebaseStorage.getInstance();
-        mAudioStorage = FirebaseStorage.getInstance().getReference();
-
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
-
-        mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
-        incorrect = MediaPlayer.create(this,R.raw.wrong);
-
-        titulo = findViewById(R.id.titulo_listening_1);
-        ima1 = findViewById(R.id.image1_activity_listening_1);
-        ima2 = findViewById(R.id.image2_activity_listening_1);
-        ima3 = findViewById(R.id.image3_activity_listening_1);
-        ima4 = findViewById(R.id.image4_activity_listening_1);
-
-        imap1 = findViewById(R.id.palomita1_listening_1);
-        imap2 = findViewById(R.id.palomita2_listening_1);
-        imap3 = findViewById(R.id.palomita3_listening_1);
-        imap4 = findViewById(R.id.palomita4_listening_1);
+        curso  = getIntent().getStringExtra("curso");
+        lesson = getIntent().getStringExtra("lesson");
+        calis   = getIntent().getStringExtra("calificacion");
+        actHechasS = getIntent().getStringExtra("actividad");
+        b1 = getIntent().getStringExtra("boceto1");
+        b2 = getIntent().getStringExtra("boceto2");
 
 
-        text1 = findViewById(R.id.text_L11);
-        text2 = findViewById(R.id.text_L12);
-        text3 = findViewById(R.id.text_L13);
-        text4 = findViewById(R.id.text_L14);
+        cali = Integer.valueOf(calis);
+        actHechas = Integer.valueOf(actHechasS);
 
-        revisar = findViewById(R.id.button_activity_listening_1);
-        continuar = findViewById(R.id.button_continuar_activity_listening_1);
+        if(actHechas<=8) {
 
-        play_pause = findViewById(R.id.play_pause_activity_listening_1);
+            progressDialog = new ProgressDialog(Listening_1_Activity.this);
 
-        imap1.setVisibility(View.GONE);
-        imap2.setVisibility(View.GONE);
-        imap3.setVisibility(View.GONE);
-        imap4.setVisibility(View.GONE);
+            mAudioStorage = FirebaseStorage.getInstance().getReference();
 
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setCancelable(false);
 
-        mp =  new MediaPlayer();
+            mediaPlayer = MediaPlayer.create(this, R.raw.correctding);
+            incorrect = MediaPlayer.create(this, R.raw.wrong);
 
-         curso = getIntent().getStringExtra("curso");
-         lesson = getIntent().getStringExtra("lesson");
+            titulo = findViewById(R.id.titulo_listening_1);
+            ima1 = findViewById(R.id.image1_activity_listening_1);
+            ima2 = findViewById(R.id.image2_activity_listening_1);
+            ima3 = findViewById(R.id.image3_activity_listening_1);
+            ima4 = findViewById(R.id.image4_activity_listening_1);
 
-        String numAletorio = aleatorio(numPre);
-
-        int lessonint = Integer.parseInt(lesson);
-
-        if(curso.equals("Ingles")){
-            titulo.setText("choose the correct option");
-        }else if(curso.equals("Italiano")){
-            titulo.setText("scegli la traduzione opzione");
-        }
+            imap1 = findViewById(R.id.palomita1_listening_1);
+            imap2 = findViewById(R.id.palomita2_listening_1);
+            imap3 = findViewById(R.id.palomita3_listening_1);
+            imap4 = findViewById(R.id.palomita4_listening_1);
 
 
-        if(curso.equals("Italiano")){
-            switch (lesson) {
+            text1 = findViewById(R.id.text_L11);
+            text2 = findViewById(R.id.text_L12);
+            text3 = findViewById(R.id.text_L13);
+            text4 = findViewById(R.id.text_L14);
 
-                case "1":
-                    lessonint = 11;
-                    break;
-                case "2":
-                    lessonint = 12;
-                    break;
-                case "3":
-                    lessonint = 13;
-                    break;
-                case "4":
-                    lessonint = 14;
-                    break;
-                case "5":
-                    lessonint = 15;
-                    break;
-                case "6":
-                    lessonint = 16;
-                    break;
-                case "7":
-                    lessonint = 17;
-                    break;
-                case "8":
-                    lessonint = 18;
-                    break;
-                case "9":
-                    lessonint = 19;
-                    break;
-                case "10":
-                    lessonint = 20;
-                    break;
+            revisar = findViewById(R.id.button_activity_listening_1);
+            continuar = findViewById(R.id.button_continuar_activity_listening_1);
+
+            play_pause = findViewById(R.id.play_pause_activity_listening_1);
+
+            imap1.setVisibility(View.GONE);
+            imap2.setVisibility(View.GONE);
+            imap3.setVisibility(View.GONE);
+            imap4.setVisibility(View.GONE);
 
 
+            mp = new MediaPlayer();
+
+            numAletorio = comun.aleatorio(numPre);
+
+            if(b1.contains(numAletorio)) {
+                if (curso.equals("Ingles")) {
+                    titulo.setText("choose the correct option");
+                } else if (curso.equals("Italiano")) {
+                    titulo.setText("scegli la traduzione opzione");
+                }
+
+                int lessonint = Integer.parseInt(lesson);
+
+
+                if (curso.equals("Italiano")) {
+                    switch (lesson) {
+
+                        case "1":
+                            lessonint = 11;
+                            break;
+                        case "2":
+                            lessonint = 12;
+                            break;
+                        case "3":
+                            lessonint = 13;
+                            break;
+                        case "4":
+                            lessonint = 14;
+                            break;
+                        case "5":
+                            lessonint = 15;
+                            break;
+                        case "6":
+                            lessonint = 16;
+                            break;
+                        case "7":
+                            lessonint = 17;
+                            break;
+                        case "8":
+                            lessonint = 18;
+                            break;
+                        case "9":
+                            lessonint = 19;
+                            break;
+                        case "10":
+                            lessonint = 20;
+                            break;
+
+
+                    }
+                }
+
+                bringTheInfo(lessonint - 1, numAletorio);
+
+                options();
+
+            }else {
+
+                if(b1.contains("0")||b1.contains("1")||b1.contains("2")||b1.contains("3")||b1.contains("4")) {
+                    Intent i = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
+                    i.putExtra("curso", curso);
+                    i.putExtra("lesson", lesson);
+                    i.putExtra("calificacion", String.valueOf(cali));
+                    i.putExtra("actividad", String.valueOf(actHechas));
+                    i.putExtra("boceto1", b1);
+                    i.putExtra("boceto2", b2);
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(Listening_1_Activity.this, Listening_4_Activity.class);
+                    i.putExtra("curso", curso);
+                    i.putExtra("lesson", lesson);
+                    i.putExtra("calificacion", String.valueOf(cali));
+                    i.putExtra("actividad", String.valueOf(actHechas));
+                    i.putExtra("boceto1", b1);
+                    i.putExtra("boceto2", b2);
+                    startActivity(i);
+
+                }
+
+                }
+        }else {
+                Intent i = new Intent(Listening_1_Activity.this, ResumenActividad.class);
+                i.putExtra("curso",curso);
+                i.putExtra("lesson",lesson);
+                i.putExtra("calificacion", String.valueOf(cali));
+
+                startActivity(i);
             }
-        }
-
-        bringTheInfo(lessonint - 1, numAletorio);
-
-
-
-        options();
-
     }
 
     private void bringTheInfo(final Integer lessonint2, final String numAle) {
@@ -389,6 +439,8 @@ public class Listening_1_Activity extends AppCompatActivity {
                 revisar.setVisibility(View.INVISIBLE);
                 continuar.setVisibility(View.VISIBLE);
                 if(respuestaUser.equals(respuestaFromBD)){
+                    cali = cali + 100;
+
                     mediaPlayer.start();
                     if(curso.equals("Ingles")){
                         Toast.makeText(Listening_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
@@ -398,6 +450,8 @@ public class Listening_1_Activity extends AppCompatActivity {
                     }
                 }else{
                     incorrect.start();
+                    cali = cali + 0;
+
                     if(curso.equals("Ingles")){
                         Toast.makeText(Listening_1_Activity.this,"wrong",Toast.LENGTH_SHORT).show();
                     }
@@ -405,6 +459,43 @@ public class Listening_1_Activity extends AppCompatActivity {
                         Toast.makeText(Listening_1_Activity.this,"sbagliata",Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String b1N = b1.replaceAll(numAletorio,"");
+                actHechas++;
+                String num ="";
+                num = comun.aleatorio(2);
+                Log.i("numeroRamdon",num);
+                switch (num){
+                    case "0":
+                        Intent i = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
+                        i.putExtra("curso",curso);
+                        i.putExtra("lesson",lesson);
+                        i.putExtra("calificacion",String.valueOf(cali));
+                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("boceto1",b1N);
+                        i.putExtra("boceto2",b2);
+                        startActivity(i);
+                        break;
+
+                    case "1":
+                        Intent intent = new Intent(Listening_1_Activity.this, Listening_4_Activity.class);
+                        intent.putExtra("curso",curso);
+                        intent.putExtra("lesson",lesson);
+                        intent.putExtra("calificacion",String.valueOf(cali));
+                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("boceto1",b1N);
+                        intent.putExtra("boceto2",b2);
+                        startActivity(intent);
+                        break;
+
+
+                }
+
             }
         });
     }
@@ -416,29 +507,10 @@ public class Listening_1_Activity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private String aleatorio(int t){
-        // AleatoriSinRepeticion();
-        String num = "";
-        int pos;
-        int nCartas = t;
-        Stack< Integer > pCartas = new Stack < Integer > ();
-        for (int i = 0; i < nCartas ; i++) {
-            pos = (int) Math.floor(Math.random() * nCartas );
-            while (pCartas.contains(pos)) {
-                pos = (int) Math.floor(Math.random() * nCartas );
-            }
 
-            pCartas.push(pos);
-            num = String.valueOf(pos);
-        }
-        Log.i("Numeros",pCartas.toString());
-
-        return num;
-    }
-
-    /*  @Override
+    @Override
     public void onBackPressed(){
         return;
-    }*/
+    }
 }
 

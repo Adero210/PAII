@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -59,6 +58,7 @@ public class HomeFragment extends Fragment {
     private String nameCurseIt;
     private TextView mensajeError;
 
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
         picturesRecycler.setLayoutManager(linearLayoutManager);
+
 
 
         mensajeError = view.findViewById(R.id.mensajeerror);
@@ -162,6 +163,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), "Error reading dialog: " + error.toString(), Toast.LENGTH_SHORT).show();
                         mensajeError.setVisibility(View.VISIBLE);
                         mensajeError.setText("Sin Conexion Sorry");
+
                     }
                 }) {
             @Override

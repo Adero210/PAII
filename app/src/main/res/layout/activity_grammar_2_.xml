@@ -6,16 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".activities.listening.grammar.Grammar_2_Activity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp25"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_marginRight="@dimen/dp10"
             android:orientation="vertical">
 
             <TextView
@@ -341,8 +336,5 @@
 
 
         </LinearLayout>
-
-
-    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

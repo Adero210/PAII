@@ -12,7 +12,7 @@ public class comun {
     public static String getId;
     public static final String EXTRA_CHAT_ID = "chatId";
     public static SessionManager sessionManager;
-    public static String URL = "http://192.168.0.4/";
+    public static String URL = "http://192.168.0.5/";
 
     public static String aleatorio(int numerosPreuntas){
         // AleatoriSinRepeticion();

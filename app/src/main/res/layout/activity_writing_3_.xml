@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textview_1_activity_writing_1"
+                android:id="@+id/textview_1_activity_writing_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/Adivina"
@@ -33,19 +33,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <TextView
+                <TextView
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp10"
-                android:text="Length:"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:text="Length:"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/lenght_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp10"
-
+                    android:visibility="gone"
                     android:text="@string/number_card"/>
 
             </LinearLayout>
@@ -100,35 +101,16 @@
 
 
             </LinearLayout>
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fillViewport="true"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
-                >
-
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/editText_1_activity_writing_3"
-                android:layout_marginTop="@dimen/dp30"
-                android:layout_marginLeft="@dimen/sp20"
-                android:layout_marginRight="@dimen/sp20"
+                android:id="@+id/contenedor_botones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dp25"
-                android:gravity="center"
-                android:hint="@string/text"
-                />
-
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                >
             </LinearLayout>
 
-            </ScrollView>
 
             <LinearLayout
                 android:layout_width="wrap_content"

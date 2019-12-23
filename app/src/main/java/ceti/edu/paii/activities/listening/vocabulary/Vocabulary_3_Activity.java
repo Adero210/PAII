@@ -1,11 +1,13 @@
 package ceti.edu.paii.activities.listening.vocabulary;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ import java.util.Stack;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.view.vocabularyThree;
 
 public class Vocabulary_3_Activity extends AppCompatActivity {
 
@@ -48,29 +51,16 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
     private MediaPlayer mediaPlayer,incorrect;
 
 
+    private int cartSel = 0;
+    private int numPreguntas = 5;
 
     private TextView oracion;
 
     private Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9;
 
-    String palabras[];
-
-    Button [] botonera = new Button[10];
-
-    int fondo;
-
-    ArrayList<String> arrayBarajado;
-
-    Button primero;
-    int numeroPrimero, numeroSegundo;
-    boolean bloqueo = false;
 
 
-    final Handler handler = new Handler();
 
-    //finalmente, el número de aciertos y la puntuación
-    int aciertos=0;
-    int puntuacion=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +77,19 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
         curso = getIntent().getStringExtra("curso");
         lesson = getIntent().getStringExtra("lesson");
 
-        String numAletorio = aleatorio();
+        btn0 = findViewById(R.id.opcion1_activity_vocabulary_3);
+        btn1 = findViewById(R.id.opcion2_activity_vocabulary_3);
+        btn2 = findViewById(R.id.opcion3_activity_vocabulary_3);
+        btn3 = findViewById(R.id.opcion4_activity_vocabulary_3);
+        btn4 = findViewById(R.id.opcion5_activity_vocabulary_3);
+        btn5 = findViewById(R.id.opcion6_activity_vocabulary_3);
+        btn6 = findViewById(R.id.opcion7_activity_vocabulary_3);
+        btn7 = findViewById(R.id.opcion8_activity_vocabulary_3);
+        btn8 = findViewById(R.id.opcion9_activity_vocabulary_3);
+        btn9 = findViewById(R.id.opcion0_activity_vocabulary_3);
+
+
+        String numAletorio = comun.aleatorio(numPreguntas);
 
         int lessonint = Integer.parseInt(lesson);
 
@@ -129,22 +131,29 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
             }
         }
 
-        //bringTheInfo(lessonint - 1, numAletorio);
+        bringTheInfo(lessonint - 1, numAletorio);
         opciones();
 
     }
 
     private void opciones() {
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cartSel==1){
+                    check();
+                }else {
+                    btn1.setTextColor(Color.parseColor("#008000"));
+                    cartSel++;
+                }
+            }
+        });
     }
 
-    private void iniciar() {
+    private void check() {
+        cartSel--;
     }
 
-    private void botonesMenu() {
-    }
-
-    private void cargarImagenes() {
-    }
 
     private void bringTheInfo(final Integer lessonint2, final String numAle) {
 
@@ -176,9 +185,51 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
                                 pregunta = object.getString("pregunta" + h).trim();
                                 respuestaFromBD = object.getString("respuestac" + h);
 
-                                oracion.setText(pregunta);
+                                Log.i("vocabulary2","pregunta: " + pregunta);
+                                Log.i("vocabulary2","respuesta: " + respuestaFromBD);
+
 
                             }
+                            String preguntas[] = pregunta.split(",");
+
+                            String respuestas[] = respuestaFromBD.split(",");
+                            vocabularyThree opcionA = new vocabularyThree(preguntas[0],respuestas[0]);
+                            vocabularyThree opcionB = new vocabularyThree(preguntas[1],respuestas[1]);
+                            vocabularyThree opcionC = new vocabularyThree(preguntas[2],respuestas[2]);
+                            vocabularyThree opcionD = new vocabularyThree(preguntas[3],respuestas[3]);
+                            vocabularyThree opcionE = new vocabularyThree(preguntas[4],respuestas[4]);
+
+                            String kk = pregunta+","+respuestaFromBD;
+                            String words[] = kk.split(",");
+
+                            Log.i("vocabulary2","kk: " + kk);
+
+
+                            String[] r = new String[10];
+                            // AleatoriSinRepeticion();
+                            int pos, y = 0;
+                            int nCartas = 10;
+                            Stack<Integer> pCartas = new Stack<Integer>();
+                            for (int x = 0; x < nCartas; x++) {
+                                pos = (int) Math.floor(Math.random() * nCartas);
+                                while (pCartas.contains(pos)) {
+                                    pos = (int) Math.floor(Math.random() * nCartas);
+                                }
+                                r[pos] = words[y];
+                                pCartas.push(pos);
+                                y = y + 1;
+                            }
+
+                            btn0.setText(r[9]);
+                            btn1.setText(r[0]);
+                            btn2.setText(r[1]);
+                            btn3.setText(r[2]);
+                            btn4.setText(r[3]);
+                            btn5.setText(r[4]);
+                            btn6.setText(r[5]);
+                            btn7.setText(r[6]);
+                            btn8.setText(r[7]);
+                            btn9.setText(r[8]);
 
                         }
                     }
@@ -222,25 +273,7 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-    private String aleatorio(){
-        // AleatoriSinRepeticion();
-        String num = "";
-        int pos;
-        int nCartas = 5;
-        Stack< Integer > pCartas = new Stack < Integer > ();
-        for (int i = 0; i < nCartas ; i++) {
-            pos = (int) Math.floor(Math.random() * nCartas );
-            while (pCartas.contains(pos)) {
-                pos = (int) Math.floor(Math.random() * nCartas );
-            }
 
-            pCartas.push(pos);
-            num = String.valueOf(pos);
-        }
-        Log.i("Numeros",pCartas.toString());
-
-        return num;
-    }
 
     /*@Override
     public void onBackPressed(){

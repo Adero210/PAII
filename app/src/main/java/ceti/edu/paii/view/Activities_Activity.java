@@ -100,13 +100,24 @@ public class Activities_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String num ="";
+                String  actHechas = "0";
+                String calificacion = "0";
+                String actB1 = "1,2,3,4,0";
+                String actB2 = "1,2,3,4,0";
+                String actB3 = "1,2,3,4,0";
+
                 num = aleatorio();
                 Log.i("numeroRamdon",num);
-                switch (num){
+                    switch (num){
                     case "0":
                         Intent i = new Intent(Activities_Activity.this, Speaking_1_Activity.class);
                         i.putExtra("curso",language);
                         i.putExtra("lesson",lesson);
+                        i.putExtra("calificacion",calificacion);
+                        i.putExtra("actividad",actHechas);
+                        i.putExtra("boceto1",actB1);
+                        i.putExtra("boceto2",actB2);
+                        i.putExtra("boceto3",actB3);
                         startActivity(i);
                         break;
 
@@ -114,11 +125,23 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Activities_Activity.this, Speaking_2_Activity.class);
                         intent.putExtra("curso",language);
                         intent.putExtra("lesson",lesson);
+                        intent.putExtra("calificacion",calificacion);
+                        intent.putExtra("actividad",actHechas);
+                        intent.putExtra("boceto1",actB1);
+                        intent.putExtra("boceto2",actB2);
+                        intent.putExtra("boceto3",actB3);
                         startActivity(intent);
                         break;
 
                     case "2":
                         Intent intent1 = new Intent(Activities_Activity.this, Speaking_3_Activity.class);
+                        intent1.putExtra("curso",language);
+                        intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("calificacion",calificacion);
+                        intent1.putExtra("actividad",actHechas);
+                        intent1.putExtra("boceto1",actB1);
+                        intent1.putExtra("boceto2",actB2);
+                        intent1.putExtra("boceto3",actB3);
                         startActivity(intent1);
                         break;
 
@@ -126,6 +149,11 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent intent2 = new Intent(Activities_Activity.this, Speaking_1_Activity.class);
                         intent2.putExtra("curso",language);
                         intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("calificacion",calificacion);
+                        intent2.putExtra("actividad",actHechas);
+                        intent2.putExtra("boceto1",actB1);
+                        intent2.putExtra("boceto2",actB2);
+                        intent2.putExtra("boceto3",actB3);
                         startActivity(intent2);
                         break;
                 }
@@ -213,6 +241,11 @@ public class Activities_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String num ="";
+                String actHechas = "0";
+                String calificacion = "0";
+                String actB2 = "1,2,3,4,0,5,6,7,8,9";
+                String actB1 = "1,2,3,4,0";
+
                 num = aleatorio();
                 Log.i("numeroRamdon",num);
                 switch (num){
@@ -220,7 +253,12 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent i = new Intent(Activities_Activity.this, Listening_1_Activity.class);
                         i.putExtra("curso",language);
                         i.putExtra("lesson",lesson);
-
+                        i.putExtra("curso",language);
+                        i.putExtra("lesson",lesson);
+                        i.putExtra("calificacion",calificacion);
+                        i.putExtra("actividad",actHechas);
+                        i.putExtra("boceto1",actB1);
+                        i.putExtra("boceto2",actB2);
                         startActivity(i);
                         break;
 
@@ -228,6 +266,14 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Activities_Activity.this, Listening_1_Activity.class);
                         intent.putExtra("curso",language);
                         intent.putExtra("lesson",lesson);
+                        intent.putExtra("curso",language);
+                        intent.putExtra("lesson",lesson);
+                        intent.putExtra("curso",language);
+                        intent.putExtra("lesson",lesson);
+                        intent.putExtra("calificacion",calificacion);
+                        intent.putExtra("actividad",actHechas);
+                        intent.putExtra("boceto1",actB1);
+                        intent.putExtra("boceto2",actB2);
                         startActivity(intent);
                         break;
 
@@ -235,6 +281,14 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Activities_Activity.this, Listening_4_Activity.class);
                         intent1.putExtra("curso",language);
                         intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("curso",language);
+                        intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("curso",language);
+                        intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("calificacion",calificacion);
+                        intent1.putExtra("actividad",actHechas);
+                        intent1.putExtra("boceto1",actB1);
+                        intent1.putExtra("boceto2",actB2);
                         startActivity(intent1);
                         break;
 
@@ -242,6 +296,14 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent intent2 = new Intent(Activities_Activity.this, Listening_4_Activity.class);
                         intent2.putExtra("curso",language);
                         intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("curso",language);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("curso",language);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("calificacion",calificacion);
+                        intent2.putExtra("actividad",actHechas);
+                        intent2.putExtra("boceto1",actB1);
+                        intent2.putExtra("boceto2",actB2);
                         startActivity(intent2);
                         break;
                 }

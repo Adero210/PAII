@@ -55,11 +55,17 @@ import java.util.UUID;
 import ceti.edu.paii.R;
 import ceti.edu.paii.activities.listening.Listening_4_Activity;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.view.Activities_Activity;
+import ceti.edu.paii.view.ResumenActividad;
 
 public class Speaking_1_Activity extends AppCompatActivity {
 
     Button play;
     MediaPlayer mp;
+
+    int actHechas, cali;
+
+    private String b1,b2,b3, calis, actHechasS;
 
     private FloatingActionButton record;
 
@@ -72,6 +78,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
 
     private StorageReference mAudioStorage;
 
+    private  String numAletorio ="";
     private Button revisar;
     private Button continuar;
 
@@ -98,147 +105,181 @@ public class Speaking_1_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speaking_1_);
-        if (!checkPermissionFromDivice()) {
-            requestPermission();
-        }
-        //Botones
-        play = findViewById(R.id.play_pause_activity_speaking_1);
-        record = findViewById(R.id.play_pause_recorder_activity_speaking_1);
 
-        // se crea media player del audio a escuchar
-        mp = new MediaPlayer();
-
-        progressDialog =  new ProgressDialog(Speaking_1_Activity.this);
-
-        mAudioStorage = FirebaseStorage.getInstance().getReference();
-
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
-
-        mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
-        incorrect = MediaPlayer.create(this,R.raw.wrong);
-        revisar = findViewById(R.id.button_activity_speaking_1);
-        continuar = findViewById(R.id.button_activity_con_speaking_1);
-
-        //////////////////////////Speech to text ///////////////////////////////////////////////////
-        tvxResult = findViewById(R.id.answer_speak);
-        titulo = findViewById(R.id.titulo_speaking_1);
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
-        speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        speechRecognizer.setRecognitionListener(new RecognitionListener() {
-            @Override
-            public void onReadyForSpeech(Bundle params) {
-
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-
-            }
-
-            @Override
-            public void onRmsChanged(float rmsdB) {
-
-            }
-
-            @Override
-            public void onBufferReceived(byte[] buffer) {
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-
-            }
-
-            @Override
-            public void onError(int error) {
-
-            }
-
-            @Override
-            public void onResults(Bundle results) {
-
-                ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
-
-                if(matches!=null){
-                  // tvxResult.setText(matches.get(0));
-                   respuestaUser = matches.get(0);
-                }
-            }
-
-            @Override
-            public void onPartialResults(Bundle partialResults) {
-
-            }
-
-            @Override
-            public void onEvent(int eventType, Bundle params) {
-
-            }
-        });
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
-
-
-        curso = getIntent().getStringExtra("curso");
+        curso  = getIntent().getStringExtra("curso");
         lesson = getIntent().getStringExtra("lesson");
+        calis   = getIntent().getStringExtra("calificacion");
+        actHechasS = getIntent().getStringExtra("actividad");
+        b1 = getIntent().getStringExtra("boceto1");
+        b2 = getIntent().getStringExtra("boceto2");
+        b3 = getIntent().getStringExtra("boceto3");
 
-        Log.i("curso",curso);
-        String numAletorio = comun.aleatorio(numerosPreuntas);
 
-        if(curso.equals("Ingles")){
-            titulo.setText("Listen and Repeat");
-        }else if(curso.equals("Italiano")){
-            titulo.setText("Ascolta e ripeti");
-        }
+        cali = Integer.valueOf(calis);
+        actHechas = Integer.valueOf(actHechasS);
 
-        int lessonint = Integer.parseInt(lesson);
-
-        if(curso.equals("Italiano")){
-            switch (lesson) {
-
-                case "1":
-                    lessonint = 11;
-                    break;
-                case "2":
-                    lessonint = 12;
-                    break;
-                case "3":
-                    lessonint = 13;
-                    break;
-                case "4":
-                    lessonint = 14;
-                    break;
-                case "5":
-                    lessonint = 15;
-                    break;
-                case "6":
-                    lessonint = 16;
-                    break;
-                case "7":
-                    lessonint = 17;
-                    break;
-                case "8":
-                    lessonint = 18;
-                    break;
-                case "9":
-                    lessonint = 19;
-                    break;
-                case "10":
-                    lessonint = 20;
-                    break;
+        if(actHechas<=8){
+            if (!checkPermissionFromDivice()) {
+                requestPermission();
             }
+            //Botones
+            play = findViewById(R.id.play_pause_activity_speaking_1);
+            record = findViewById(R.id.play_pause_recorder_activity_speaking_1);
+
+            // se crea media player del audio a escuchar
+            mp = new MediaPlayer();
+
+            progressDialog =  new ProgressDialog(Speaking_1_Activity.this);
+
+            mAudioStorage = FirebaseStorage.getInstance().getReference();
+
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setCancelable(false);
+
+            mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
+            incorrect = MediaPlayer.create(this,R.raw.wrong);
+            revisar = findViewById(R.id.button_activity_speaking_1);
+            continuar = findViewById(R.id.button_activity_con_speaking_1);
+
+            //////////////////////////Speech to text ///////////////////////////////////////////////////
+            tvxResult = findViewById(R.id.answer_speak);
+            titulo = findViewById(R.id.titulo_speaking_1);
+            speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+            speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+            speechRecognizer.setRecognitionListener(new RecognitionListener() {
+                @Override
+                public void onReadyForSpeech(Bundle params) {
+
+                }
+
+                @Override
+                public void onBeginningOfSpeech() {
+
+                }
+
+                @Override
+                public void onRmsChanged(float rmsdB) {
+
+                }
+
+                @Override
+                public void onBufferReceived(byte[] buffer) {
+
+                }
+
+                @Override
+                public void onEndOfSpeech() {
+
+                }
+
+                @Override
+                public void onError(int error) {
+
+                }
+
+                @Override
+                public void onResults(Bundle results) {
+
+                    ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+
+                    if(matches!=null){
+                        respuestaUser = matches.get(0);
+                        tvxResult.setText(":3");
+
+                    }
+                }
+
+                @Override
+                public void onPartialResults(Bundle partialResults) {
+
+                }
+
+                @Override
+                public void onEvent(int eventType, Bundle params) {
+
+                }
+            });
+
+            ////////////////////////////////////////////////////////////////////////////////////////////
+
+            Log.i("curso",curso);
+            numAletorio = comun.aleatorio(numerosPreuntas);
+
+            if(b1.contains(numAletorio)){
+                if(curso.equals("Ingles")){
+                    titulo.setText("Listen and Repeat");
+                }else if(curso.equals("Italiano")){
+                    titulo.setText("Ascolta e ripeti");
+                }
+
+                int lessonint = Integer.parseInt(lesson);
+
+                if(curso.equals("Italiano")){
+                    switch (lesson) {
+
+                        case "1":
+                            lessonint = 11;
+                            break;
+                        case "2":
+                            lessonint = 12;
+                            break;
+                        case "3":
+                            lessonint = 13;
+                            break;
+                        case "4":
+                            lessonint = 14;
+                            break;
+                        case "5":
+                            lessonint = 15;
+                            break;
+                        case "6":
+                            lessonint = 16;
+                            break;
+                        case "7":
+                            lessonint = 17;
+                            break;
+                        case "8":
+                            lessonint = 18;
+                            break;
+                        case "9":
+                            lessonint = 19;
+                            break;
+                        case "10":
+                            lessonint = 20;
+                            break;
+                    }
+                }
+
+                bringTheInfo(lessonint - 1, numAletorio);
+                opsciones();
+
+            }else {
+
+                Intent i = new Intent(Speaking_1_Activity.this, Speaking_1_Activity.class);
+                i.putExtra("curso",curso);
+                i.putExtra("lesson",lesson);
+                i.putExtra("calificacion",String.valueOf(cali));
+                i.putExtra("actividad",String.valueOf(actHechas));
+                i.putExtra("boceto1",b1);
+                i.putExtra("boceto2",b2);
+                i.putExtra("boceto3",b3);
+                startActivity(i);
+
+            }
+
         }
+        else {
+            Intent i = new Intent(Speaking_1_Activity.this, ResumenActividad.class);
+            i.putExtra("curso",curso);
+            i.putExtra("lesson",lesson);
+            i.putExtra("calificacion", String.valueOf(cali));
+            startActivity(i);
 
-        bringTheInfo(lessonint - 1, numAletorio);
-        opsciones();
-
-
+        }
     }
 
     private void bringTheInfo(final Integer lessonint2, final String numAle) {
@@ -345,7 +386,6 @@ public class Speaking_1_Activity extends AppCompatActivity {
                 switch (event.getAction()){
                     case MotionEvent.ACTION_UP:
                         speechRecognizer.stopListening();
-                        tvxResult.setText("yOU WILL SEE THE INPUT HERE");
                         break;
                     case MotionEvent.ACTION_DOWN:
                         tvxResult.setText("");
@@ -365,6 +405,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
                 continuar.setVisibility(View.VISIBLE);
                 if(respuestaUser.equals(respuestaFromBD)){
                     mediaPlayer.start();
+                    cali = cali + 100;
                     if(curso.equals("Ingles")){
                         Toast.makeText(Speaking_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
                     }
@@ -372,6 +413,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
                         Toast.makeText(Speaking_1_Activity.this,"corretta",Toast.LENGTH_SHORT).show();
                     }
                 }else{
+                    cali = cali + 0;
                     incorrect.start();
                     if(curso.equals("Ingles")){
                         Toast.makeText(Speaking_1_Activity.this,"wrong: " + respuestaFromBD,Toast.LENGTH_SHORT).show();
@@ -380,6 +422,56 @@ public class Speaking_1_Activity extends AppCompatActivity {
                         Toast.makeText(Speaking_1_Activity.this,"sbagliata: " + respuestaFromBD,Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String b1N = b1.replaceAll(numAletorio,"");
+                actHechas++;
+                String num ="";
+                num = comun.aleatorio(3);
+                Log.i("numeroRamdon",num);
+                switch (num){
+                    case "0":
+                        Intent i = new Intent(Speaking_1_Activity.this, Speaking_1_Activity.class);
+                        i.putExtra("curso",curso);
+                        i.putExtra("lesson",lesson);
+                        i.putExtra("calificacion",String.valueOf(cali));
+                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("boceto1",b1N);
+                        i.putExtra("boceto2",b2);
+                        i.putExtra("boceto3",b3);
+                        startActivity(i);
+                        break;
+
+                    case "1":
+                        Intent intent = new Intent(Speaking_1_Activity.this, Speaking_2_Activity.class);
+                        intent.putExtra("curso",curso);
+                        intent.putExtra("lesson",lesson);
+                        intent.putExtra("calificacion",String.valueOf(cali));
+                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("boceto1",b1N);
+                        intent.putExtra("boceto2",b2);
+                        intent.putExtra("boceto3",b3);
+                        startActivity(intent);
+                        break;
+
+                    case "2":
+                        Intent intent1 = new Intent(Speaking_1_Activity.this, Speaking_3_Activity.class);
+                        intent1.putExtra("curso",curso);
+                        intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("calificacion",String.valueOf(cali));
+                        intent1.putExtra("actividad",String.valueOf(actHechas));
+                        intent1.putExtra("boceto1",b1N);
+                        intent1.putExtra("boceto2",b2);
+                        intent1.putExtra("boceto3",b3);
+                        startActivity(intent1);
+                        break;
+
+                }
+
             }
         });
     }
@@ -422,6 +514,11 @@ public class Speaking_1_Activity extends AppCompatActivity {
     protected void onDestroy() {
         mp.stop();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed(){
+        return;
     }
 
 }
