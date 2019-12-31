@@ -73,6 +73,8 @@
                         android:text="@string/bottom_calificar"
                         android:theme="@style/RaisedButtonDark" />
 
+
+
                     <Button
                         android:id="@+id/button_continuar_activity_writing_1"
                         android:layout_width="match_parent"

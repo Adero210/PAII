@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp25"
                 android:background="@drawable/button_rounded_signin"
-                android:text="@string/bottom_calificar"
+                android:text="@string/continuar"
                 android:theme="@style/RaisedButtonDark" />
 
         </LinearLayout>

@@ -128,6 +128,8 @@
     <string name="last_seen">Last seen</string>
     <string name="Escribemensaje">Envia un mensaje</string>
     <string name="continuar">Continuar</string>
+    <string name="calificacion">Calificacion</string>
+    <string name="save10">10</string>
 
 
 </resources>

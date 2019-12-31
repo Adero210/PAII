@@ -2,6 +2,7 @@ package ceti.edu.paii.activities.listening.vocabulary;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,8 +33,12 @@ import java.util.Stack;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.activities.listening.grammar.Grammar_1_Activity;
+import ceti.edu.paii.activities.listening.speaking.Speaking_1_Activity;
+import ceti.edu.paii.activities.listening.speaking.Speaking_2_Activity;
+import ceti.edu.paii.activities.listening.speaking.Speaking_3_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_3_Activity;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.view.ResumenActividad;
 
 public class Vocabulary_1_Activity extends AppCompatActivity {
 
@@ -59,11 +64,19 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
     private ImageView imap3;
     private ImageView imap4;
 
+    private String tipo;
+
+    int actHechas, cali;
+    private String b1,b2,b3,b4, calis, actHechasS;
+
+    private  String numAletorio ="";
+
     private ProgressDialog progressDialog;
     private static String URL_ACTR2 = comun.URL + "proyecto/vocabulary1Act.php";
     private String respuestaFromBD = "";
-    private String respuestaUser;
+    private String respuestaUser="";
     private MediaPlayer mediaPlayer,incorrect;
+    private int numerosPreuntas = 5;
 
 
 
@@ -72,85 +85,132 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vocabulary_1_);
 
-        progressDialog =  new ProgressDialog(Vocabulary_1_Activity.this);
-
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
-
-        mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
-        incorrect = MediaPlayer.create(this,R.raw.wrong);
-
-        oracion = findViewById(R.id.titulo_vocabulary_1);
-        img1 = findViewById(R.id.image_1_vocabulary_1);
-        img2 = findViewById(R.id.image_2_vocabulary_1);
-        img3 = findViewById(R.id.image_3_vocabulary_1);
-        img4 = findViewById(R.id.image_4_vocabulary_1);
-
-        imap1 = findViewById(R.id.palomita1_voca_1);
-        imap2 = findViewById(R.id.palomita2_voca_1);
-        imap3 = findViewById(R.id.palomita3_voca_1);
-        imap4 = findViewById(R.id.palomita4_voca_1);
-
-        text1 = findViewById(R.id.textimage_1_vocabulary_1);
-        text2 = findViewById(R.id.textimage_2_vocabulary_1);
-        text3 = findViewById(R.id.textimage_3_vocabulary_1);
-        text4 = findViewById(R.id.textimage_4_vocabulary_1);
-
-        imap1.setVisibility(View.GONE);
-        imap2.setVisibility(View.GONE);
-        imap3.setVisibility(View.GONE);
-        imap4.setVisibility(View.GONE);
-
-        revisar = findViewById(R.id.button_activity_vocabulary_1);
-        continuar = findViewById(R.id.button_activity_con_vocabulary_1);
-
-        curso = getIntent().getStringExtra("curso");
+        curso  = getIntent().getStringExtra("curso");
         lesson = getIntent().getStringExtra("lesson");
-
-        String numAletorio = aleatorio();
-
-        int lessonint = Integer.parseInt(lesson);
-
-        if(curso.equals("Italiano")){
-            switch (lesson) {
-
-                case "1":
-                    lessonint = 11;
-                    break;
-                case "2":
-                    lessonint = 12;
-                    break;
-                case "3":
-                    lessonint = 13;
-                    break;
-                case "4":
-                    lessonint = 14;
-                    break;
-                case "5":
-                    lessonint = 15;
-                    break;
-                case "6":
-                    lessonint = 16;
-                    break;
-                case "7":
-                    lessonint = 17;
-                    break;
-                case "8":
-                    lessonint = 18;
-                    break;
-                case "9":
-                    lessonint = 19;
-                    break;
-                case "10":
-                    lessonint = 20;
-                    break;
+        calis   = getIntent().getStringExtra("calificacion");
+        actHechasS = getIntent().getStringExtra("actividad");
+        b1 = getIntent().getStringExtra("boceto1");
+        b2 = getIntent().getStringExtra("boceto2");
+        b3 = getIntent().getStringExtra("boceto3");
+        b4 = getIntent().getStringExtra("boceto4");
+        tipo = getIntent().getStringExtra("tipo");
+        cali = Integer.valueOf(calis);
+        actHechas = Integer.valueOf(actHechasS);
 
 
+        if(actHechas<=8) {
+
+            progressDialog = new ProgressDialog(Vocabulary_1_Activity.this);
+
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setCancelable(false);
+
+            mediaPlayer = MediaPlayer.create(this, R.raw.correctding);
+            incorrect = MediaPlayer.create(this, R.raw.wrong);
+
+            oracion = findViewById(R.id.titulo_vocabulary_1);
+            img1 = findViewById(R.id.image_1_vocabulary_1);
+            img2 = findViewById(R.id.image_2_vocabulary_1);
+            img3 = findViewById(R.id.image_3_vocabulary_1);
+            img4 = findViewById(R.id.image_4_vocabulary_1);
+
+            imap1 = findViewById(R.id.palomita1_voca_1);
+            imap2 = findViewById(R.id.palomita2_voca_1);
+            imap3 = findViewById(R.id.palomita3_voca_1);
+            imap4 = findViewById(R.id.palomita4_voca_1);
+
+            text1 = findViewById(R.id.textimage_1_vocabulary_1);
+            text2 = findViewById(R.id.textimage_2_vocabulary_1);
+            text3 = findViewById(R.id.textimage_3_vocabulary_1);
+            text4 = findViewById(R.id.textimage_4_vocabulary_1);
+
+            imap1.setVisibility(View.GONE);
+            imap2.setVisibility(View.GONE);
+            imap3.setVisibility(View.GONE);
+            imap4.setVisibility(View.GONE);
+
+
+            revisar = findViewById(R.id.button_activity_vocabulary_1);
+            continuar = findViewById(R.id.button_activity_con_vocabulary_1);
+
+
+            numAletorio = comun.aleatorio(numerosPreuntas);
+
+            if(b1.contains(numAletorio)) {
+                if (curso.equals("Ingles")) {
+                    oracion.setText("Listen and Repeat");
+                } else if (curso.equals("Italiano")) {
+                    oracion.setText("Ascolta e ripeti");
+                }
+
+                int lessonint = Integer.parseInt(lesson);
+
+                if (curso.equals("Italiano")) {
+                    switch (lesson) {
+
+                        case "1":
+                            lessonint = 11;
+                            break;
+                        case "2":
+                            lessonint = 12;
+                            break;
+                        case "3":
+                            lessonint = 13;
+                            break;
+                        case "4":
+                            lessonint = 14;
+                            break;
+                        case "5":
+                            lessonint = 15;
+                            break;
+                        case "6":
+                            lessonint = 16;
+                            break;
+                        case "7":
+                            lessonint = 17;
+                            break;
+                        case "8":
+                            lessonint = 18;
+                            break;
+                        case "9":
+                            lessonint = 19;
+                            break;
+                        case "10":
+                            lessonint = 20;
+                            break;
+
+
+                    }
+                }
+
+                bringTheInfo(lessonint - 1, numAletorio);
+                opciones();
+            }else {
+
+                Intent i = new Intent(Vocabulary_1_Activity.this, Vocabulary_1_Activity.class);
+                i.putExtra("curso",curso);
+                i.putExtra("lesson",lesson);
+                i.putExtra("tipo",tipo);
+
+                i.putExtra("calificacion",String.valueOf(cali));
+                i.putExtra("actividad",String.valueOf(actHechas));
+                i.putExtra("boceto1",b1);
+                i.putExtra("boceto2",b2);
+                i.putExtra("boceto3",b3);
+                i.putExtra("boceto4",b4);
+                startActivity(i);
             }
-        }
 
-        bringTheInfo(lessonint - 1, numAletorio);
-        opciones();
+        } else {
+            Intent i = new Intent(Vocabulary_1_Activity.this, ResumenActividad.class);
+            i.putExtra("curso",curso);
+            i.putExtra("lesson",lesson);
+            i.putExtra("tipo",tipo);
+
+            i.putExtra("calificacion", String.valueOf(cali));
+            startActivity(i);
+
+        }
     }
 
     private void opciones() {
@@ -210,6 +270,7 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
                 continuar.setVisibility(View.VISIBLE);
                 if(respuestaUser.equals(respuestaFromBD)){
                     mediaPlayer.start();
+                    cali = cali + 100;
                     if(curso.equals("Ingles")){
                         Toast.makeText(Vocabulary_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
                     }
@@ -218,12 +279,90 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
                     }
                 }else{
                     incorrect.start();
+                    cali = cali + 0;
+
                     if(curso.equals("Ingles")){
                         Toast.makeText(Vocabulary_1_Activity.this,"wrong",Toast.LENGTH_SHORT).show();
                     }
                     else if(curso.equals("Italiano")){
                         Toast.makeText(Vocabulary_1_Activity.this,"sbagliata",Toast.LENGTH_SHORT).show();
                     }
+                }
+            }
+        });
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String b1N = b1.replaceAll(numAletorio,"");
+                actHechas++;
+                String num ="";
+                num = comun.aleatorio(4);
+                Log.i("numeroRamdon",num);
+                switch (num){
+                    case "0":
+                        Intent i = new Intent(Vocabulary_1_Activity.this, Vocabulary_1_Activity.class);
+                        i.putExtra("curso",curso);
+                        i.putExtra("lesson",lesson);
+                        i.putExtra("tipo",tipo);
+
+                        i.putExtra("calificacion",String.valueOf(cali));
+                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("boceto1",b1N);
+                        i.putExtra("boceto2",b2);
+                        i.putExtra("boceto3",b3);
+                        i.putExtra("boceto4",b4);
+
+                        startActivity(i);
+                        break;
+
+                    case "1":
+                        Intent intent = new Intent(Vocabulary_1_Activity.this, Vocabulary_2_Activity.class);
+                        intent.putExtra("curso",curso);
+                        intent.putExtra("lesson",lesson);
+                        intent.putExtra("tipo",tipo);
+
+                        intent.putExtra("calificacion",String.valueOf(cali));
+                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("boceto1",b1N);
+                        intent.putExtra("boceto2",b2);
+                        intent.putExtra("boceto3",b3);
+                        intent.putExtra("boceto4",b4);
+
+                        startActivity(intent);
+                        break;
+
+                    case "2":
+                        Intent intent1 = new Intent(Vocabulary_1_Activity.this, Vocabulary_3_Activity.class);
+                        intent1.putExtra("curso",curso);
+                        intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("tipo",tipo);
+
+                        intent1.putExtra("calificacion",String.valueOf(cali));
+                        intent1.putExtra("actividad",String.valueOf(actHechas));
+                        intent1.putExtra("boceto1",b1N);
+                        intent1.putExtra("boceto2",b2);
+                        intent1.putExtra("boceto3",b3);
+                        intent1.putExtra("boceto4",b4);
+
+                        startActivity(intent1);
+                        break;
+
+                    case "3":
+                        Intent intent2 = new Intent(Vocabulary_1_Activity.this, Vocabulary_4_Activity.class);
+                        intent2.putExtra("curso",curso);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("tipo",tipo);
+
+                        intent2.putExtra("calificacion",String.valueOf(cali));
+                        intent2.putExtra("actividad",String.valueOf(actHechas));
+                        intent2.putExtra("boceto1",b1N);
+                        intent2.putExtra("boceto2",b2);
+                        intent2.putExtra("boceto3",b3);
+                        intent2.putExtra("boceto4",b4);
+
+                        startActivity(intent2);
+                        break;
+
                 }
             }
         });
@@ -329,28 +468,10 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-    private String aleatorio(){
-        // AleatoriSinRepeticion();
-        String num = "";
-        int pos;
-        int nCartas = 5;
-        Stack< Integer > pCartas = new Stack < Integer > ();
-        for (int i = 0; i < nCartas ; i++) {
-            pos = (int) Math.floor(Math.random() * nCartas );
-            while (pCartas.contains(pos)) {
-                pos = (int) Math.floor(Math.random() * nCartas );
-            }
 
-            pCartas.push(pos);
-            num = String.valueOf(pos);
-        }
-        Log.i("Numeros",pCartas.toString());
 
-        return num;
-    }
-
-    /*@Override
+    @Override
     public void onBackPressed(){
         return;
-    }*/
+    }
 }

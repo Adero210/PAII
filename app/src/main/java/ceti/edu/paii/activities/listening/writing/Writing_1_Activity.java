@@ -2,6 +2,7 @@ package ceti.edu.paii.activities.listening.writing;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
@@ -37,14 +38,20 @@ import java.util.Map;
 import java.util.Stack;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_1_Activity;
+import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_2_Activity;
+import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_3_Activity;
+import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_4_Activity;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.view.ResumenActividad;
 
 public class Writing_1_Activity extends AppCompatActivity {
 
-    private TextView  oracionText;
+    private TextView  oracion;
     private ProgressDialog progressDialog;
     private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
 
+    private String tipo;
     private String boceto = "1";
 
     private String respuestaFromBD = "";
@@ -52,11 +59,23 @@ public class Writing_1_Activity extends AppCompatActivity {
     private MediaPlayer mediaPlayer,incorrect;
 
     private Button calificar;
+    private Button continuar;
+
+    private int numerosPreuntas = 5;
+
+    private String curso;
+    private String lesson;
+
+    int actHechas, cali;
+    private String b1,b2,b3, calis, actHechasS;
+
+    private  String numAletorio ="";
+
 
     private FirebaseStorage storage;
     private StorageReference mAudioStorage;
 
-    private Button continuar;
+
 
     Button play_pause;
     MediaPlayer mp;
@@ -69,73 +88,120 @@ public class Writing_1_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writing_1_);
 
-        progressDialog =  new ProgressDialog(Writing_1_Activity.this);
+        curso  = getIntent().getStringExtra("curso");
+        lesson = getIntent().getStringExtra("lesson");
+        calis   = getIntent().getStringExtra("calificacion");
+        actHechasS = getIntent().getStringExtra("actividad");
+        b1 = getIntent().getStringExtra("boceto1");
+        b2 = getIntent().getStringExtra("boceto2");
+        b3 = getIntent().getStringExtra("boceto3");
+        tipo = getIntent().getStringExtra("tipo");
+        cali = Integer.valueOf(calis);
+        actHechas = Integer.valueOf(actHechasS);
 
-        storage = FirebaseStorage.getInstance();
-        mAudioStorage = FirebaseStorage.getInstance().getReference();
+        if(actHechas<=8) {
 
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
+            progressDialog = new ProgressDialog(Writing_1_Activity.this);
 
-        mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
-        incorrect = MediaPlayer.create(this,R.raw.wrong);
-        oracionText = findViewById(R.id.textview_1_activity_writing_1);
-        respuestaUser = findViewById(R.id.editText_1_activity_writing_1);
+            storage = FirebaseStorage.getInstance();
+            mAudioStorage = FirebaseStorage.getInstance().getReference();
 
-        calificar = findViewById(R.id.button_activity_Writing_1);
-        continuar = findViewById(R.id.button_continuar_activity_writing_1);
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setCancelable(false);
 
-        play_pause = findViewById(R.id.play_pause_1_activity_writing_1);
+            mediaPlayer = MediaPlayer.create(this, R.raw.correctding);
+            incorrect = MediaPlayer.create(this, R.raw.wrong);
+            oracion = findViewById(R.id.textview_1_activity_writing_1);
+            respuestaUser = findViewById(R.id.editText_1_activity_writing_1);
 
-        mp = new MediaPlayer();
+            calificar = findViewById(R.id.button_activity_Writing_1);
+            continuar = findViewById(R.id.button_continuar_activity_writing_1);
 
-        String curso = getIntent().getStringExtra("curso");
-        String lesson = getIntent().getStringExtra("lesson");
+            play_pause = findViewById(R.id.play_pause_1_activity_writing_1);
 
-        String numAletorio = aleatorio();
+            mp = new MediaPlayer();
 
-        int lessonint = Integer.parseInt(lesson);
+            numAletorio = comun.aleatorio(numerosPreuntas);
+            if(b1.contains(numAletorio)) {
+                if (curso.equals("Ingles")) {
+                    oracion.setText("Listen and Repeat");
+                } else if (curso.equals("Italiano")) {
+                    oracion.setText("Ascolta e ripeti");
+                }
 
-        if(curso.equals("Italiano")){
-            switch (lesson) {
+                int lessonint = Integer.parseInt(lesson);
 
-                case "1":
-                    lessonint = 11;
-                    break;
-                case "2":
-                    lessonint = 12;
-                    break;
-                case "3":
-                    lessonint = 13;
-                    break;
-                case "4":
-                    lessonint = 14;
-                    break;
-                case "5":
-                    lessonint = 15;
-                    break;
-                case "6":
-                    lessonint = 16;
-                    break;
-                case "7":
-                    lessonint = 17;
-                    break;
-                case "8":
-                    lessonint = 18;
-                    break;
-                case "9":
-                    lessonint = 19;
-                    break;
-                case "10":
-                    lessonint = 20;
-                    break;
+                if (curso.equals("Italiano")) {
+                    switch (lesson) {
+
+                        case "1":
+                            lessonint = 11;
+                            break;
+                        case "2":
+                            lessonint = 12;
+                            break;
+                        case "3":
+                            lessonint = 13;
+                            break;
+                        case "4":
+                            lessonint = 14;
+                            break;
+                        case "5":
+                            lessonint = 15;
+                            break;
+                        case "6":
+                            lessonint = 16;
+                            break;
+                        case "7":
+                            lessonint = 17;
+                            break;
+                        case "8":
+                            lessonint = 18;
+                            break;
+                        case "9":
+                            lessonint = 19;
+                            break;
+                        case "10":
+                            lessonint = 20;
+                            break;
 
 
+                    }
+                }
+
+                bringTheInfo(lessonint - 1, numAletorio);
+                opciones();
+
+            }else {
+
+                Intent i = new Intent(Writing_1_Activity.this, Writing_1_Activity.class);
+                i.putExtra("curso",curso);
+                i.putExtra("lesson",lesson);
+                i.putExtra("tipo",tipo);
+
+                i.putExtra("calificacion",String.valueOf(cali));
+                i.putExtra("actividad",String.valueOf(actHechas));
+                i.putExtra("boceto1",b1);
+                i.putExtra("boceto2",b2);
+                i.putExtra("boceto3",b3);
+                startActivity(i);
             }
+
+        }else {
+            Intent i = new Intent(Writing_1_Activity.this, ResumenActividad.class);
+            i.putExtra("curso",curso);
+            i.putExtra("lesson",lesson);
+            i.putExtra("tipo",tipo);
+
+            i.putExtra("calificacion", String.valueOf(cali));
+            startActivity(i);
+
         }
 
-        bringTheInfo(lessonint - 1, numAletorio);
 
+    }
+
+    private void opciones() {
         calificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,21 +215,21 @@ public class Writing_1_Activity extends AppCompatActivity {
 
                 if(ans.equals(respuestaFromBD)){
                     mediaPlayer.start();
+                    cali = cali + 100;
                     Toast.makeText(Writing_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
-
                 }else if(ans.equals(resMay)){
-
                     mediaPlayer.start();
+                    cali = cali + 100;
                     Toast.makeText(Writing_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
-
                 }else if(ans.equals(resMin)){
                     mediaPlayer.start();
+                    cali = cali + 100;
                     Toast.makeText(Writing_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
                 }else{
                     incorrect.start();
+                    cali = cali + 0;
                     Toast.makeText(Writing_1_Activity.this,"Correct answer: " + respuestaFromBD,Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
@@ -178,6 +244,60 @@ public class Writing_1_Activity extends AppCompatActivity {
                     //
                     mp.start();
                     play_pause.setBackgroundResource(R.drawable.pause);
+                }
+            }
+        });
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String b1N = b1.replaceAll(numAletorio,"");
+                actHechas++;
+                String num;
+                num = comun.aleatorio(3);
+                Log.i("numeroRamdon",num);
+                switch (num){
+                    case "0":
+                        Intent i = new Intent(Writing_1_Activity.this, Writing_1_Activity.class);
+                        i.putExtra("curso",curso);
+                        i.putExtra("lesson",lesson);
+                        i.putExtra("tipo",tipo);
+
+                        i.putExtra("calificacion",String.valueOf(cali));
+                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("boceto1",b1N);
+                        i.putExtra("boceto2",b2);
+                        i.putExtra("boceto3",b3);
+                        startActivity(i);
+                        break;
+
+                    case "1":
+                        Intent intent = new Intent(Writing_1_Activity.this, Writing_2_Activity.class);
+                        intent.putExtra("curso",curso);
+                        intent.putExtra("lesson",lesson);
+                        intent.putExtra("tipo",tipo);
+
+                        intent.putExtra("calificacion",String.valueOf(cali));
+                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("boceto1",b1N);
+                        intent.putExtra("boceto2",b2);
+                        intent.putExtra("boceto3",b3);
+                        startActivity(intent);
+                        break;
+
+                    case "2":
+                        Intent intent1 = new Intent(Writing_1_Activity.this, Writing_3_Activity.class);
+                        intent1.putExtra("curso",curso);
+                        intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("tipo",tipo);
+
+                        intent1.putExtra("calificacion",String.valueOf(cali));
+                        intent1.putExtra("actividad",String.valueOf(actHechas));
+                        intent1.putExtra("boceto1",b1N);
+                        intent1.putExtra("boceto2",b2);
+                        intent1.putExtra("boceto3",b3);
+                        startActivity(intent1);
+                        break;
+
                 }
             }
         });
@@ -304,9 +424,9 @@ public class Writing_1_Activity extends AppCompatActivity {
         return num;
     }
 
-    /*  @Override
+    @Override
     public void onBackPressed(){
         return;
-    }*/
+    }
 
 }

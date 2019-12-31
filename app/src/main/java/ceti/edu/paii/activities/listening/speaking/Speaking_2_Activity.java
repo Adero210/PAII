@@ -60,6 +60,8 @@ public class Speaking_2_Activity extends AppCompatActivity {
 
     int actHechas, cali;
 
+    private String tipo;
+
     private String b1,b2,b3, calis, actHechasS;
 
     private FloatingActionButton record;
@@ -111,7 +113,7 @@ public class Speaking_2_Activity extends AppCompatActivity {
         b1 = getIntent().getStringExtra("boceto1");
         b2 = getIntent().getStringExtra("boceto2");
         b3 = getIntent().getStringExtra("boceto3");
-
+        tipo = getIntent().getStringExtra("tipo");
 
         cali = Integer.valueOf(calis);
         actHechas = Integer.valueOf(actHechasS);
@@ -263,6 +265,8 @@ public class Speaking_2_Activity extends AppCompatActivity {
             Intent i = new Intent(Speaking_2_Activity.this, Speaking_2_Activity.class);
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
+            i.putExtra("tipo",tipo);
+
             i.putExtra("calificacion",String.valueOf(cali));
             i.putExtra("actividad",String.valueOf(actHechas));
             i.putExtra("boceto1",b1);
@@ -277,6 +281,8 @@ public class Speaking_2_Activity extends AppCompatActivity {
             Intent i = new Intent(Speaking_2_Activity.this, ResumenActividad.class);
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
+
+            i.putExtra("tipo",tipo);
             i.putExtra("calificacion", String.valueOf(cali));
             startActivity(i);
 
@@ -445,6 +451,8 @@ public class Speaking_2_Activity extends AppCompatActivity {
                         Intent i = new Intent(Speaking_2_Activity.this, Speaking_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
+                        i.putExtra("tipo",tipo);
+
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
                         i.putExtra("boceto1",b1);
@@ -457,6 +465,8 @@ public class Speaking_2_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Speaking_2_Activity.this, Speaking_2_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
+                        intent.putExtra("tipo",tipo);
+
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
                         intent.putExtra("boceto1",b1);
@@ -469,6 +479,8 @@ public class Speaking_2_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Speaking_2_Activity.this, Speaking_3_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("tipo",tipo);
+
                         intent1.putExtra("calificacion",String.valueOf(cali));
                         intent1.putExtra("actividad",String.valueOf(actHechas));
                         intent1.putExtra("boceto1",b1);

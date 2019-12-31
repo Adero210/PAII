@@ -18,7 +18,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.ResumenActividad"></activity>
+        <activity android:name=".view.DiagnosticoExam"></activity>
+        <activity android:name=".view.ResumenActividad" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

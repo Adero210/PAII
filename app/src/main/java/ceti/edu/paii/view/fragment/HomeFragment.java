@@ -35,16 +35,8 @@ import ceti.edu.paii.R;
 import ceti.edu.paii.adapter.PictureAdapterRecyclerView;
 import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.model.Picture;
-import ceti.edu.paii.view.SessionManager;
-import ceti.edu.paii.view.Settings;
 
 import static ceti.edu.paii.R.id.pictureRecycler;
-
-/**
- * A simple {@link Fragment} subclass.
- *
- *
- */
 
 
 public class HomeFragment extends Fragment {
@@ -58,17 +50,13 @@ public class HomeFragment extends Fragment {
     private String nameCurseIt;
     private TextView mensajeError;
 
-
     public HomeFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         showToolbar(getResources().getString(R.string.tab_home),false,view);
@@ -129,6 +117,7 @@ public class HomeFragment extends Fragment {
                                     terminadoIt = object.getString("terminado1").trim();
                                     nameCurseIt = object.getString("nameCurse1").trim();
 
+                                    comun.userNameLec = strName;
 
                                     Log.i("ggrrr", terminadoIn + terminadoIt + nameCurseIn + nameCurseIt + strName);
                                     comun.userName = strName;
@@ -182,7 +171,6 @@ public class HomeFragment extends Fragment {
 
     public ArrayList<Picture> buidPictures(){
 
-
         Log.i("ggrrr", terminadoIn + terminadoIt + nameCurseIn + nameCurseIt );
 
         ArrayList<Picture> pictures = new ArrayList<>();
@@ -193,16 +181,12 @@ public class HomeFragment extends Fragment {
         return pictures;
     }
 
-
     public void showToolbar(String tittle, boolean upButton,View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(tittle);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
     }
-
-
-
 
 }
 

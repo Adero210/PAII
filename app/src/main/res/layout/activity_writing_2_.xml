@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textview_1_activity_writing_1"
+                android:id="@+id/textview_1_activity_writing_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/acomoda"
@@ -40,7 +40,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textview_1_activity_writing_2"
+                        android:id="@+id/textview_2_activity_writing_2"
                         android:textSize="@dimen/sp20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

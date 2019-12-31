@@ -49,6 +49,8 @@ public class Listening_4_Activity extends AppCompatActivity {
 
     private String b1,b2, calis, actHechasS;
 
+    private String tipo;
+
     private Button opc1;
     private Button opc2;
     private Button opc3;
@@ -95,6 +97,7 @@ public class Listening_4_Activity extends AppCompatActivity {
         actHechasS = getIntent().getStringExtra("actividad");
         b1 = getIntent().getStringExtra("boceto1");
         b2 = getIntent().getStringExtra("boceto2");
+        tipo = getIntent().getStringExtra("tipo");
 
         cali = Integer.valueOf(calis);
         actHechas = Integer.valueOf(actHechasS);
@@ -191,6 +194,8 @@ public class Listening_4_Activity extends AppCompatActivity {
                     Intent i = new Intent(Listening_4_Activity.this, Listening_4_Activity.class);
                     i.putExtra("curso",curso);
                     i.putExtra("lesson",lesson);
+                    i.putExtra("tipo",tipo);
+
                     i.putExtra("calificacion",String.valueOf(cali));
                     i.putExtra("actividad",String.valueOf(actHechas));
                     i.putExtra("boceto1",b1);
@@ -202,7 +207,8 @@ public class Listening_4_Activity extends AppCompatActivity {
                 Intent i = new Intent(Listening_4_Activity.this, ResumenActividad.class);
                  i.putExtra("curso",curso);
                  i.putExtra("lesson",lesson);
-                i.putExtra("calificacion", String.valueOf(cali));
+                 i.putExtra("tipo",tipo);
+                 i.putExtra("calificacion", String.valueOf(cali));
 
                 startActivity(i);
 
@@ -440,6 +446,8 @@ public class Listening_4_Activity extends AppCompatActivity {
                         Intent i = new Intent(Listening_4_Activity.this, Listening_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
+                        i.putExtra("tipo",tipo);
+
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
                         i.putExtra("boceto1",b1);
@@ -451,6 +459,7 @@ public class Listening_4_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Listening_4_Activity.this, Listening_4_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
+                        intent.putExtra("tipo",tipo);
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
                         intent.putExtra("boceto1",b1);
