@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance();
-        authStateListener =  new FirebaseAuth.AuthStateListener() {
+        authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("Dataface",emailFaceBook + userNameFaceBook + telface);
                     getId = firebaseAuth.getUid();
                     Log.w(TAG, "USER LOGIN" + firebaseUser.getEmail());
-                 //   insertDataFacebook();
+                    insertDataFacebook();
                     goHome();
                 } else {
                     Log.w(TAG, "USER no LOGIN");
@@ -250,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             progressDialog.dismiss();
                             e.printStackTrace();
+                            Log.i("eerrroor",e.toString());
                             Toast.makeText(MainActivity.this, "Error del catch! " + e.toString(), Toast.LENGTH_SHORT).show();
 
                         }
@@ -261,6 +262,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
+                        Log.i("eerrroor",error.toString());
+
                         Toast.makeText(MainActivity.this, "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })

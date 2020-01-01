@@ -460,7 +460,6 @@ public class Activities_Activity extends AppCompatActivity {
                         intent2.putExtra("tipo",tipo);
 
                         intent2.putExtra("calificacion",calificacion);
-                        intent2.putExtra("actividad",actHechas);
                         intent2.putExtra("boceto1",actB1);
                         intent2.putExtra("boceto2",actB2);
                         startActivity(intent2);
@@ -472,6 +471,7 @@ public class Activities_Activity extends AppCompatActivity {
         btnGrammar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tipo = "5";
                 String num ="";
                 String  actHechas = "1";
                 String calificacion = "0";
@@ -486,6 +486,8 @@ public class Activities_Activity extends AppCompatActivity {
                        Intent i = new Intent(Activities_Activity.this, Grammar_1_Activity.class);
                        i.putExtra("curso",language);
                        i.putExtra("lesson",lesson);
+                       i.putExtra("tipo",tipo);
+
                        i.putExtra("calificacion",calificacion);
                        i.putExtra("actividad",actHechas);
                        i.putExtra("boceto1",actB1);
@@ -498,6 +500,8 @@ public class Activities_Activity extends AppCompatActivity {
                        Intent intent = new Intent(Activities_Activity.this, Grammar_2_Activity.class);
                        intent.putExtra("curso",language);
                        intent.putExtra("lesson",lesson);
+                       intent.putExtra("tipo",tipo);
+
                        intent.putExtra("calificacion",calificacion);
                        intent.putExtra("actividad",actHechas);
                        intent.putExtra("boceto1",actB1);
@@ -510,6 +514,8 @@ public class Activities_Activity extends AppCompatActivity {
                        Intent intent1 = new Intent(Activities_Activity.this, Grammar_3_Activity.class);
                        intent1.putExtra("curso",language);
                        intent1.putExtra("lesson",lesson);
+                       intent1.putExtra("tipo",tipo);
+
                        intent1.putExtra("calificacion",calificacion);
                        intent1.putExtra("actividad",actHechas);
                        intent1.putExtra("boceto1",actB1);
@@ -522,6 +528,8 @@ public class Activities_Activity extends AppCompatActivity {
                        Intent intent2 = new Intent(Activities_Activity.this, Grammar_3_Activity.class);
                        intent2.putExtra("curso",language);
                        intent2.putExtra("lesson",lesson);
+                       intent2.putExtra("tipo",tipo);
+
                        intent2.putExtra("calificacion",calificacion);
                        intent2.putExtra("actividad",actHechas);
                        intent2.putExtra("boceto1",actB1);
