@@ -49,7 +49,7 @@ public class Writing_1_Activity extends AppCompatActivity {
 
     private TextView  oracion;
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "genericAct.php";
 
     private String tipo;
     private String boceto = "1";
@@ -124,9 +124,9 @@ public class Writing_1_Activity extends AppCompatActivity {
             numAletorio = comun.aleatorio(numerosPreuntas);
             if(b1.contains(numAletorio)) {
                 if (curso.equals("Ingles")) {
-                    oracion.setText("Listen and Repeat");
+                    oracion.setText("answers");
                 } else if (curso.equals("Italiano")) {
-                    oracion.setText("Ascolta e ripeti");
+                    oracion.setText("risposta");
                 }
 
                 int lessonint = Integer.parseInt(lesson);

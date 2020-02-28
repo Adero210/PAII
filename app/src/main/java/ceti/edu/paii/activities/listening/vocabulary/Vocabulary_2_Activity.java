@@ -44,7 +44,7 @@ public class Vocabulary_2_Activity extends AppCompatActivity {
     private Button calificar;
     private Button continuar;
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "genericAct.php";
 
     int actHechas, cali;
     private String b1,b2,b3,b4, calis, actHechasS;
@@ -107,9 +107,9 @@ public class Vocabulary_2_Activity extends AppCompatActivity {
 
             if(b2.contains(numAletorio)) {
                 if (curso.equals("Ingles")) {
-                    oracion.setText("Listen and Repeat");
+                    oracion.setText("answers");
                 } else if (curso.equals("Italiano")) {
-                    oracion.setText("Ascolta e ripeti");
+                    oracion.setText("risposta");
                 }
 
                 int lessonint = Integer.parseInt(lesson);

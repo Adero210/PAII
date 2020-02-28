@@ -46,10 +46,6 @@ public class LeccionAdapterRecyclerView extends RecyclerView.Adapter<LeccionAdap
     private int resource;
     private Activity activity;
 
-    private static String URL_EDIT = comun.URL + "proyecto/edit_cali.php";
-
-
-
     public LeccionAdapterRecyclerView(ArrayList<Leccion> lecciones, int resource, Activity activity) {
         this.lecciones = lecciones;
         this.resource = resource;
@@ -86,6 +82,9 @@ public class LeccionAdapterRecyclerView extends RecyclerView.Adapter<LeccionAdap
 
                 String numlec = leccion.getLeccionNumber();
                 int lesson = Integer.valueOf(numlec);
+
+                if(lesson == 1) lesson = 21;
+
 
 
                 if (leccion.getLeccionLenguaje().equals("Italiano")) {
@@ -129,8 +128,6 @@ public class LeccionAdapterRecyclerView extends RecyclerView.Adapter<LeccionAdap
 
                 int l = lesson-1;
                 comun.lessonCalis = l;
-                craeteCali(l);
-
 
                 Log.i("lesson:",numlec+leccion.getLeccionLenguaje()+l);
 
@@ -152,57 +149,7 @@ public class LeccionAdapterRecyclerView extends RecyclerView.Adapter<LeccionAdap
                 }
             }
         });
-
     }
-
-    private void craeteCali(final int ins) {
-        final ProgressDialog progressDialog = new ProgressDialog(activity);
-        progressDialog.setMessage("Guardando...");
-        progressDialog.show();
-
-        final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_EDIT,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-
-                            if (success.equals("1")) {
-                                // Toast.makeText(PictureDetailActivity.this, "Exito!", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } catch (JSONException e) {
-                            progressDialog.dismiss();
-                            e.printStackTrace();
-                            // Toast.makeText(PictureDetailActivity.this, "Error del catch! " + e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        // Toast.makeText(Settings.this, "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
-
-
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("name", comun.userNameLec);
-                params.put("leccion",String.valueOf(ins));
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(activity);
-        requestQueue.add(stringRequest);
-    }
-
 
     @Override
     public int getItemCount() {

@@ -103,7 +103,7 @@ public class ChatsFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         final String userName = dataSnapshot.child("name").getValue().toString();
-                        String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
+                        final String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
 
                         if(dataSnapshot.hasChild("online")){
 
@@ -121,10 +121,12 @@ public class ChatsFragment extends Fragment {
                             public void onClick(View v) {
 
 
-                                            Intent chatIntent = new Intent(getActivity(), ChatActivity2.class);
-                                            chatIntent.putExtra("userId",listUserid);
-                                            chatIntent.putExtra("name",userName);
-                                            startActivity(chatIntent );
+                                Intent chatIntent = new Intent(getActivity(), ChatActivity2.class);
+                                chatIntent.putExtra("userId",listUserid);
+                                chatIntent.putExtra("name",userName);
+                                chatIntent.putExtra("image",userThumb);
+
+                                startActivity(chatIntent );
 
 
 

@@ -61,7 +61,7 @@ public class Vocabulary_4_Activity extends AppCompatActivity {
     private Button continuar;
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "genericAct.php";
 
     private String boceto = "4";
 

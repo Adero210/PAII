@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +38,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ceti.edu.paii.BottomSheetDialog;
 import ceti.edu.paii.R;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.model.Message;
 import ceti.edu.paii.model.Picture;
 import ceti.edu.paii.view.PictureDetailActivity;
 import ceti.edu.paii.view.Settings;
@@ -47,10 +50,11 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
 
     private String id;
     private FirebaseAuth firebaseAuth;
-    private ArrayList<Picture> pictures;
-    private static String URL_EDIT = comun.URL + "proyecto/edit_curso.php";
-    private Context context;
+    private String TAG_BOTTOMSHETT = "BottomSheet";
+    private String TAG = "cursuc";
 
+    private ArrayList<Picture> pictures;
+    private static String URL_EDIT = comun.URL + "inscribeUserToCourse.php";
 
     private int resource;
     private Activity activity;
@@ -83,32 +87,54 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
         pictureViewHolder.pictureCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, PictureDetailActivity.class);
-                intent.putExtra("curse_name", picture.getUserName());
 
-                String curso = picture.getUserName();
-                int cursoint = 0;
-                Log.i("cursuc",curso);
-                if (curso.equals("Ingles")){
-                    cursoint = 0;
-                }else if(curso.equals("Italiano")){
-                    cursoint = 1;
-                }
 
-                crearCurso(cursoint);
+               // inscription();
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                    Explode explode = new Explode();
-                    explode.setDuration(100);
-                    activity.getWindow().setExitTransition(explode);
-                    activity.startActivity(intent,
+              //  if(comun.MESSAGE_BOTTON_SHEET.equals("YES")){
+                    Intent intent = new Intent(activity, PictureDetailActivity.class);
+                    intent.putExtra("curse_name", picture.getUserName());
+                    comun.MESSAGE_BOTTON_SHEET= "";
+
+                    String curso = picture.getUserName();
+                    int cursoint = 0;
+                    Log.i(TAG,curso);
+                    if (curso.equals("Ingles")){
+                        cursoint = 1;
+                    }else if(curso.equals("Italiano")){
+                        cursoint = 2;
+                    }
+
+                    intent.putExtra("curse_id", String.valueOf(cursoint));
+
+                    crearCurso(cursoint);
+
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                        Explode explode = new Explode();
+                        explode.setDuration(100);
+                        activity.getWindow().setExitTransition(explode);
+                          activity.startActivity(intent,
                             ActivityOptionsCompat.makeSceneTransitionAnimation(activity, v, activity.getString(R.string.transitionname_picture)).toBundle());
+                  // }else {
+                      //   activity.startActivity(intent);
+                    //}
+
                 }else {
-                    activity.startActivity(intent);
+                    Log.i("MessageBotton",comun.MESSAGE_BOTTON_SHEET);
+                    comun.MESSAGE_BOTTON_SHEET= "";
                 }
+
             }
         });
     }
+
+    private void inscription() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog();
+        bottomSheetDialog.show(comun.fragmentManager,TAG_BOTTOMSHETT);
+
+        Log.i("MessageBotton",comun.MESSAGE_BOTTON_SHEET);
+    }
+
 
     private void crearCurso(final int cursoint) {
 
@@ -150,8 +176,8 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", id);
-                params.put("cursoId", String.valueOf(cursoint));
+                params.put("firebaseId", id);
+                params.put("courseId", String.valueOf(cursoint));
                 return params;
             }
         };
@@ -163,6 +189,7 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
     public int getItemCount() {
         return pictures.size();
     }
+
 
     public static class PictureViewHolder extends RecyclerView.ViewHolder{
 
@@ -181,4 +208,6 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
 
         }
     }
+
 }
+

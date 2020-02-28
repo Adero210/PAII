@@ -28,13 +28,14 @@ import java.util.Stack;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.view.ResumenActividad;
 
 public class Reading_paragraph_2_Activity extends AppCompatActivity {
     private Button buttoncont;
 
     private ProgressDialog progressDialog;
     private TextView parrafo;
-    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "genericAct.php";
     private String boceto = "4";
     private String pregunta1;
     private String pregunta2;
@@ -44,8 +45,7 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
     private String pregunta6;
     private String pregunta7;
     private String pregunta8;
-    private String pregunta9;
-    private String pregunta10;
+
     private String respuesta1c;
     private String respuesta2c;
     private String respuesta3c;
@@ -54,8 +54,22 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
     private String respuesta6c;
     private String respuesta7c;
     private String respuesta8c;
-    private String respuesta9c;
-    private String respuesta10c;
+
+
+
+
+
+    private String curso;
+    private String lesson;
+
+    private String tipo;
+    private TextView oracion;
+
+
+    int actHechas, cali;
+    private String b1,b2,b3,b4, calis, actHechasS;
+    private  String numAletorio ="";
+    private int numerosPreuntas = 3;
 
 
     @Override
@@ -63,62 +77,95 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reading_paragraph_2_);
 
+        curso  = getIntent().getStringExtra("curso");
+        lesson = getIntent().getStringExtra("lesson");
+        calis   = getIntent().getStringExtra("calificacion");
+        actHechasS = getIntent().getStringExtra("actividad");
+        b1 = getIntent().getStringExtra("boceto1");
+        b2 = getIntent().getStringExtra("boceto2");
+        b3 = getIntent().getStringExtra("boceto3");
+        b4 = getIntent().getStringExtra("boceto4");
+        tipo = getIntent().getStringExtra("tipo");
+        cali = Integer.valueOf(calis);
+        actHechas = Integer.valueOf(actHechasS);
+        oracion = findViewById(R.id.pregunta_parrafo_Reading_2);
 
-        buttoncont = findViewById(R.id.button_activity_reading_parrafo_2);
-        progressDialog =  new ProgressDialog(Reading_paragraph_2_Activity.this);
-        parrafo = findViewById(R.id.parrafo_Reading_2);
+        if(actHechas<=8) {
 
-        progressDialog.setMessage("Cargando...");
-        progressDialog.setCancelable(false);
+            buttoncont = findViewById(R.id.button_activity_reading_parrafo_2);
+            progressDialog = new ProgressDialog(Reading_paragraph_2_Activity.this);
+            parrafo = findViewById(R.id.parrafo_Reading_2);
+
+            progressDialog.setMessage("Cargando...");
+            progressDialog.setCancelable(false);
 
 
-        final String curso = getIntent().getStringExtra("curso");
-        final String lesson = getIntent().getStringExtra("lesson");
-        Log.i("importantstuff",curso+lesson);
+            numAletorio = comun.aleatorio(numerosPreuntas);
 
-        String numAletorio = aleatorio();
+            Log.i("importantstuff", curso + lesson);
 
-        int lessonint = Integer.parseInt(lesson);
 
-        if(curso.equals("Italiano")) {
-            switch (lesson) {
-
-                case "1":
-                    lessonint = 11;
-                    break;
-                case "2":
-                    lessonint = 12;
-                    break;
-                case "3":
-                    lessonint = 13;
-                    break;
-                case "4":
-                    lessonint = 14;
-                    break;
-                case "5":
-                    lessonint = 15;
-                    break;
-                case "6":
-                    lessonint = 16;
-                    break;
-                case "7":
-                    lessonint = 17;
-                    break;
-                case "8":
-                    lessonint = 18;
-                    break;
-                case "9":
-                    lessonint = 19;
-                    break;
-                case "10":
-                    lessonint = 20;
-                    break;
+            if (curso.equals("Ingles")) {
+                oracion.setText("read carefully");
+            } else if (curso.equals("Italiano")) {
+                oracion.setText("leggi attentamente");
             }
+
+
+            int lessonint = Integer.parseInt(lesson);
+
+            if (curso.equals("Italiano")) {
+                switch (lesson) {
+
+                    case "1":
+                        lessonint = 11;
+                        break;
+                    case "2":
+                        lessonint = 12;
+                        break;
+                    case "3":
+                        lessonint = 13;
+                        break;
+                    case "4":
+                        lessonint = 14;
+                        break;
+                    case "5":
+                        lessonint = 15;
+                        break;
+                    case "6":
+                        lessonint = 16;
+                        break;
+                    case "7":
+                        lessonint = 17;
+                        break;
+                    case "8":
+                        lessonint = 18;
+                        break;
+                    case "9":
+                        lessonint = 19;
+                        break;
+                    case "10":
+                        lessonint = 20;
+                        break;
+                }
+            }
+
+            bringTheInfo(lessonint - 1, numAletorio);
+            opciones();
+        }else {
+            Intent i = new Intent(Reading_paragraph_2_Activity.this, ResumenActividad.class);
+            i.putExtra("curso",curso);
+            i.putExtra("lesson",lesson);
+            i.putExtra("tipo",tipo);
+
+            i.putExtra("calificacion", String.valueOf(cali));
+            startActivity(i);
+
         }
 
-        bringTheInfo(lessonint - 1, "0");
+    }
 
-
+    private void opciones() {
         buttoncont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +173,15 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
 
                 i.putExtra("curso", curso);
                 i.putExtra("lesson", lesson);
+
+                i.putExtra("tipo",tipo);
+
+                i.putExtra("calificacion",String.valueOf(cali));
+                i.putExtra("actividad",String.valueOf(actHechas));
+                i.putExtra("boceto1",b1);
+                i.putExtra("boceto2",b2);
+                i.putExtra("boceto3",b3);
+                i.putExtra("boceto4",b4);
 
                 i.putExtra("pregunta1", pregunta1);
                 i.putExtra("pregunta2", pregunta2);
@@ -135,8 +191,7 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
                 i.putExtra("pregunta6", pregunta6);
                 i.putExtra("pregunta7", pregunta7);
                 i.putExtra("pregunta8", pregunta8);
-                i.putExtra("pregunta9", pregunta9);
-                i.putExtra("pregunta10", pregunta10);
+
 
 
                 i.putExtra("respuesta1c", respuesta1c);
@@ -147,8 +202,7 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
                 i.putExtra("respuesta6c", respuesta6c);
                 i.putExtra("respuesta7c", respuesta7c);
                 i.putExtra("respuesta8c", respuesta8c);
-                i.putExtra("respuesta9c", respuesta9c);
-                i.putExtra("respuesta10c", respuesta10c);
+
 
 
                 startActivity(i);
@@ -158,22 +212,17 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
 
     private void bringTheInfo(final int lessontint2, final String numAle) {
         progressDialog.show();
-
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
 
                 try {
-
                     JSONObject jsonObject = new JSONObject(response);
                     String numfilas = jsonObject.getString("filas");
                     String success = jsonObject.getString("success");
                     JSONArray jsonArray = jsonObject.getJSONArray("actr2");
 
                     int numFilas = Integer.parseInt(numfilas);
-
-
 
                     if(success.equals("1")){
                         progressDialog.dismiss();
@@ -191,8 +240,6 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
                             pregunta6 = object.getString("pregunta5");
                             pregunta7 = object.getString("pregunta6");
                             pregunta8 = object.getString("pregunta7");
-                            pregunta9 = object.getString("pregunta8");
-                            pregunta10 = object.getString("pregunta9");
 
                             respuesta1c = object.getString("respuestac0");
                             respuesta2c = object.getString("respuestac1");
@@ -202,38 +249,25 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
                             respuesta6c = object.getString("respuestac5");
                             respuesta7c = object.getString("respuestac6");
                             respuesta8c = object.getString("respuestac7");
-                            respuesta9c = object.getString("respuestac8");
-                            respuesta10c = object.getString("respuestac9");
-
 
 
                             Log.i("PARRAFO", parrafoString);
-
                             parrafo.setText(parrafoString);
-
                         }
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.i("DATAFROMSQL", "success" + e.toString());
-
                     // progressBar.setVisibility(View.GONE);
-
                     Toast.makeText(Reading_paragraph_2_Activity.this,"errorUNO" + e.toString(),Toast.LENGTH_SHORT).show();
                 }
-
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //  progressBar.setVisibility(View.GONE);
-
                         Toast.makeText(Reading_paragraph_2_Activity.this,"error" + error.toString(),Toast.LENGTH_SHORT).show();
-
-
                     }
                 })
         {
@@ -244,34 +278,16 @@ public class Reading_paragraph_2_Activity extends AppCompatActivity {
                 params.put("lesson", String.valueOf(lessontint2));
                 params.put("boceto",boceto);
                 params.put("type","reading");
-
-
                 return params;
             }
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
     }
 
-    private String aleatorio(){
-        // AleatoriSinRepeticion();
-        String num = "";
-        int pos;
-        int nCartas = 3;
-        Stack< Integer > pCartas = new Stack < Integer > ();
-        for (int i = 0; i < nCartas ; i++) {
-            pos = (int) Math.floor(Math.random() * nCartas );
-            while (pCartas.contains(pos)) {
-                pos = (int) Math.floor(Math.random() * nCartas );
-            }
-
-            pCartas.push(pos);
-            num = String.valueOf(pos);
-        }
-        Log.i("Numeros",pCartas.toString());
-
-        return num;
+    @Override
+    public void onBackPressed(){
+        return;
     }
 }

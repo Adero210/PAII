@@ -46,12 +46,10 @@ public class Grammar_3_Activity extends AppCompatActivity {
     private Button calificar;
     private Button continuar;
 
-    private String tipo;
-
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "getActivity.php";
 
-    private String boceto = "3";
+    private String boceto = "1";
 
     private String pregunta = "";
     private String respuestaFromBD = "";
@@ -61,13 +59,10 @@ public class Grammar_3_Activity extends AppCompatActivity {
     private String curso;
     private String lesson;
 
-    private int numerosPreuntas = 5;
-
     int actHechas, cali;
-    private String b1,b2,b3, calis, actHechasS;
+    private String calis, actHechasS;
 
     private  String numAletorio ="";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,15 +73,9 @@ public class Grammar_3_Activity extends AppCompatActivity {
         lesson = getIntent().getStringExtra("lesson");
         calis   = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
-        b1 = getIntent().getStringExtra("boceto1");
-        b2 = getIntent().getStringExtra("boceto2");
-        b3 = getIntent().getStringExtra("boceto3");
-        tipo = getIntent().getStringExtra("tipo");
         cali = Integer.valueOf(calis);
         actHechas = Integer.valueOf(actHechasS);
-        if(actHechas<=8) {
-
-
+        if(actHechas <= 8) {
             progressDialog = new ProgressDialog(Grammar_3_Activity.this);
 
             progressDialog.setMessage("Cargando...");
@@ -104,18 +93,16 @@ public class Grammar_3_Activity extends AppCompatActivity {
             calificar = findViewById(R.id.button_activity_grammar_3);
             continuar = findViewById(R.id.button_continuar_activity_grammar_3);
 
-
             Log.i("curso", curso);
-            numAletorio = comun.aleatorio(numerosPreuntas);
-            if(b3.contains(numAletorio)) {
+            numAletorio = "1";
 
-                if (curso.equals("Ingles")) {
+                if (curso.equals("Inglés")) {
                     titulo.setText("find the correct verb");
                 } else if (curso.equals("Italiano")) {
                     titulo.setText("trova il verbo corretto");
                 }
-
                 int lessonint = Integer.parseInt(lesson);
+                if(lessonint == 1) lessonint = 21;
 
                 if (curso.equals("Italiano")) {
                     switch (lesson) {
@@ -150,35 +137,16 @@ public class Grammar_3_Activity extends AppCompatActivity {
                         case "10":
                             lessonint = 20;
                             break;
-
-
                     }
                 }
-
+                Log.i("PLEASEFUNCIONA", lessonint-1 + numAletorio);
                 bringTheInfo(lessonint - 1, numAletorio);
-
                 opciones();
-            }else {
-
-                Intent i = new Intent(Grammar_3_Activity.this, Grammar_3_Activity.class);
-                i.putExtra("curso",curso);
-                i.putExtra("lesson",lesson);
-                i.putExtra("tipo",tipo);
-
-                i.putExtra("calificacion",String.valueOf(cali));
-                i.putExtra("actividad",String.valueOf(actHechas));
-                i.putExtra("boceto1",b1);
-                i.putExtra("boceto2",b2);
-                i.putExtra("boceto3",b3);
-                startActivity(i);
-            }
 
         }else {
             Intent i = new Intent(Grammar_3_Activity.this, ResumenActividad.class);
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
-            i.putExtra("tipo",tipo);
-
             i.putExtra("calificacion", String.valueOf(cali));
             startActivity(i);
         }
@@ -244,7 +212,6 @@ public class Grammar_3_Activity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String b3N = b3.replaceAll(numAletorio,"");
                 actHechas++;
                 String num;
                 num = comun.aleatorio(3);
@@ -254,13 +221,8 @@ public class Grammar_3_Activity extends AppCompatActivity {
                         Intent i = new Intent(Grammar_3_Activity.this, Grammar_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("tipo",tipo);
-
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
-                        i.putExtra("boceto1",b1);
-                        i.putExtra("boceto2",b2);
-                        i.putExtra("boceto3",b3N);
                         startActivity(i);
                         break;
 
@@ -268,13 +230,8 @@ public class Grammar_3_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Grammar_3_Activity.this, Grammar_2_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("tipo",tipo);
-
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
-                        intent.putExtra("boceto1",b1);
-                        intent.putExtra("boceto2",b2);
-                        intent.putExtra("boceto3",b3N);
                         startActivity(intent);
                         break;
 
@@ -282,13 +239,8 @@ public class Grammar_3_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Grammar_3_Activity.this, Grammar_3_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("tipo",tipo);
-
                         intent1.putExtra("calificacion",String.valueOf(cali));
                         intent1.putExtra("actividad",String.valueOf(actHechas));
-                        intent1.putExtra("boceto1",b1);
-                        intent1.putExtra("boceto2",b2);
-                        intent1.putExtra("boceto3",b3N);
                         startActivity(intent1);
                         break;
                 }
@@ -297,38 +249,31 @@ public class Grammar_3_Activity extends AppCompatActivity {
     }
 
     private void bringTheInfo(final Integer lessonint2, final String numAle) {
-
         progressDialog.show();
-
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
-
-
                 try {
-
+                    Log.i("ahhhha","entre al try");
                     JSONObject jsonObject = new JSONObject(response);
-                    String numfilas = jsonObject.getString("filas");
-                    String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+                    String success = jsonObject.getString("status");
+                    JSONArray jsonArray = jsonObject.getJSONArray("questions");
 
-                    int numFilas = Integer.parseInt(numfilas);
-
-                    if(success.equals("1")){
+                    if (success.equals("GOOD")) {
                         progressDialog.dismiss();
-                        for(int i = 0 ; i < jsonArray.length();i++){
 
-                            JSONObject object =  jsonArray.getJSONObject(i);
+                            JSONObject object =  jsonArray.getJSONObject(0);
+                            JSONArray options = object.getJSONArray("options");
 
-                            for(int h = 0; h < numFilas; h++) {
+                            comun.Optionss opciones = comun.getOptions(options);
 
-                                pregunta = object.getString("pregunta" + h).trim();
-                                respuestaFromBD = object.getString("respuestac" + h);
-                                String opcionA = object.getString("opcA" +h);
-                                String opcionB = object.getString("opcB" +h);
-                                String opcionC = object.getString("opcC" +h);
-                                String opcionD = object.getString("opcD" +h);
+                                pregunta = object.getString("question" ).trim();
+                                respuestaFromBD = object.getString("correct");
+
+                                String opcionA = opciones.opcA;
+                                String opcionB = opciones.opcB;
+                                String opcionC = opciones.opcC;
+                                String opcionD = opciones.opcD;
 
                                 oracion.setText(pregunta);
 
@@ -336,45 +281,28 @@ public class Grammar_3_Activity extends AppCompatActivity {
                                 opc2.setText(opcionB);
                                 opc3.setText(opcionC);
                                 opc4.setText(opcionD);
-
-
-                            }
-
-                        }
                     }
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.i("DATAFROMSQL", "success" + e.toString());
-
-                    // progressBar.setVisibility(View.GONE);
-
                     Toast.makeText(Grammar_3_Activity.this,"errorUNO" + e.toString(),Toast.LENGTH_SHORT).show();
                 }
-
             }
         },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //  progressBar.setVisibility(View.GONE);
-
                         Toast.makeText(Grammar_3_Activity.this,"error" + error.toString(),Toast.LENGTH_SHORT).show();
-
-
                     }
                 })
         {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("pregunta",numAle);
-                params.put("lesson", String.valueOf(lessonint2));
-                params.put("boceto",boceto);
-                params.put("type","grammar");
-
-
+                params.put("numberOfQuestions",numAle);
+                params.put("lectionId", String.valueOf(lessonint2));
+                params.put("sketch",boceto);
+                params.put("typeName","Gramatica");
                 return params;
             }
         };

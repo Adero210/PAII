@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private CallbackManager callbackManager;
     String mEmail, emailFaceBook,userNameFaceBook;
-    private static final String URL_LOGIN= comun.URL+"proyecto/login2.php";
-    private static final String URL_INSERT_FACE= comun.URL+"proyecto/registerFace.php";
+    private static final String URL_LOGIN= comun.URL+"login2.php";
+    private static final String URL_INSERT_FACE= comun.URL+"registerFace.php";
 
     SessionManager sessionManager;
     String getId;
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         miAsyncTask miAsyncTask = new miAsyncTask();
         miAsyncTask.execute(20);
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("Dataface",emailFaceBook + userNameFaceBook + telface);
                     getId = firebaseAuth.getUid();
                     Log.w(TAG, "USER LOGIN" + firebaseUser.getEmail());
-                    insertDataFacebook();
+                    //insertDataFacebook();
                     goHome();
                 } else {
                     Log.w(TAG, "USER no LOGIN");
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void insertDataFacebook(){
+   /* private void insertDataFacebook(){
 
         final String email = emailFaceBook;
         final String nickName = userNameFaceBook;
@@ -281,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
+    }*/
 
 
     private void loginData(final String email){

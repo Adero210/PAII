@@ -41,7 +41,7 @@ import ceti.edu.paii.view.vocabularyThree;
 public class Vocabulary_3_Activity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "genericAct.php";
 
 
     int actHechas, cali;
@@ -125,9 +125,9 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
 
             if(b3.contains(numAletorio)) {
                 if (curso.equals("Ingles")) {
-                    Titulo.setText("Listen and Repeat");
+                    Titulo.setText("answers");
                 } else if (curso.equals("Italiano")) {
-                    Titulo.setText("Ascolta e ripeti");
+                    Titulo.setText("risposta");
                 }
 
 

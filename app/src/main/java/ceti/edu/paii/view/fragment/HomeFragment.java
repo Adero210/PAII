@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ceti.edu.paii.BottomSheetDialog;
 import ceti.edu.paii.R;
 import ceti.edu.paii.adapter.PictureAdapterRecyclerView;
 import ceti.edu.paii.comun.comun;
@@ -43,11 +44,11 @@ public class HomeFragment extends Fragment {
 
     private String id;
     private FirebaseAuth firebaseAuth;
-    private static String URL_READ = comun.URL + "proyecto/read_curso.php";
-    private String terminadoIn;
-    private String nameCurseIn;
-    private String terminadoIt;
-    private String nameCurseIt;
+    private static String URL_READ = comun.URL + "getAllCoursesMobile.php";
+    public static String terminadoIn = "";
+    public static String nameCurseIn = "";
+    public static String terminadoIt = "";
+    public static String nameCurseIt = "";
     private TextView mensajeError;
 
     public HomeFragment() {
@@ -59,7 +60,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        showToolbar(getResources().getString(R.string.tab_home),false,view);
+        showToolbar("Inicio ",false,view);
 
         //Crea un linerLayout para acomodar los recyclerviews
 
@@ -67,7 +68,6 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
         picturesRecycler.setLayoutManager(linearLayoutManager);
-
 
 
         mensajeError = view.findViewById(R.id.mensajeerror);
@@ -104,29 +104,42 @@ public class HomeFragment extends Fragment {
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            JSONArray jsonArray = jsonObject.getJSONArray("read");
-                            if (success.equals("1")) {
+                            Boolean success = jsonObject.getBoolean("success");
+                            JSONArray jsonArray = jsonObject.getJSONArray("courses");
+                            Log.i("ttt", String.valueOf(success));
+
+
+                            if (success == true) {
+                                Double progressEnglishCourse = null;
+                                String nameEnglishCourse = "";
+                                Double progressItalianCourse = null;
+                                String nameItalianCourse = "";
+                                String strName = jsonObject.getString("nickname").trim();
+                                comun.userNameLec = strName;
+                                comun.userName = strName;
+                                comun.getId = id;
+
                                 for (int i = 0; i < jsonArray.length(); i++) {
 
                                     JSONObject object = jsonArray.getJSONObject(i);
 
-                                    String strName = object.getString("name").trim();
-                                    terminadoIn = object.getString("terminado0").trim();
-                                    nameCurseIn = object.getString("nameCurse0").trim();
-                                    terminadoIt = object.getString("terminado1").trim();
-                                    nameCurseIt = object.getString("nameCurse1").trim();
+                                    if(object.getString("id").equals("1")) {
+                                        progressEnglishCourse = object.getDouble("progress");
+                                        nameEnglishCourse = object.getString("name").trim();
+                                    }
+                                    if(object.getString("id").equals("2")){
+                                        progressItalianCourse = object.getDouble("progress");
+                                        nameItalianCourse = object.getString("name").trim();
+                                    }
 
-                                    comun.userNameLec = strName;
-
-                                    Log.i("ggrrr", terminadoIn + terminadoIt + nameCurseIn + nameCurseIt + strName);
-                                    comun.userName = strName;
-                                    comun.getId = id;
-
-                                    inflateView(picturesRecycler);
-
-
+                                    //Log.i("ttt", terminadoIn + terminadoIt + nameCurseIn + nameCurseIt + strName + object);
                                 }
+                                terminadoIn = String.valueOf(progressEnglishCourse);
+                                nameCurseIn = nameEnglishCourse;
+                                terminadoIt = String.valueOf(progressItalianCourse);
+                                nameCurseIt = nameItalianCourse;
+
+                                inflateView(picturesRecycler);
                             }
 
 
@@ -158,7 +171,7 @@ public class HomeFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", id);
+                params.put("firebaseId", id);
                 return params;
             }
         };
@@ -177,7 +190,7 @@ public class HomeFragment extends Fragment {
         pictures.add(new Picture("https://mlstaticquic-a.akamaihd.net/bandera-estados-unidos-eeuu-usa-150x90-envio-gratis-D_NQ_NP_962788-MLU26870601027_022018-F.jpg",
                 nameCurseIn,terminadoIn));
         pictures.add(new Picture("https://wallpapercave.com/wp/wp1841290.jpg",
-                nameCurseIt,terminadoIt));
+                nameCurseIt,String.valueOf(terminadoIt)));
         return pictures;
     }
 

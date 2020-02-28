@@ -1,5 +1,6 @@
 package ceti.edu.paii.activities.listening.reading;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import java.util.Stack;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.comun.comun;
 
 public class Reading_3_Activity extends AppCompatActivity {
 
@@ -73,6 +75,14 @@ public class Reading_3_Activity extends AppCompatActivity {
 
     private Button revisar;
     private Button continuar;
+
+    private String curso;
+    private String lesson;
+
+    private String tipo;
+
+    int actHechas, cali;
+    private String b1,b2,b3,b4, calis, actHechasS;
     
     private String respuestaCorrectaFrom1 = "";
     private String respuestaCorrectaFrom2 = "";
@@ -88,6 +98,18 @@ public class Reading_3_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reading_3_);
+
+        curso  = getIntent().getStringExtra("curso");
+        lesson = getIntent().getStringExtra("lesson");
+        calis   = getIntent().getStringExtra("calificacion");
+        actHechasS = getIntent().getStringExtra("actividad");
+        b1 = getIntent().getStringExtra("boceto1");
+        b2 = getIntent().getStringExtra("boceto2");
+        b3 = getIntent().getStringExtra("boceto3");
+        b4 = getIntent().getStringExtra("boceto4");
+        tipo = getIntent().getStringExtra("tipo");
+        cali = Integer.valueOf(calis);
+        actHechas = Integer.valueOf(actHechasS);
 
         textpregunta1 = findViewById(R.id.pregunta_1_reading_3);
         textpregunta2 = findViewById(R.id.pregunta_2_reading_3);
@@ -149,8 +171,7 @@ public class Reading_3_Activity extends AppCompatActivity {
         String pregunta6 = getIntent().getStringExtra("pregunta6");
         String pregunta7 = getIntent().getStringExtra("pregunta7");
         String pregunta8 = getIntent().getStringExtra("pregunta8");
-        String pregunta9 = getIntent().getStringExtra("pregunta9");
-        String pregunta10 = getIntent().getStringExtra("pregunta10");
+
 
         respuestac1 = getIntent().getStringExtra("respuesta1c");
         respuestac2 = getIntent().getStringExtra("respuesta2c");
@@ -161,11 +182,10 @@ public class Reading_3_Activity extends AppCompatActivity {
         respuestac6 = getIntent().getStringExtra("respuesta6c");
         respuestac7 = getIntent().getStringExtra("respuesta7c");
         respuestac8 = getIntent().getStringExtra("respuesta8c");
-        respuestac9 = getIntent().getStringExtra("respuesta9c");
-        respuestac10 = getIntent().getStringExtra("respuesta10c");
+
 
         int pos;
-        int nCartas = 10;
+        int nCartas = 8;
         Stack<Integer> pCartas = new Stack<Integer>();
         for (int i = 0; i < nCartas; i++) {
             pos = (int) Math.floor(Math.random() * nCartas);
@@ -198,14 +218,13 @@ public class Reading_3_Activity extends AppCompatActivity {
         Log.i("preguntashhh",pregunta6);
         Log.i("preguntashhh",pregunta7);
         Log.i("preguntashhh",pregunta8);
-        Log.i("preguntashhh",pregunta9);
-        Log.i("preguntashhh",pregunta10);
 
-        setPreguntaUno(n[0], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, pregunta10);
-        setPreguntaDos(n[1], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, pregunta10);
-        setPreguntaTres(n[2], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, pregunta10);
-        setPreguntaCuatro(n[3], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, pregunta10);
-        setPreguntaCinco(n[4], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, pregunta10);
+
+        setPreguntaUno(n[0], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8);
+        setPreguntaDos(n[1], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8);
+        setPreguntaTres(n[2], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8);
+        setPreguntaCuatro(n[3], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8);
+        setPreguntaCinco(n[4], pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8);
 
 
 
@@ -229,6 +248,8 @@ public class Reading_3_Activity extends AppCompatActivity {
                 checarPregunta4(respuestaCorrectaFrom4);
                 checarPregunta5(respuestaCorrectaFrom5);
 
+                cali = (cali + ((correctas*100)/5));
+
                 Toast.makeText(Reading_3_Activity.this,"Correctas: " + correctas,Toast.LENGTH_SHORT).show();
 
                 buttonback.setVisibility(View.GONE);
@@ -238,7 +259,69 @@ public class Reading_3_Activity extends AppCompatActivity {
 
             }
         });
-
+        continuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actHechas++;
+                String num ="";
+                num = comun.aleatorio(4);
+                Log.i("numeroRamdon",num);
+                switch (num){
+                    case "0":
+                        Intent i = new Intent(Reading_3_Activity.this, Reading_1_Activity.class);
+                        i.putExtra("curso",curso);
+                        i.putExtra("lesson",lesson);
+                        i.putExtra("tipo",tipo);
+                        i.putExtra("calificacion",String.valueOf(cali));
+                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("boceto1",b1);
+                        i.putExtra("boceto2",b2);
+                        i.putExtra("boceto3",b3);
+                        i.putExtra("boceto4",b4);
+                        startActivity(i);
+                        break;
+                    case "1":
+                        Intent intent = new Intent(Reading_3_Activity.this, Reading_Paragraph_Activity.class);
+                        intent.putExtra("curso",curso);
+                        intent.putExtra("lesson",lesson);
+                        intent.putExtra("tipo",tipo);
+                        intent.putExtra("calificacion",String.valueOf(cali));
+                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("boceto1",b1);
+                        intent.putExtra("boceto2",b2);
+                        intent.putExtra("boceto3",b3);
+                        intent.putExtra("boceto4",b4);
+                        startActivity(intent);
+                        break;
+                    case "2":
+                        Intent intent1 = new Intent(Reading_3_Activity.this, Reading_paragraph_2_Activity.class);
+                        intent1.putExtra("curso",curso);
+                        intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("tipo",tipo);
+                        intent1.putExtra("calificacion",String.valueOf(cali));
+                        intent1.putExtra("actividad",String.valueOf(actHechas));
+                        intent1.putExtra("boceto1",b1);
+                        intent1.putExtra("boceto2",b2);
+                        intent1.putExtra("boceto3",b3);
+                        intent1.putExtra("boceto4",b4);
+                        startActivity(intent1);
+                        break;
+                    case "3":
+                        Intent intent2 = new Intent(Reading_3_Activity.this, Reading_4_Activity.class);
+                        intent2.putExtra("curso",curso);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("tipo",tipo);
+                        intent2.putExtra("calificacion",String.valueOf(cali));
+                        intent2.putExtra("actividad",String.valueOf(actHechas));
+                        intent2.putExtra("boceto1",b1);
+                        intent2.putExtra("boceto2",b2);
+                        intent2.putExtra("boceto3",b3);
+                        intent2.putExtra("boceto4",b4);
+                        startActivity(intent2);
+                        break;
+                }
+            }
+        });
 
     }
 
@@ -1322,7 +1405,7 @@ public class Reading_3_Activity extends AppCompatActivity {
 
     }
 
-    private void setPreguntaCinco(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8, String pregunta9, String pregunta10) {
+    private void setPreguntaCinco(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8) {
 
         switch (s){
             case "0,":
@@ -1362,18 +1445,10 @@ public class Reading_3_Activity extends AppCompatActivity {
                 textpregunta5.setText(pregunta8);
                 respuestaCorrectaFrom5 = "8";
                 break;
-            case "8,":
-                textpregunta5.setText(pregunta9);
-                respuestaCorrectaFrom5 = "9";
-                break;
-            case "9,":
-                textpregunta5.setText(pregunta10);
-                respuestaCorrectaFrom5 = "10";
-                break;
         }
     }
 
-    private void setPreguntaCuatro(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8, String pregunta9, String pregunta10) {
+    private void setPreguntaCuatro(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8) {
 
         switch (s){
             case "0,":
@@ -1413,18 +1488,11 @@ public class Reading_3_Activity extends AppCompatActivity {
                 textpregunta4.setText(pregunta8);
                 respuestaCorrectaFrom4 = "8";
                 break;
-            case "8,":
-                textpregunta4.setText(pregunta9);
-                respuestaCorrectaFrom4 = "9";
-                break;
-            case "9,":
-                textpregunta4.setText(pregunta10);
-                respuestaCorrectaFrom4 = "10";
-                break;
+
         }
     }
 
-    private void setPreguntaTres(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8, String pregunta9, String pregunta10) {
+    private void setPreguntaTres(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8) {
 
         switch (s){
             case "0,":
@@ -1464,18 +1532,11 @@ public class Reading_3_Activity extends AppCompatActivity {
                 textpregunta3.setText(pregunta8);
                 respuestaCorrectaFrom3 = "8";
                 break;
-            case "8,":
-                textpregunta3.setText(pregunta9);
-                respuestaCorrectaFrom3 = "9";
-                break;
-            case "9,":
-                textpregunta3.setText(pregunta10);
-                respuestaCorrectaFrom3 = "10";
-                break;
+
         }
     }
 
-    private void setPreguntaDos(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8, String pregunta9, String pregunta10) {
+    private void setPreguntaDos(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8) {
 
         switch (s){
             case "0,":
@@ -1515,19 +1576,11 @@ public class Reading_3_Activity extends AppCompatActivity {
                 textpregunta2.setText(pregunta8);
                 respuestaCorrectaFrom2 = "8";
                 break;
-            case "8,":
-                textpregunta2.setText(pregunta9);
-                respuestaCorrectaFrom2 = "9";
-                break;
-            case "9,":
-                textpregunta2.setText(pregunta10);
-                respuestaCorrectaFrom2 = "10";
-                break;
+
         }
     }
 
-    private void setPreguntaUno(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8, String pregunta9, String pregunta10) {
-
+    private void setPreguntaUno(String s, String pregunta1, String pregunta2, String pregunta3, String pregunta4, String pregunta5, String pregunta6, String pregunta7, String pregunta8) {
         switch (s){
             case "0,":
                 textpregunta1.setText(pregunta1);
@@ -1566,22 +1619,10 @@ public class Reading_3_Activity extends AppCompatActivity {
                 textpregunta1.setText(pregunta8);
                 respuestaCorrectaFrom1 = "8";
                 break;
-            case "8,":
-                textpregunta1.setText(pregunta9);
-                respuestaCorrectaFrom1 = "9";
-                break;
-            case "9,":
-                textpregunta1.setText(pregunta10);
-                respuestaCorrectaFrom1 = "10";
-                break;
-
         }
     }
-
     @Override
     public void onBackPressed(){
         return;
     }
-
-
 }

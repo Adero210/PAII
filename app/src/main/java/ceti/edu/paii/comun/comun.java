@@ -1,6 +1,15 @@
 package ceti.edu.paii.comun;
 
+        import android.support.v4.app.FragmentManager;
         import android.util.Log;
+
+        import com.android.volley.toolbox.JsonArrayRequest;
+        import com.google.gson.JsonArray;
+        import com.google.gson.JsonObject;
+
+        import org.json.JSONArray;
+        import org.json.JSONException;
+        import org.json.JSONObject;
 
         import java.util.Stack;
 
@@ -12,8 +21,12 @@ public class comun {
     public static String getId;
     public static final String EXTRA_CHAT_ID = "chatId";
     public static SessionManager sessionManager;
-    public static String URL = "http://192.168.0.9/";
+    public static String URL = "http://192.168.0.9/PAI_php/conexiones/";
 
+    public static String currentId;
+    public static FragmentManager fragmentManager;
+
+    public static  String MESSAGE_BOTTON_SHEET="";
     public static String userNameLec;
     public static int lessonCalis;
 
@@ -37,4 +50,37 @@ public class comun {
         return num;
     }
 
+    public static class Optionss{
+        public static String opcA;
+        public static String opcB;
+        public static String opcC;
+        public static String opcD;
+    }
+
+
+    public static Optionss getOptions(JSONArray options){
+
+        Optionss newOPtions = null;
+
+        for (int i = 0; i < options.length();i++){
+            try {
+                JSONObject option = options.getJSONObject(i);
+                if (i==0){
+                    newOPtions.opcA = option.getString("name");
+                }
+                if (i==1){
+                    newOPtions.opcB = option.getString("name");
+                }
+                if (i==2){
+                    newOPtions.opcC = option.getString("name");
+                }
+                if (i==3){
+                    newOPtions.opcD = option.getString("name");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return newOPtions;
+    }
 }

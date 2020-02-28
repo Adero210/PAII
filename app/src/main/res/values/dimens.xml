@@ -55,4 +55,5 @@
     <dimen name="dp100">100dp</dimen>
     <dimen name="dp5">5dp</dimen>
     <dimen name="sp25">25sp</dimen>
+    <dimen name="d15sp">15sp</dimen>
 </resources>

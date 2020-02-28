@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment {
     private CircleImageView profile_image;
     private TextView mName, mStatus;
     private Bitmap bitmap;
-    private static String URL_UPLOAD = comun.URL + "proyecto/upload.php";
+    private static String URL_UPLOAD = comun.URL + "upload.php";
     private DatabaseReference mUserDatabase;
     private FirebaseUser mCurrentUser;
 

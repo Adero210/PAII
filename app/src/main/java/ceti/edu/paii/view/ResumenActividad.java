@@ -39,7 +39,7 @@ public class ResumenActividad extends AppCompatActivity {
     private TextView textCal;
     private TextView numCal;
     private String tipo;
-    private static String URL_EDIT = comun.URL + "proyecto/update_cali.php";
+    private static String URL_EDIT = comun.URL + "update_cali.php";
 
 
     private Button back;
@@ -57,14 +57,51 @@ public class ResumenActividad extends AppCompatActivity {
         numCal = findViewById(R.id.num_cal);
         back = findViewById(R.id.back);
 
+        Log.i("pleaseFunciona",lesson);
 
 
 
         int lessonint = Integer.valueOf(lesson);
 
+        if (curso.equals("Italiano")) {
+            switch (lesson) {
+
+                case "1":
+                    lessonint = 11;
+                    break;
+                case "2":
+                    lessonint = 12;
+                    break;
+                case "3":
+                    lessonint = 13;
+                    break;
+                case "4":
+                    lessonint = 14;
+                    break;
+                case "5":
+                    lessonint = 15;
+                    break;
+                case "6":
+                    lessonint = 16;
+                    break;
+                case "7":
+                    lessonint = 17;
+                    break;
+                case "8":
+                    lessonint = 18;
+                    break;
+                case "9":
+                    lessonint = 19;
+                    break;
+                case "10":
+                    lessonint = 20;
+                    break;
+
+            }
+        }
         int l = lessonint-1;
 
-        if (curso.equals("Ingles")) {
+        if (curso.equals("English")) {
             back.setText("back");
             textCal.setText("Score");
 
@@ -79,6 +116,9 @@ public class ResumenActividad extends AppCompatActivity {
         Log.i("rederescrtedeca",score + tipo
                 + String.valueOf(l)+ comun.userNameLec );
 
+
+
+        Log.i("pleaseFunciona","score" + score + "tipo" + tipo + "lesson" + String.valueOf(l)+ "user" + comun.userNameLec);
         updateCali(score,l);
 
         numCal.setText(score);

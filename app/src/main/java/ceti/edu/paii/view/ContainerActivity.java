@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Time;
@@ -26,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
+import ceti.edu.paii.BottomSheetDialog;
 import ceti.edu.paii.MainActivity;
 import ceti.edu.paii.R;
 import ceti.edu.paii.comun.comun;
@@ -35,13 +37,11 @@ import ceti.edu.paii.view.fragment.ProfileFragment;
 import ceti.edu.paii.view.fragment.SearchFragment;
 //import ceti.edu.paii.view.fragment.SearchFragment;
 
-public class ContainerActivity extends AppCompatActivity{
+public class ContainerActivity extends AppCompatActivity implements BottomSheetDialog.BottomSheetListener{
 
     int notificationid = 1;
 
     String estado = "";
-
-
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private static final String TAG = "ContainerActivity" ;
@@ -57,14 +57,15 @@ public class ContainerActivity extends AppCompatActivity{
 
         comun.ya = 1;
 
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("user").child(firebaseAuth.getCurrentUser().getUid());
 
-        mUserRef = FirebaseDatabase.getInstance().getReference().child("user").
-                 child(firebaseAuth.getCurrentUser().getUid());
+
+        comun.currentId = mUserRef.toString();
+
 
         final HomeFragment homeFragment = new HomeFragment();
         final ProfileFragment profileFragment = new ProfileFragment();
         final SearchFragment searchFragment = new SearchFragment();
-
 
         notification("Login");
 
@@ -73,6 +74,8 @@ public class ContainerActivity extends AppCompatActivity{
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
         }
+        FragmentManager f = getSupportFragmentManager();
+        comun.fragmentManager = f;
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottombar);
         bottomNavigationView.setSelectedItemId(R.id.home_menu);
@@ -226,4 +229,8 @@ public class ContainerActivity extends AppCompatActivity{
         finish();
     }
 
+    @Override
+    public void onBottomClicked(String text) {
+        comun.MESSAGE_BOTTON_SHEET = text;
+    }
 }

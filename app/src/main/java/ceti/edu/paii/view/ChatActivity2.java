@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -106,6 +107,7 @@ public class ChatActivity2 extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     final int REQUEST_PERMISSION_CODE = 1000;
+    private String userImage;
 
 
     @Override
@@ -147,15 +149,19 @@ public class ChatActivity2 extends AppCompatActivity {
         mCurrentUserId = firebaseAuth.getCurrentUser().getUid();
 
         mChatUser = getIntent().getStringExtra("userId");
+        userImage = getIntent().getStringExtra("image");
+
         userName = getIntent().getStringExtra("name");
 
         mFileName = Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/"
                 + UUID.randomUUID().toString() + "_audio_record.mp3";
 
-        showToolbar(userName,true);
+        showToolbar(userName,userImage,true);
 
         loadMessages();
+
+
 
         mUserroot.child("user").child(mChatUser).addValueEventListener(new ValueEventListener() {
             @Override
@@ -253,6 +259,18 @@ public class ChatActivity2 extends AppCompatActivity {
 
                 itemPos = 0;
                 loadMoreMessages();
+
+            }
+        });
+
+        mProfileIMage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent profileIntent = new Intent(ChatActivity2.this, ProfileActivity.class);
+                profileIntent.putExtra("userId",mChatUser);
+                startActivity(profileIntent );
 
             }
         });
@@ -622,7 +640,7 @@ public class ChatActivity2 extends AppCompatActivity {
                 record_audio_result == PackageManager.PERMISSION_GRANTED;
     }
 
-    public void showToolbar(String tittle, boolean upButton) {
+    public void showToolbar(String tittle,String image , boolean upButton) {
         android.support.v7.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarchat);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -638,6 +656,10 @@ public class ChatActivity2 extends AppCompatActivity {
         mTitleView = findViewById(R.id.custom_bar_);
         mProfileIMage = findViewById(R.id.custom_bar_image);
 
+        Glide.with(ChatActivity2.this)
+                .load(image)
+                .placeholder(R.drawable.logo_transparent)
+                .into(mProfileIMage);
     }
 
 

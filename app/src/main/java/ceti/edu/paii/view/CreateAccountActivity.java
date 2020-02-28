@@ -1,6 +1,7 @@
 package ceti.edu.paii.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -38,14 +39,7 @@ import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,7 +60,7 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
     private TextInputEditText edtEmail, edtcPassword, edtPassword, edttel, edtbirt, edtapp, edtmpp, edtnick, edtnombre;
     private TextInputLayout tilEmail, tilcpass, tilPassword, tilttel, tilbirt, tlapp, tilmpp, tilnick, tilnombre;
     private Log log;
-    private static String URL_REGIST = comun.URL + "proyecto/register.php";
+    private static String URL_REGIST = comun.URL + "registerUser.php";
 
     private DatabaseReference mDataBase;
 
@@ -308,11 +302,12 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
                             FirebaseUser passu = FirebaseAuth.getInstance().getCurrentUser();
                             String UID = passu.getUid();
 
-                            String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
+                            // String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
                             mDataBase = FirebaseDatabase.getInstance().getReference().child("user").child(UID);
                             HashMap<String, String> userMap = new HashMap<>();
-                            userMap.put("device_token",deviceToken);
+                            //userMap.put("device_token",deviceToken);
                             userMap.put("name",name);
                             userMap.put("status","Hello! there");
                             userMap.put("image","default");
@@ -339,6 +334,12 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
     }
 
     private void regist() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Creating User");
+        progressDialog.setMessage("Loading ...");
+        progressDialog.show();
+
+
         final String email = edtEmail.getText().toString().trim();
         final String password = edtPassword.getText().toString().trim();
         final String name = edtnombre.getText().toString().trim();
@@ -352,9 +353,10 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("success");
+                    Boolean success = jsonObject.getBoolean("success");
 
-                    if (success.equals("1")) {
+                    if (success == true) {
+                        progressDialog.dismiss();
                         Toast.makeText(CreateAccountActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -381,14 +383,13 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
                 Map<String, String> params = new HashMap<>();
                 params.put("name", name);
                 params.put("email", email);
-                params.put("apepat", apepat);
-                params.put("apemat", apemat);
-                params.put("nickName", nickname);
-                params.put("telefono", telefono);
-                params.put("fechanac", nacimiento);
-                params.put("password", password);
+                params.put("lastname1", apepat);
+                params.put("lastname2", apemat);
+                params.put("nickname", nickname);
+                params.put("cellphone", telefono);
+                params.put("bdate", nacimiento);
                 params.put("idUser", idUser);
-                params.put("gender",gender);
+                params.put("sex",gender);
                 return params;
             }
         };
@@ -428,7 +429,7 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
                 gender = "1";
                 break;
             case R.id.radio_btn_male:
-                gender = "0";
+                gender = "2";
                 break;
             default:
                 gender="0";

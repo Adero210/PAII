@@ -72,7 +72,7 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
     private  String numAletorio ="";
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/vocabulary1Act.php";
+    private static String URL_ACTR2 = comun.URL + "vocabulary1Act.php";
     private String respuestaFromBD = "";
     private String respuestaUser="";
     private MediaPlayer mediaPlayer,incorrect;
@@ -138,9 +138,9 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
 
             if(b1.contains(numAletorio)) {
                 if (curso.equals("Ingles")) {
-                    oracion.setText("Listen and Repeat");
+                    oracion.setText("answers");
                 } else if (curso.equals("Italiano")) {
-                    oracion.setText("Ascolta e ripeti");
+                    oracion.setText("risposta");
                 }
 
                 int lessonint = Integer.parseInt(lesson);
@@ -304,55 +304,45 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
                         i.putExtra("tipo",tipo);
-
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
                         i.putExtra("boceto1",b1N);
                         i.putExtra("boceto2",b2);
                         i.putExtra("boceto3",b3);
                         i.putExtra("boceto4",b4);
-
                         startActivity(i);
                         break;
-
                     case "1":
                         Intent intent = new Intent(Vocabulary_1_Activity.this, Vocabulary_2_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
                         intent.putExtra("tipo",tipo);
-
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
                         intent.putExtra("boceto1",b1N);
                         intent.putExtra("boceto2",b2);
                         intent.putExtra("boceto3",b3);
                         intent.putExtra("boceto4",b4);
-
                         startActivity(intent);
                         break;
-
                     case "2":
                         Intent intent1 = new Intent(Vocabulary_1_Activity.this, Vocabulary_3_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
                         intent1.putExtra("tipo",tipo);
-
                         intent1.putExtra("calificacion",String.valueOf(cali));
                         intent1.putExtra("actividad",String.valueOf(actHechas));
                         intent1.putExtra("boceto1",b1N);
                         intent1.putExtra("boceto2",b2);
                         intent1.putExtra("boceto3",b3);
                         intent1.putExtra("boceto4",b4);
-
                         startActivity(intent1);
                         break;
-
                     case "3":
                         Intent intent2 = new Intent(Vocabulary_1_Activity.this, Vocabulary_4_Activity.class);
                         intent2.putExtra("curso",curso);
                         intent2.putExtra("lesson",lesson);
                         intent2.putExtra("tipo",tipo);
-
                         intent2.putExtra("calificacion",String.valueOf(cali));
                         intent2.putExtra("actividad",String.valueOf(actHechas));
                         intent2.putExtra("boceto1",b1N);
@@ -362,7 +352,6 @@ public class Vocabulary_1_Activity extends AppCompatActivity {
 
                         startActivity(intent2);
                         break;
-
                 }
             }
         });

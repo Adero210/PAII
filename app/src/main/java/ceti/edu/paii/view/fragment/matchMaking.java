@@ -110,6 +110,7 @@ public class matchMaking extends Fragment {
                             DocumentSnapshot docChat = task.getResult().getDocuments().get(0);
                             chatId = docChat.getId();
                             chat chatclass = docChat.toObject(chat.class);
+                            final String started = chatclass.getStarted();
                             chatclass.setJoiner(uid);
 
                             bd.collection("chat")
@@ -118,7 +119,7 @@ public class matchMaking extends Fragment {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            startChat();
+                                            startChat(started);
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -145,8 +146,9 @@ public class matchMaking extends Fragment {
 
                         chatId = documentReference.getId();
                         //tenemos creadas la sala, debemos esperar a otro usuario
-                        
+
                         esperarUser();
+
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -167,34 +169,34 @@ public class matchMaking extends Fragment {
                 .document(chatId)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        if(!documentSnapshot.get("joiner").equals("")){
-                            progressDialog.dismiss();
-                            progressDialog.setMessage("Ya hay un usuario");
-                            progressDialog.show();
-                            final Handler handler = new Handler();
-                            final Runnable r = new Runnable() {
-                                @Override
-                                public void run() {
-                                    startChat();
-                                }
-                            };
-                            handler.postDelayed(r,1500);
+                    public void onEvent(@Nullable final DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        String bd = (String) documentSnapshot.get("joiner");
+                        if(bd == null){
+                            esperarUser();
+                    }
+                        else {
+                            if (!bd.equals("")) {
+                                final String joiner = (String) documentSnapshot.get("joiner");
+                                progressDialog.dismiss();
+                                progressDialog.setMessage("Ya hay un usuario");
+                                progressDialog.show();
+                                startChat(joiner);
+                            }
                         }
                     }
                 });
     }
 
-    private void startChat() {
+    private void startChat(String started) {
+        progressDialog.dismiss();
         if(listenerRegistration != null){
             listenerRegistration.remove();
-        }else {
-            Intent chatIntent = new Intent(getActivity(), ChatActivity2.class);
-            chatIntent.putExtra(comun.EXTRA_CHAT_ID, chatId);
-            chatIntent.putExtra("userId", uid);
-            chatIntent.putExtra("name", userName);
-            startActivity(chatIntent);
         }
+        Intent chatIntent = new Intent(getActivity(), ChatActivity2.class);
+        chatIntent.putExtra(comun.EXTRA_CHAT_ID, chatId);
+        chatIntent.putExtra("userId", started);
+        chatIntent.putExtra("name", userName);
+         startActivity(chatIntent);
     }
 
 }

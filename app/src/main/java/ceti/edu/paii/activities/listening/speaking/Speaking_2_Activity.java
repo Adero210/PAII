@@ -91,7 +91,7 @@ public class Speaking_2_Activity extends AppCompatActivity {
 
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "genericAct.php";
     private String respuestaFromBD = "";
     private String respuestaUser="";
     private MediaPlayer mediaPlayer,incorrect;

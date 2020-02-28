@@ -1,5 +1,6 @@
 package ceti.edu.paii.activities.listening.reading;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import java.util.Stack;
 
 import ceti.edu.paii.R;
+import ceti.edu.paii.comun.comun;
 
 import static android.view.View.GONE;
 
@@ -54,6 +56,14 @@ public class Reading_2_Activity extends AppCompatActivity {
     private Button revisar;
     private Button continuar;
 
+    private String curso;
+    private String lesson;
+
+    private String tipo;
+
+    int actHechas, cali;
+    private String b1,b2,b3,b4, calis, actHechasS;
+
     private String respuestaSys1 = "";
     private String respuestaSys2 = "";
     private String respuestaSys3 = "";
@@ -78,6 +88,19 @@ public class Reading_2_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reading_2_);
+
+        curso  = getIntent().getStringExtra("curso");
+        lesson = getIntent().getStringExtra("lesson");
+        calis   = getIntent().getStringExtra("calificacion");
+        actHechasS = getIntent().getStringExtra("actividad");
+        b1 = getIntent().getStringExtra("boceto1");
+        b2 = getIntent().getStringExtra("boceto2");
+        b3 = getIntent().getStringExtra("boceto3");
+        b4 = getIntent().getStringExtra("boceto4");
+        tipo = getIntent().getStringExtra("tipo");
+        cali = Integer.valueOf(calis);
+        actHechas = Integer.valueOf(actHechasS);
+
 
         mediaPlayer = MediaPlayer.create(this,R.raw.correctding);
         incorrect = MediaPlayer.create(this,R.raw.wrong);
@@ -121,8 +144,7 @@ public class Reading_2_Activity extends AppCompatActivity {
 
         buttonback = findViewById(R.id.button_back_activity_Reading_2);
 
-        final String curso = getIntent().getStringExtra("curso");
-        final String lesson = getIntent().getStringExtra("lesson");
+
 
         String pregunta1 = getIntent().getStringExtra("pregunta1");
         String pregunta2 = getIntent().getStringExtra("pregunta2");
@@ -441,8 +463,11 @@ public class Reading_2_Activity extends AppCompatActivity {
 
                 if(correctas == 3){
                     mediaPlayer.start();
+                    cali = cali + 100;
                 }else {
                     incorrect.start();
+                    cali = cali + 0;
+
                 }
 
                 revisar.setVisibility(GONE);
@@ -454,7 +479,64 @@ public class Reading_2_Activity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                actHechas++;
+                String num ="";
+                num = comun.aleatorio(4);
+                Log.i("numeroRamdon",num);
+                switch (num){
+                    case "0":
+                        Intent i = new Intent(Reading_2_Activity.this, Reading_1_Activity.class);
+                        i.putExtra("curso",curso);
+                        i.putExtra("lesson",lesson);
+                        i.putExtra("tipo",tipo);
+                        i.putExtra("calificacion",String.valueOf(cali));
+                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("boceto1",b1);
+                        i.putExtra("boceto2",b2);
+                        i.putExtra("boceto3",b3);
+                        i.putExtra("boceto4",b4);
+                        startActivity(i);
+                        break;
+                    case "1":
+                        Intent intent = new Intent(Reading_2_Activity.this, Reading_Paragraph_Activity.class);
+                        intent.putExtra("curso",curso);
+                        intent.putExtra("lesson",lesson);
+                        intent.putExtra("tipo",tipo);
+                        intent.putExtra("calificacion",String.valueOf(cali));
+                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("boceto1",b1);
+                        intent.putExtra("boceto2",b2);
+                        intent.putExtra("boceto3",b3);
+                        intent.putExtra("boceto4",b4);
+                        startActivity(intent);
+                        break;
+                    case "2":
+                        Intent intent1 = new Intent(Reading_2_Activity.this, Reading_paragraph_2_Activity.class);
+                        intent1.putExtra("curso",curso);
+                        intent1.putExtra("lesson",lesson);
+                        intent1.putExtra("tipo",tipo);
+                        intent1.putExtra("calificacion",String.valueOf(cali));
+                        intent1.putExtra("actividad",String.valueOf(actHechas));
+                        intent1.putExtra("boceto1",b1);
+                        intent1.putExtra("boceto2",b2);
+                        intent1.putExtra("boceto3",b3);
+                        intent1.putExtra("boceto4",b4);
+                        startActivity(intent1);
+                        break;
+                    case "3":
+                        Intent intent2 = new Intent(Reading_2_Activity.this, Reading_4_Activity.class);
+                        intent2.putExtra("curso",curso);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("tipo",tipo);
+                        intent2.putExtra("calificacion",String.valueOf(cali));
+                        intent2.putExtra("actividad",String.valueOf(actHechas));
+                        intent2.putExtra("boceto1",b1);
+                        intent2.putExtra("boceto2",b2);
+                        intent2.putExtra("boceto3",b3);
+                        intent2.putExtra("boceto4",b4);
+                        startActivity(intent2);
+                        break;
+                }
             }
         });
     }
@@ -1340,7 +1422,6 @@ public class Reading_2_Activity extends AppCompatActivity {
                 btnCheckopcC1.setText(opcC3);
                 btnCheckopcD1.setText(opcD3);
                 respuestaSys1 = "3";
-
                 break;
             case "3,":
                 textpregunta1.setText(pregunta4);
@@ -1353,8 +1434,6 @@ public class Reading_2_Activity extends AppCompatActivity {
                 btnCheckopcC1.setText(opcC4);
                 btnCheckopcD1.setText(opcD4);
                 respuestaSys1 = "4";
-
-
                 break;
             case "4,":
                 textpregunta1.setText(s);
@@ -1366,11 +1445,8 @@ public class Reading_2_Activity extends AppCompatActivity {
                 btnCheckopcB1.setText(opcB5);
                 btnCheckopcC1.setText(opcC5);
                 btnCheckopcD1.setText(opcD5);
-
                 respuestaSys1 = "5";
-
                 break;
-
         }
     }
 

@@ -90,7 +90,7 @@ public class Listening_1_Activity extends AppCompatActivity {
 
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "proyecto/writing3Act.php";
+    private static String URL_ACTR2 = comun.URL + "writing3Act.php";
     private String respuestaFromBD = "";
     private String respuestaUser ="";
     private MediaPlayer mediaPlayer,incorrect;
@@ -169,6 +169,7 @@ public class Listening_1_Activity extends AppCompatActivity {
 
                 int lessonint = Integer.parseInt(lesson);
 
+                if(lessonint == 1) lessonint = 21;
 
                 if (curso.equals("Italiano")) {
                     switch (lesson) {

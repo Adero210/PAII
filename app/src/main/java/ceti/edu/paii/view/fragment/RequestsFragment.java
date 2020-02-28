@@ -113,7 +113,7 @@ public class RequestsFragment extends Fragment {
                             public void onClick(View view) {
 
                                 Intent profileIntent = new Intent(getContext(), ProfileActivity.class);
-                                profileIntent.putExtra("userid", list_user_id);
+                                profileIntent.putExtra("userId", list_user_id);
                                 startActivity(profileIntent);
 
                             }
