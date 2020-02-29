@@ -57,10 +57,8 @@ import ceti.edu.paii.view.ResumenActividad;
 public class Speaking_3_Activity extends AppCompatActivity {
     Button play;
     MediaPlayer mp;
-
-    private String tipo;
     int actHechas, cali;
-    private String b1,b2,b3, calis, actHechasS;
+    private String calis, actHechasS;
 
     private FloatingActionButton record;
 
@@ -73,8 +71,6 @@ public class Speaking_3_Activity extends AppCompatActivity {
 
     private StorageReference mAudioStorage;
 
-    private  String numAletorio ="";
-
     private ImageView imagen;
     private Button revisar;
     private Button continuar;
@@ -84,12 +80,8 @@ public class Speaking_3_Activity extends AppCompatActivity {
 
     private String boceto = "3";
 
-    private int numerosPreuntas = 5;
-
-
-
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "getActivity.php";
     private String respuestaFromBD = "";
     private String respuestaUser="";
     private MediaPlayer mediaPlayer,incorrect;
@@ -108,11 +100,6 @@ public class Speaking_3_Activity extends AppCompatActivity {
         lesson = getIntent().getStringExtra("lesson");
         calis   = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
-        b1 = getIntent().getStringExtra("boceto1");
-        b2 = getIntent().getStringExtra("boceto2");
-        b3 = getIntent().getStringExtra("boceto3");
-
-        tipo = getIntent().getStringExtra("tipo");
         cali = Integer.valueOf(calis);
         actHechas = Integer.valueOf(actHechasS);
 
@@ -207,17 +194,17 @@ public class Speaking_3_Activity extends AppCompatActivity {
             ////////////////////////////////////////////////////////////////////////////////////////////
 
             Log.i("curso", curso);
-            String numAletorio = comun.aleatorio(numerosPreuntas);
+            String numAletorio = "1";
 
-            if(b3.contains(numAletorio)){
-
-                if (curso.equals("Ingles")) {
+                if (curso.equals("Inglés")) {
                     titulo.setText("Listen and Repeat");
                 } else if (curso.equals("Italiano")) {
                     titulo.setText("Ascolta e ripeti");
                 }
 
                 int lessonint = Integer.parseInt(lesson);
+
+                if(lessonint == 1) lessonint = 21;
 
                 if (curso.equals("Italiano")) {
                     switch (lesson) {
@@ -257,28 +244,12 @@ public class Speaking_3_Activity extends AppCompatActivity {
 
                 bringTheInfo(lessonint - 1, numAletorio);
                 opsciones();
-            }else {
 
-                Intent i = new Intent(Speaking_3_Activity.this, Speaking_3_Activity.class);
-                i.putExtra("curso",curso);
-                i.putExtra("lesson",lesson);
-                i.putExtra("tipo",tipo);
-
-                i.putExtra("calificacion",String.valueOf(cali));
-                i.putExtra("actividad",String.valueOf(actHechas));
-                i.putExtra("boceto1",b1);
-                i.putExtra("boceto2",b2);
-                i.putExtra("boceto3",b3);
-                startActivity(i);
-
-            }
 
         } else {
                 Intent i = new Intent(Speaking_3_Activity.this, ResumenActividad.class);
                 i.putExtra("curso",curso);
                 i.putExtra("lesson",lesson);
-                i.putExtra("tipo",tipo);
-
                 i.putExtra("calificacion", String.valueOf(cali));
                 startActivity(i);
 
@@ -296,24 +267,26 @@ public class Speaking_3_Activity extends AppCompatActivity {
 
                 try {
 
+                    Log.i("ahhhha","entre al try");
+
                     JSONObject jsonObject = new JSONObject(response);
-                    String numfilas = jsonObject.getString("filas");
-                    String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+                    String success = jsonObject.getString("status");
+                    JSONArray jsonArray = jsonObject.getJSONArray("questions");
 
-                    int numFilas = Integer.parseInt(numfilas);
-
-                    if(success.equals("1")){
+                    if (success.equals("GOOD")) {
+                        Log.i("ahhhha","success");
                         progressDialog.dismiss();
-                        for(int i = 0 ; i < jsonArray.length();i++){
 
-                            JSONObject object =  jsonArray.getJSONObject(i);
+                        JSONObject object =  jsonArray.getJSONObject(0);
+                        JSONObject object1 =  jsonArray.getJSONObject(1);
 
-                            for(int h = 0; h < numFilas; h++) {
+                        JSONArray images = object1.getJSONArray("images");
 
-                                respuestaFromBD = object.getString("respuestac" + h);
-                                String audio = object.getString("urlAudio" + h).trim();
-                                String imagenfrom = object.getString("urlImage"+ h);
+
+                        comun.Images image = comun.getImages(images);
+                                respuestaFromBD = object.getString("question");
+                                String audio = object.getString("rutaAudio").trim();
+                                String imagenfrom = image.imageUno;
 
                                 Glide.with(Speaking_3_Activity.this)
                                         .load(imagenfrom)
@@ -334,9 +307,6 @@ public class Speaking_3_Activity extends AppCompatActivity {
                                     }
                                 });
 
-                            }
-
-                        }
                     }
 
                 } catch (JSONException e) {
@@ -359,11 +329,10 @@ public class Speaking_3_Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("pregunta",numAle);
-                params.put("lesson", String.valueOf(lessonint2));
-                params.put("boceto",boceto);
-                params.put("type","speaking");
-
+                params.put("numberOfQuestions",numAle);
+                params.put("lectionId", String.valueOf(lessonint2));
+                params.put("sketch",boceto);
+                params.put("typeName","Habla");
                 return params;
             }
         };
@@ -434,7 +403,6 @@ public class Speaking_3_Activity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String b3N = b3.replaceAll(numAletorio,"");
                 actHechas++;
                 String num ="";
                 num = comun.aleatorio(3);
@@ -444,13 +412,8 @@ public class Speaking_3_Activity extends AppCompatActivity {
                         Intent i = new Intent(Speaking_3_Activity.this, Speaking_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("tipo",tipo);
-
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
-                        i.putExtra("boceto1",b1);
-                        i.putExtra("boceto2",b2);
-                        i.putExtra("boceto3",b3N);
                         startActivity(i);
                         break;
 
@@ -458,13 +421,8 @@ public class Speaking_3_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Speaking_3_Activity.this, Speaking_2_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("tipo",tipo);
-
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
-                        intent.putExtra("boceto1",b1);
-                        intent.putExtra("boceto2",b2);
-                        intent.putExtra("boceto3",b3N);
                         startActivity(intent);
                         break;
 
@@ -472,13 +430,8 @@ public class Speaking_3_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Speaking_3_Activity.this, Speaking_3_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("tipo",tipo);
-
                         intent1.putExtra("calificacion",String.valueOf(cali));
                         intent1.putExtra("actividad",String.valueOf(actHechas));
-                        intent1.putExtra("boceto1",b1);
-                        intent1.putExtra("boceto2",b2);
-                        intent1.putExtra("boceto3",b3N);
                         startActivity(intent1);
                         break;
 

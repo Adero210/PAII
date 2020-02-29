@@ -32,6 +32,7 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded_signin"
             android:layout_gravity="center"
             android:text="@string/opcion"/>
 

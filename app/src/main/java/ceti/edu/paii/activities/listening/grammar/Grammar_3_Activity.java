@@ -96,10 +96,10 @@ public class Grammar_3_Activity extends AppCompatActivity {
             Log.i("curso", curso);
             numAletorio = "1";
 
-                if (curso.equals("Inglés")) {
-                    titulo.setText("find the correct verb");
+                if (curso.equals("English")) {
+                    titulo.setText("Find the correct verb");
                 } else if (curso.equals("Italiano")) {
-                    titulo.setText("trova il verbo corretto");
+                    titulo.setText("Trova il verbo corretto");
                 }
                 int lessonint = Integer.parseInt(lesson);
                 if(lessonint == 1) lessonint = 21;

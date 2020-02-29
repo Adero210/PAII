@@ -28,7 +28,7 @@
                     android:layout_gravity="center"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:src="@drawable/pp" />
+                    android:src="@drawable/logo" />
 
                 <Button
                     android:id="@+id/play_activity_speaking_3"

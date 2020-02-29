@@ -100,10 +100,10 @@ public class Grammar_1_Activity extends AppCompatActivity {
 
             Log.i("curso", curso);
 
-                if (curso.equals("Inglés")) {
-                    titulo.setText("choose the correct translation");
+                if (curso.equals("English")) {
+                    titulo.setText("Choose the correct translation");
                 } else if (curso.equals("Italiano")) {
-                    titulo.setText("scegli la traduzione corretta");
+                    titulo.setText("Scegli la traduzione corretta");
                 }
                 int lessonint = Integer.parseInt(lesson);
                 if(lessonint == 1) lessonint = 21;

@@ -2,16 +2,11 @@ package ceti.edu.paii.activities.listening.speaking;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.net.Uri;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -25,7 +20,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,59 +39,43 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 
 import ceti.edu.paii.R;
-import ceti.edu.paii.activities.listening.Listening_4_Activity;
 import ceti.edu.paii.comun.comun;
-import ceti.edu.paii.view.Activities_Activity;
 import ceti.edu.paii.view.ResumenActividad;
 
 public class Speaking_1_Activity extends AppCompatActivity {
 
     Button play;
     MediaPlayer mp;
-
-    private String tipo;
     int actHechas, cali;
-
-    private String b1,b2,b3, calis, actHechasS;
-
+    private String calis, actHechasS;
     private FloatingActionButton record;
-
     private TextView titulo;
     //////////////////////////////////////////////////
     private TextView tvxResult;
     private SpeechRecognizer speechRecognizer;
     private Intent speechRecognizerIntent;
     ////////////////////////////////////////////////
-
     private StorageReference mAudioStorage;
-
     private  String numAletorio ="";
     private Button revisar;
     private Button continuar;
-
     private String curso;
     private String lesson;
 
-    private String boceto = "1";
-
-    private int numerosPreuntas = 5;
-
+    private String boceto = "2";
 
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "getActivity.php";
     private String respuestaFromBD = "";
     private String respuestaUser="";
     private MediaPlayer mediaPlayer,incorrect;
-
 
     final int REQUEST_PERMISSION_CODE = 1000;
     @SuppressLint("RestrictedApi")
@@ -110,11 +88,6 @@ public class Speaking_1_Activity extends AppCompatActivity {
         lesson = getIntent().getStringExtra("lesson");
         calis   = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
-        b1 = getIntent().getStringExtra("boceto1");
-        b2 = getIntent().getStringExtra("boceto2");
-        b3 = getIntent().getStringExtra("boceto3");
-        tipo = getIntent().getStringExtra("tipo");
-
 
         cali = Integer.valueOf(calis);
         actHechas = Integer.valueOf(actHechasS);
@@ -183,10 +156,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
 
                 @Override
                 public void onResults(Bundle results) {
-
                     ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
-
                     if(matches!=null){
                         respuestaUser = matches.get(0);
                         tvxResult.setText(":3");
@@ -208,79 +178,62 @@ public class Speaking_1_Activity extends AppCompatActivity {
             ////////////////////////////////////////////////////////////////////////////////////////////
 
             Log.i("curso",curso);
-            numAletorio = comun.aleatorio(numerosPreuntas);
-
-            if(b1.contains(numAletorio)){
-                if(curso.equals("Ingles")){
-                    titulo.setText("Listen and Repeat");
-                }else if(curso.equals("Italiano")){
-                    titulo.setText("Ascolta e ripeti");
-                }
-
-                int lessonint = Integer.parseInt(lesson);
-
-                if(curso.equals("Italiano")){
-                    switch (lesson) {
-
-                        case "1":
-                            lessonint = 11;
-                            break;
-                        case "2":
-                            lessonint = 12;
-                            break;
-                        case "3":
-                            lessonint = 13;
-                            break;
-                        case "4":
-                            lessonint = 14;
-                            break;
-                        case "5":
-                            lessonint = 15;
-                            break;
-                        case "6":
-                            lessonint = 16;
-                            break;
-                        case "7":
-                            lessonint = 17;
-                            break;
-                        case "8":
-                            lessonint = 18;
-                            break;
-                        case "9":
-                            lessonint = 19;
-                            break;
-                        case "10":
-                            lessonint = 20;
-                            break;
-                    }
-                }
-
-                bringTheInfo(lessonint - 1, numAletorio);
-                opsciones();
-
-            }else {
-
-                Intent i = new Intent(Speaking_1_Activity.this, Speaking_1_Activity.class);
-                i.putExtra("curso",curso);
-                i.putExtra("lesson",lesson);
-                i.putExtra("tipo",tipo);
-
-                i.putExtra("calificacion",String.valueOf(cali));
-                i.putExtra("actividad",String.valueOf(actHechas));
-                i.putExtra("boceto1",b1);
-                i.putExtra("boceto2",b2);
-                i.putExtra("boceto3",b3);
-                startActivity(i);
-
+            numAletorio = "1";
+            if(curso.equals("Inglés")){
+                titulo.setText("Listen and Repeat");
+            }else if(curso.equals("Italiano")){
+                titulo.setText("Ascolta e ripeti");
             }
+
+            int lessonint = Integer.parseInt(lesson);
+
+            if(lessonint == 1) lessonint = 21;
+
+            if(curso.equals("Italiano")){
+                switch (lesson) {
+
+                    case "1":
+                        lessonint = 11;
+                        break;
+                    case "2":
+                        lessonint = 12;
+                        break;
+                    case "3":
+                        lessonint = 13;
+                        break;
+                    case "4":
+                        lessonint = 14;
+                        break;
+                    case "5":
+                        lessonint = 15;
+                        break;
+                    case "6":
+                        lessonint = 16;
+                        break;
+                    case "7":
+                        lessonint = 17;
+                        break;
+                    case "8":
+                        lessonint = 18;
+                        break;
+                    case "9":
+                        lessonint = 19;
+                        break;
+                    case "10":
+                        lessonint = 20;
+                        break;
+                }
+            }
+
+            bringTheInfo(lessonint - 1, numAletorio);
+            opsciones();
+
 
         }
         else {
             Intent i = new Intent(Speaking_1_Activity.this, ResumenActividad.class);
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
-            i.putExtra("tipo",tipo);
-
             i.putExtra("calificacion", String.valueOf(cali));
             startActivity(i);
         }
@@ -296,43 +249,35 @@ public class Speaking_1_Activity extends AppCompatActivity {
             public void onResponse(String response) {
 
                 try {
-
                     JSONObject jsonObject = new JSONObject(response);
-                    String numfilas = jsonObject.getString("filas");
-                    String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+                    String success = jsonObject.getString("status");
+                    JSONArray jsonArray = jsonObject.getJSONArray("questions");
 
-                    int numFilas = Integer.parseInt(numfilas);
-
-                    if(success.equals("1")){
+                    if (success.equals("GOOD")) {
                         progressDialog.dismiss();
-                        for(int i = 0 ; i < jsonArray.length();i++){
 
-                            JSONObject object =  jsonArray.getJSONObject(i);
+                        JSONObject object =  jsonArray.getJSONObject(0);
 
-                            for(int h = 0; h < numFilas; h++) {
+                        JSONObject audios = object.getJSONObject("audio");
 
-                                respuestaFromBD = object.getString("respuestac" + h);
-                                String audio = object.getString("urlAudio" + h).trim();
+                        respuestaFromBD = object.getString("question" );
 
-                                mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        try {
-                                            mp.reset();
-                                            mp.setDataSource(Speaking_1_Activity.this,uri);
-                                            mp.prepareAsync();
+                        String audio = audios.getString("rutaAudio");
 
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
+                        mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                try {
+                                    mp.reset();
+                                    mp.setDataSource(Speaking_1_Activity.this,uri);
+                                    mp.prepareAsync();
 
-                                    }
-                                });
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
 
                             }
-
-                        }
+                        });
                     }
 
                 } catch (JSONException e) {
@@ -355,11 +300,10 @@ public class Speaking_1_Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("pregunta",numAle);
-                params.put("lesson", String.valueOf(lessonint2));
-                params.put("boceto",boceto);
-                params.put("type","speaking");
-
+                params.put("numberOfQuestions",numAle);
+                params.put("lectionId", String.valueOf(lessonint2));
+                params.put("sketch",boceto);
+                params.put("typeName","Habla");
                 return params;
             }
         };
@@ -397,7 +341,6 @@ public class Speaking_1_Activity extends AppCompatActivity {
                         tvxResult.setText("LISTENING...");
                         speechRecognizer.startListening(speechRecognizerIntent);
                         break;
-
                 }
                 return false;
             }
@@ -432,7 +375,6 @@ public class Speaking_1_Activity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String b1N = b1.replaceAll(numAletorio,"");
                 actHechas++;
                 String num ="";
                 num = comun.aleatorio(3);
@@ -442,13 +384,8 @@ public class Speaking_1_Activity extends AppCompatActivity {
                         Intent i = new Intent(Speaking_1_Activity.this, Speaking_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("tipo",tipo);
-
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
-                        i.putExtra("boceto1",b1N);
-                        i.putExtra("boceto2",b2);
-                        i.putExtra("boceto3",b3);
                         startActivity(i);
                         break;
 
@@ -456,13 +393,8 @@ public class Speaking_1_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Speaking_1_Activity.this, Speaking_2_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("tipo",tipo);
-
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
-                        intent.putExtra("boceto1",b1N);
-                        intent.putExtra("boceto2",b2);
-                        intent.putExtra("boceto3",b3);
                         startActivity(intent);
                         break;
 
@@ -470,16 +402,10 @@ public class Speaking_1_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Speaking_1_Activity.this, Speaking_3_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("tipo",tipo);
-
                         intent1.putExtra("calificacion",String.valueOf(cali));
                         intent1.putExtra("actividad",String.valueOf(actHechas));
-                        intent1.putExtra("boceto1",b1N);
-                        intent1.putExtra("boceto2",b2);
-                        intent1.putExtra("boceto3",b3);
                         startActivity(intent1);
                         break;
-
                 }
 
             }
@@ -489,7 +415,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
 
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.RECORD_AUDIO
 
         }, REQUEST_PERMISSION_CODE);

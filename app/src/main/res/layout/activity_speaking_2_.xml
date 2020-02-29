@@ -49,6 +49,7 @@
                     android:layout_marginLeft="@dimen/dp10"
                     android:layout_marginTop="@dimen/dp25"
                     android:background="@drawable/play"
+                    android:visibility="invisible"
                     android:theme="@style/RaisedButtonDark" />
 
                 <TextView
