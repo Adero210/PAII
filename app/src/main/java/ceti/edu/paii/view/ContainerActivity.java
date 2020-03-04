@@ -231,6 +231,7 @@ public class ContainerActivity extends AppCompatActivity implements BottomSheetD
 
     @Override
     public void onBottomClicked(String text) {
-        comun.MESSAGE_BOTTON_SHEET = text;
+
+
     }
 }

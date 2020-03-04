@@ -45,12 +45,6 @@ public class Listening_4_Activity extends AppCompatActivity {
 
     private TextView titulo;
 
-    int actHechas, cali;
-
-    private String b1,b2, calis, actHechasS;
-
-    private String tipo;
-
     private Button opc1;
     private Button opc2;
     private Button opc3;
@@ -67,7 +61,7 @@ public class Listening_4_Activity extends AppCompatActivity {
     private Button continuar;
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "getActivity.php";
 
     private String boceto = "4";
 
@@ -81,7 +75,7 @@ public class Listening_4_Activity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference mAudioStorage;
 
-    private int numerosPreuntas = 10;
+    int actHechas, cali;
 
     Button play_pause;
     MediaPlayer mp;
@@ -90,19 +84,15 @@ public class Listening_4_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listening_4_);
-
-        curso  = getIntent().getStringExtra("curso");
-        lesson = getIntent().getStringExtra("lesson");
-        calis   = getIntent().getStringExtra("calificacion");
-        actHechasS = getIntent().getStringExtra("actividad");
-        b1 = getIntent().getStringExtra("boceto1");
-        b2 = getIntent().getStringExtra("boceto2");
-        tipo = getIntent().getStringExtra("tipo");
-
-        cali = Integer.valueOf(calis);
-        actHechas = Integer.valueOf(actHechasS);
-
         if(actHechas<=8) {
+
+            curso  = getIntent().getStringExtra("curso");
+            lesson = getIntent().getStringExtra("lesson");
+            String calis = getIntent().getStringExtra("calificacion");
+            String actHechass = getIntent().getStringExtra("actividad");
+            cali = Integer.valueOf(calis);
+            actHechas = Integer.valueOf(actHechass);
+
 
             play_pause = (Button) findViewById(R.id.play_pause_activity_listening_4);
 
@@ -137,13 +127,12 @@ public class Listening_4_Activity extends AppCompatActivity {
             mp = new MediaPlayer();
 
             Log.i("curso", curso);
-            numAletorio = aleatorio(numerosPreuntas);
+            numAletorio = "1";
 
-            if(b2.contains(numAletorio)) {
-                if (curso.equals("Ingles")) {
-                    titulo.setText("choose the correct option");
+                if (curso.equals("English")) {
+                    titulo.setText("Choose the correct option");
                 } else if (curso.equals("Italiano")) {
-                    titulo.setText("scegli la traduzione opzione");
+                    titulo.setText("Scegli la traduzione opzione");
                 }
 
                 int lessonint = Integer.parseInt(lesson);
@@ -192,25 +181,14 @@ public class Listening_4_Activity extends AppCompatActivity {
                 bringTheInfo(lessonint - 1, numAletorio);
 
                 opciones();
-            } else {
 
-                    Intent i = new Intent(Listening_4_Activity.this, Listening_4_Activity.class);
-                    i.putExtra("curso",curso);
-                    i.putExtra("lesson",lesson);
-                    i.putExtra("tipo",tipo);
-
-                    i.putExtra("calificacion",String.valueOf(cali));
-                    i.putExtra("actividad",String.valueOf(actHechas));
-                    i.putExtra("boceto1",b1);
-                    i.putExtra("boceto2",b2);
-                    startActivity(i);
-                }
 
             }else {
                 Intent i = new Intent(Listening_4_Activity.this, ResumenActividad.class);
-                 i.putExtra("curso",curso);
-                 i.putExtra("lesson",lesson);
-                 i.putExtra("tipo",tipo);
+            String tipo = "Escucha";
+            i.putExtra("curso",curso);
+            i.putExtra("lesson",lesson);
+            i.putExtra("tipo",tipo);
                  i.putExtra("calificacion", String.valueOf(cali));
 
                 startActivity(i);
@@ -230,28 +208,30 @@ public class Listening_4_Activity extends AppCompatActivity {
 
                 try {
 
+                    Log.i("ahhhha","entre al try");
                     JSONObject jsonObject = new JSONObject(response);
-                    String numfilas = jsonObject.getString("filas");
-                    String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+                    String success = jsonObject.getString("status");
+                    JSONArray jsonArray = jsonObject.getJSONArray("questions");
 
-                    int numFilas = Integer.parseInt(numfilas);
-
-                    if(success.equals("1")){
+                    if (success.equals("GOOD")) {
                         progressDialog.dismiss();
-                        for(int i = 0 ; i < jsonArray.length();i++){
 
-                            JSONObject object =  jsonArray.getJSONObject(i);
+                        JSONObject object =  jsonArray.getJSONObject(0);
+                        JSONArray options = object.getJSONArray("options");
 
-                            for(int h = 0; h < numFilas; h++) {
+                        comun.Optionss opciones = comun.getOptions(options);
 
-                                respuestaFromBD = object.getString("respuestac" + h);
-                                String audio = object.getString("urlAudio" + h).trim();
+                        JSONObject jsonObject1audio = object.getJSONObject("audio");
+                        String audio = jsonObject1audio.getString("rutaAudio").trim();
 
-                                String opcionA = object.getString("opcA" +h);
-                                String opcionB = object.getString("opcB" +h);
-                                String opcionC = object.getString("opcC" +h);
-                                String opcionD = object.getString("opcD" +h);
+
+                        respuestaFromBD = object.getString("correct");
+
+                        String opcionA = opciones.opcA;
+                        String opcionB = opciones.opcB;
+                        String opcionC = opciones.opcC;
+                        String opcionD = opciones.opcD;
+
 
                                 opc1.setText(opcionA);
                                 opc2.setText(opcionB);
@@ -282,10 +262,6 @@ public class Listening_4_Activity extends AppCompatActivity {
                                     }
                                 });
 
-
-                            }
-
-                        }
                     }
 
 
@@ -314,12 +290,10 @@ public class Listening_4_Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("pregunta",numAle);
-                params.put("lesson", String.valueOf(lessonint2));
-                params.put("boceto",boceto);
-                params.put("type","listening");
-
-
+                params.put("numberOfQuestions",numAle);
+                params.put("lectionId", String.valueOf(lessonint2));
+                params.put("sketch",boceto);
+                params.put("typeName","Escucha");
                 return params;
             }
         };
@@ -439,37 +413,37 @@ public class Listening_4_Activity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String b2N = b2.replaceAll(numAletorio,"");
                 actHechas++;
-                String num ="";
-                num = comun.aleatorio(2);
+                String num;
+                num = comun.aleatorio(3);
                 Log.i("numeroRamdon",num);
                 switch (num){
                     case "0":
                         Intent i = new Intent(Listening_4_Activity.this, Listening_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("tipo",tipo);
-
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
-                        i.putExtra("boceto1",b1);
-                        i.putExtra("boceto2",b2N);
                         startActivity(i);
                         break;
 
                     case "1":
-                        Intent intent = new Intent(Listening_4_Activity.this, Listening_4_Activity.class);
+                        Intent intent = new Intent(Listening_4_Activity.this, Listening_3_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("tipo",tipo);
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
-                        intent.putExtra("boceto1",b1);
-                        intent.putExtra("boceto2",b2N);
                         startActivity(intent);
                         break;
 
+                    case "2":
+                        Intent intent2= new Intent(Listening_4_Activity.this, Listening_4_Activity.class);
+                        intent2.putExtra("curso",curso);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("calificacion",String.valueOf(cali));
+                        intent2.putExtra("actividad",String.valueOf(actHechas));
+                        startActivity(intent2);
+                        break;
 
                 }
 
@@ -483,26 +457,6 @@ public class Listening_4_Activity extends AppCompatActivity {
         mp.stop();
         super.onDestroy();
     }
-    private String aleatorio(int numerosPreuntas){
-        // AleatoriSinRepeticion();
-        String num = "";
-        int pos;
-        int nCartas = numerosPreuntas;
-        Stack< Integer > pCartas = new Stack < Integer > ();
-        for (int i = 0; i < nCartas ; i++) {
-            pos = (int) Math.floor(Math.random() * nCartas );
-            while (pCartas.contains(pos)) {
-                pos = (int) Math.floor(Math.random() * nCartas );
-            }
-
-            pCartas.push(pos);
-            num = String.valueOf(pos);
-        }
-        Log.i("Numeros",pCartas.toString());
-
-        return num;
-    }
-
      @Override
     public void onBackPressed(){
         return;

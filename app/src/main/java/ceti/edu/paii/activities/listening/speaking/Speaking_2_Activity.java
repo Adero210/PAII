@@ -243,6 +243,8 @@ public class Speaking_2_Activity extends AppCompatActivity {
         }
         else {
             Intent i = new Intent(Speaking_2_Activity.this, ResumenActividad.class);
+            String tipo = "Habla";
+            i.putExtra("tipo",tipo);
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
             i.putExtra("calificacion", String.valueOf(cali));
@@ -267,6 +269,8 @@ public class Speaking_2_Activity extends AppCompatActivity {
                         JSONObject object =  jsonArray.getJSONObject(0);
                         String pre = object.getString("question");
                         respuestaFromBD = object.getString("question");
+                        respuestaFromBD = respuestaFromBD.toLowerCase();
+
                         oracion.setText(pre);
                     }
 

@@ -21,7 +21,7 @@ public class comun {
     public static String getId;
     public static final String EXTRA_CHAT_ID = "chatId";
     public static SessionManager sessionManager;
-    public static String URL = "http://192.168.0.2/PAI_php/conexiones/";
+    public static String URL = "http://192.168.137.243/PAI_php/conexiones/";
 
     public static String currentId;
     public static FragmentManager fragmentManager;
@@ -57,13 +57,6 @@ public class comun {
         public static String opcD;
     }
 
-    public static class Images{
-        public static String imageUno;
-        public static String imageTwo;
-        public static String imageThree;
-        public static String imagefour;
-    }
-
     public static Optionss getOptions(JSONArray options){
         Optionss newOPtions = null;
 
@@ -89,24 +82,43 @@ public class comun {
         return newOPtions;
     }
 
+    public static class Images{
+        public static String imageUno;
+        public static String imageTwo;
+        public static String imageThree;
+        public static String imagefour;
+        public static String valueUno;
+        public static String valueTwo;
+        public static String valueThree;
+        public static String valuefour;
+    }
+
     public static Images getImages(JSONArray images){
 
         Images newImages = null;
 
         for (int i = 0; i < images.length();i++){
             try {
-                JSONObject option = images.getJSONObject(i);
-                if (i==0){
-                    newImages.imageUno = option.getString("imageRoute");
-                }
-                if (i==1){
-                    newImages.imageTwo = option.getString("imageRoute");
-                }
-                if (i==2){
-                    newImages.imageThree = option.getString("imageRoute");
-                }
-                if (i==3){
-                    newImages.imagefour = option.getString("imageRoute");
+                JSONObject jsonObject = images.getJSONObject(i);
+                for(int j = 0; j < jsonObject.length();j++) {
+                    JSONObject jsonObject1 = jsonObject.getJSONObject("image");
+                    if (i == 0) {
+                        newImages.imageUno = jsonObject1.getString("imageRoute");
+                        newImages.valueUno = jsonObject1.getString("value");
+                    }
+                    if (i == 1) {
+                        newImages.imageTwo = jsonObject1.getString("imageRoute");
+                        newImages.valueTwo = jsonObject1.getString("value");
+                    }
+                    if (i == 2) {
+                        newImages.imageThree = jsonObject1.getString("imageRoute");
+                        newImages.valueThree = jsonObject1.getString("value");
+                    }
+                    if (i == 3) {
+                        newImages.imagefour = jsonObject1.getString("imageRoute");
+                        newImages.valuefour = jsonObject1.getString("value");
+
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

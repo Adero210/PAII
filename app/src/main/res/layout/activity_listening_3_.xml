@@ -16,6 +16,7 @@
         android:layout_marginRight="@dimen/dp10"
         >
         <TextView
+            android:id="@+id/titulo_list_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/Escucha_selecciona"
@@ -33,17 +34,19 @@
             android:background="@drawable/play"
             android:theme="@style/RaisedButtonDark" />
 
-        <SeekBar
-            android:id="@+id/seekbar_activity_listening_3"
+        <TextView
+            android:id="@+id/textview_act_listening_3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp25"
+            android:text="@string/save"/>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginBottom="@dimen/dp10"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dp25"
             android:orientation="horizontal">
 
             <Button
@@ -82,14 +85,32 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/button_activity_listening_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_rounded_signin"
-            android:layout_marginTop="@dimen/dp25"
-            android:text="@string/bottom_calificar"
-            android:theme="@style/RaisedButtonDark" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_activity_listening_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:background="@drawable/button_rounded_signin"
+                android:text="@string/bottom_calificar"
+                android:theme="@style/RaisedButtonDark" />
+
+
+            <Button
+                android:id="@+id/button_activity_con_listening_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp25"
+                android:layout_marginRight="@dimen/dp5"
+                android:layout_marginLeft="@dimen/dp5"
+                android:background="@drawable/button_rounded_signin"
+                android:visibility="invisible"
+                android:text="@string/continuar"
+                android:theme="@style/RaisedButtonDark" />
+        </RelativeLayout>
 
     </LinearLayout>
 

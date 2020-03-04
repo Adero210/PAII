@@ -48,6 +48,7 @@ import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_1_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_1_Activity;
 import ceti.edu.paii.activities.listening.writing.Writing_3_Activity;
 import ceti.edu.paii.comun.comun;
+import ceti.edu.paii.view.Activities_Activity;
 import ceti.edu.paii.view.ResumenActividad;
 
 public class Listening_1_Activity extends AppCompatActivity {
@@ -56,13 +57,12 @@ public class Listening_1_Activity extends AppCompatActivity {
 
     int actHechas, cali;
 
-    private String b1,b2, calis, actHechasS;
-    private  String numAletorio ="";
+    private String calis, actHechasS;
+    private String numAletorio;
 
-
-    private String tipo;
     private TextView titulo;
 
+    private String boceto = "2";
     private ImageView ima1;
     private ImageView ima2;
     private ImageView ima3;
@@ -86,11 +86,8 @@ public class Listening_1_Activity extends AppCompatActivity {
     private String curso;
     private String lesson;
 
-    private int numPre = 5;
-
-
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "writing3Act.php";
+    private static String URL_ACTR2 = comun.URL + "getActivity.php";
     private String respuestaFromBD = "";
     private String respuestaUser ="";
     private MediaPlayer mediaPlayer,incorrect;
@@ -108,15 +105,11 @@ public class Listening_1_Activity extends AppCompatActivity {
         lesson = getIntent().getStringExtra("lesson");
         calis   = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
-        b1 = getIntent().getStringExtra("boceto1");
-        b2 = getIntent().getStringExtra("boceto2");
-        tipo = getIntent().getStringExtra("tipo");
-
 
         cali = Integer.valueOf(calis);
         actHechas = Integer.valueOf(actHechasS);
 
-        if(actHechas<=8) {
+        if(actHechas <= 8) {
 
             progressDialog = new ProgressDialog(Listening_1_Activity.this);
 
@@ -158,98 +151,73 @@ public class Listening_1_Activity extends AppCompatActivity {
 
             mp = new MediaPlayer();
 
-            numAletorio = comun.aleatorio(numPre);
+            numAletorio = "1";
 
-            if(b1.contains(numAletorio)) {
-                if (curso.equals("Ingles")) {
-                    titulo.setText("choose the correct option");
-                } else if (curso.equals("Italiano")) {
-                    titulo.setText("scegli la traduzione opzione");
-                }
-
-                int lessonint = Integer.parseInt(lesson);
-
-                if(lessonint == 1) lessonint = 21;
-
-                if (curso.equals("Italiano")) {
-                    switch (lesson) {
-
-                        case "1":
-                            lessonint = 11;
-                            break;
-                        case "2":
-                            lessonint = 12;
-                            break;
-                        case "3":
-                            lessonint = 13;
-                            break;
-                        case "4":
-                            lessonint = 14;
-                            break;
-                        case "5":
-                            lessonint = 15;
-                            break;
-                        case "6":
-                            lessonint = 16;
-                            break;
-                        case "7":
-                            lessonint = 17;
-                            break;
-                        case "8":
-                            lessonint = 18;
-                            break;
-                        case "9":
-                            lessonint = 19;
-                            break;
-                        case "10":
-                            lessonint = 20;
-                            break;
-
-
-                    }
-                }
-
-                bringTheInfo(lessonint - 1, numAletorio);
-
-                options();
-
-            }else {
-
-                if(b1.contains("0")||b1.contains("1")||b1.contains("2")||b1.contains("3")||b1.contains("4")) {
-                    Intent i = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
-                    i.putExtra("curso", curso);
-                    i.putExtra("lesson", lesson);
-                    i.putExtra("tipo",tipo);
-
-                    i.putExtra("calificacion", String.valueOf(cali));
-                    i.putExtra("actividad", String.valueOf(actHechas));
-                    i.putExtra("boceto1", b1);
-                    i.putExtra("boceto2", b2);
-                    startActivity(i);
-                }else{
-                    Intent i = new Intent(Listening_1_Activity.this, Listening_4_Activity.class);
-                    i.putExtra("curso", curso);
-                    i.putExtra("lesson", lesson);
-                    i.putExtra("tipo",tipo);
-
-                    i.putExtra("calificacion", String.valueOf(cali));
-                    i.putExtra("actividad", String.valueOf(actHechas));
-                    i.putExtra("boceto1", b1);
-                    i.putExtra("boceto2", b2);
-                    startActivity(i);
-
-                }
-
-                }
-        }else {
-                Intent i = new Intent(Listening_1_Activity.this, ResumenActividad.class);
-                i.putExtra("curso",curso);
-                i.putExtra("lesson",lesson);
-                i.putExtra("tipo",tipo);
-                i.putExtra("calificacion", String.valueOf(cali));
-
-                startActivity(i);
+            if (curso.equals("English")) {
+                titulo.setText("Choose the correct option");
+            } else if (curso.equals("Italiano")) {
+                titulo.setText("Scegli la traduzione opzione");
             }
+
+            int lessonint = Integer.parseInt(lesson);
+
+
+            if(lessonint == 1) lessonint = 21;
+
+            if (curso.equals("Italiano")) {
+                switch (lesson) {
+
+                    case "1":
+                        lessonint = 11;
+                        break;
+                    case "2":
+                        lessonint = 12;
+                        break;
+                    case "3":
+                        lessonint = 13;
+                        break;
+                    case "4":
+                        lessonint = 14;
+                        break;
+                    case "5":
+                        lessonint = 15;
+                        break;
+                    case "6":
+                        lessonint = 16;
+                        break;
+                    case "7":
+                        lessonint = 17;
+                        break;
+                    case "8":
+                        lessonint = 18;
+                        break;
+                    case "9":
+                        lessonint = 19;
+                        break;
+                    case "10":
+                        lessonint = 20;
+                        break;
+
+
+                }
+            }
+
+            bringTheInfo(lessonint - 1, numAletorio);
+
+            options();
+
+
+        }else {
+            Intent i = new Intent(Listening_1_Activity.this, ResumenActividad.class);
+            String tipo = "Escucha";
+
+            i.putExtra("curso",curso);
+            i.putExtra("lesson",lesson);
+            i.putExtra("tipo",tipo);
+            i.putExtra("calificacion", String.valueOf(cali));
+
+            startActivity(i);
+        }
     }
 
     private void bringTheInfo(final Integer lessonint2, final String numAle) {
@@ -260,81 +228,105 @@ public class Listening_1_Activity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
-
-
                 try {
+                    Log.i("ahhhha","entre al try");
 
                     JSONObject jsonObject = new JSONObject(response);
-                    String numfilas = jsonObject.getString("filas");
-                    String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+                    String success = jsonObject.getString("status");
+                    JSONArray jsonArray = jsonObject.getJSONArray("questions");
 
-                    int numFilas = Integer.parseInt(numfilas);
-
-                    if(success.equals("1")){
+                    if (success.equals("GOOD")) {
+                        Log.i("ahhhha","success");
                         progressDialog.dismiss();
-                        for(int i = 0 ; i < jsonArray.length();i++){
 
-                            JSONObject object =  jsonArray.getJSONObject(i);
-
-                            for(int h = 0; h < numFilas; h++) {
-
-                                respuestaFromBD = object.getString("respuestac");
-                                String imagenfrom1 = object.getString("urlImage0");
-                                String imagenfrom2 = object.getString("urlImage1");
-                                String imagenfrom3 = object.getString("urlImage2");
-                                String imagenfrom4 = object.getString("urlImage3");
-
-                                Glide.with(Listening_1_Activity.this)
-                                        .load(imagenfrom1)
-                                        .into(ima1);
-                                Glide.with(Listening_1_Activity.this)
-                                        .load(imagenfrom2)
-                                        .into(ima2);
-                                Glide.with(Listening_1_Activity.this)
-                                        .load(imagenfrom3)
-                                        .into(ima3);
-                                Glide.with(Listening_1_Activity.this)
-                                        .load(imagenfrom4)
-                                        .into(ima4);
+                        JSONObject object =  jsonArray.getJSONObject(0);
 
 
-                                String tImagenfrom1 = object.getString("textImage0");
-                                String tImagenfrom2 = object.getString("textImage1");
-                                String tImagenfrom3 = object.getString("textImage2");
-                                String tImagenfrom4 = object.getString("textImage3");
+                        respuestaFromBD = object.getString("question");
 
-                                text1.setText(tImagenfrom1);
-                                text2.setText(tImagenfrom2);
-                                text3.setText(tImagenfrom3);
-                                text4.setText(tImagenfrom4);
+                        JSONObject jsonObject1audio = object.getJSONObject("audio");
 
+                        String audio = jsonObject1audio.getString("rutaAudio").trim();
 
-                                String audio = object.getString("urlAudio").trim();
+                        JSONArray jsonArray1 = object.getJSONArray("images");
+                        comun.getImages(jsonArray1);
 
-                                mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri1) {
-                                        try {
+                        String imagenfrom1 = null;
 
-                                            mp.reset();
-                                            mp.setDataSource(Listening_1_Activity.this,uri1);
-                                            // mp.setLooping(true);
-                                            // mp.seekTo(0);
-                                            //totalTime = mp.getDuration();
-                                            mp.prepareAsync();
+                        String imagenfrom2 = null;
+                        String imagenfrom3 = null;
+                        String imagenfrom4 = null;
 
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
+                        String textfrom1 = null;
 
-                                    }
-                                });
+                        String textfrom2 = null;
+                        String textfrom3 = null;
+                        String textfrom4 = null;
 
+                        for (int i = 0; i < jsonArray1.length(); i++) {
+
+                            JSONObject jsonObject1 = jsonArray1.getJSONObject(i);
+                            JSONObject jsonObject2 = jsonObject1.getJSONObject("image");
+
+                            if(i==0){
+                                imagenfrom1 = jsonObject2.getString("imageRoute");
+                                textfrom1 = jsonObject2.getString("value");
+                            }
+                            if(i==1){
+                                imagenfrom2 = jsonObject2.getString("imageRoute");
+                                textfrom2 = jsonObject2.getString("value");
+
+                            }if(i==2){
+                                imagenfrom3 = jsonObject2.getString("imageRoute");
+                                textfrom3 = jsonObject2.getString("value");
+
+                            }if(i==3){
+                                imagenfrom4 = jsonObject2.getString("imageRoute");
+                                textfrom4 = jsonObject2.getString("value");
 
                             }
 
                         }
+
+                        text1.setText(textfrom1);
+                        text2.setText(textfrom2);
+                        text3.setText(textfrom3);
+                        text4.setText(textfrom4);
+
+
+                        Glide.with(Listening_1_Activity.this)
+                                .load(imagenfrom1)
+                                .into(ima1);
+                        Glide.with(Listening_1_Activity.this)
+                                .load(imagenfrom2)
+                                .into(ima2);
+                        Glide.with(Listening_1_Activity.this)
+                                .load(imagenfrom3)
+                                .into(ima3);
+                        Glide.with(Listening_1_Activity.this)
+                                .load(imagenfrom4)
+                                .into(ima4);
+
+
+
+                        mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri1) {
+                                try {
+
+                                    mp.reset();
+                                    mp.setDataSource(Listening_1_Activity.this,uri1);
+                                    // mp.setLooping(true);
+                                    // mp.seekTo(0);
+                                    //totalTime = mp.getDuration();
+                                    mp.prepareAsync();
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
                     }
 
 
@@ -363,9 +355,10 @@ public class Listening_1_Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("pregunta",numAle);
-                params.put("lesson", String.valueOf(lessonint2));
-                params.put("type","listening");
+                params.put("numberOfQuestions",numAle);
+                params.put("lectionId", String.valueOf(lessonint2));
+                params.put("sketch",boceto);
+                params.put("typeName","Escucha");
                 return params;
             }
         };
@@ -473,38 +466,37 @@ public class Listening_1_Activity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String b1N = b1.replaceAll(numAletorio,"");
                 actHechas++;
-                String num ="";
-                num = comun.aleatorio(2);
+                String num;
+                num = comun.aleatorio(3);
                 Log.i("numeroRamdon",num);
                 switch (num){
                     case "0":
                         Intent i = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("tipo",tipo);
-
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
-                        i.putExtra("boceto1",b1N);
-                        i.putExtra("boceto2",b2);
                         startActivity(i);
                         break;
 
                     case "1":
-                        Intent intent = new Intent(Listening_1_Activity.this, Listening_4_Activity.class);
+                        Intent intent = new Intent(Listening_1_Activity.this, Listening_3_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("tipo",tipo);
-
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
-                        intent.putExtra("boceto1",b1N);
-                        intent.putExtra("boceto2",b2);
                         startActivity(intent);
                         break;
 
+                    case "2":
+                        Intent intent2= new Intent(Listening_1_Activity.this, Listening_4_Activity.class);
+                        intent2.putExtra("curso",curso);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("calificacion",String.valueOf(cali));
+                        intent2.putExtra("actividad",String.valueOf(actHechas));
+                        startActivity(intent2);
+                        break;
 
                 }
 

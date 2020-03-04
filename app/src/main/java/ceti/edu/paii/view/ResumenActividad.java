@@ -39,7 +39,7 @@ public class ResumenActividad extends AppCompatActivity {
     private TextView textCal;
     private TextView numCal;
     private String tipo;
-    private static String URL_EDIT = comun.URL + "update_cali.php";
+    private static String URL_EDIT = comun.URL + "saveCalification.php";
 
 
     private Button back;
@@ -62,6 +62,9 @@ public class ResumenActividad extends AppCompatActivity {
 
 
         int lessonint = Integer.valueOf(lesson);
+
+        if(lessonint == 1) lessonint = 21;
+
 
         if (curso.equals("Italiano")) {
             switch (lesson) {
@@ -110,7 +113,7 @@ public class ResumenActividad extends AppCompatActivity {
             textCal.setText("punteggio");
         }
 
-        Double cali2 = Double.valueOf((cali/80));
+        Double cali2 = Double.valueOf((cali/8));
         String score = String.valueOf(cali2);
 
         Log.i("rederescrtedeca",score + tipo
@@ -166,10 +169,10 @@ public class ResumenActividad extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("score", score);
-                params.put("tipo", tipo);
-                params.put("lesson",String.valueOf(l));
-                params.put("userName",comun.userNameLec);
+                params.put("calification", score);
+                params.put("typeName", tipo);
+                params.put("lectionId",String.valueOf(l));
+                params.put("nickname",comun.userNameLec);
                 return params;
             }
         };
@@ -181,6 +184,7 @@ public class ResumenActividad extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(ResumenActividad.this, ContainerActivity.class);
                 startActivity(i);
             }

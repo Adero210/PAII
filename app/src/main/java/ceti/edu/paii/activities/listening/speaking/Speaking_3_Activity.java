@@ -71,7 +71,7 @@ public class Speaking_3_Activity extends AppCompatActivity {
 
     private StorageReference mAudioStorage;
 
-    private ImageView imagen;
+    private ImageView imagenView;
     private Button revisar;
     private Button continuar;
 
@@ -121,7 +121,7 @@ public class Speaking_3_Activity extends AppCompatActivity {
 
             mp = new MediaPlayer();
 
-            imagen = findViewById(R.id.image_speaking_3);
+            imagenView = findViewById(R.id.image_speaking_3);
             mediaPlayer = MediaPlayer.create(this, R.raw.correctding);
             incorrect = MediaPlayer.create(this, R.raw.wrong);
             revisar = findViewById(R.id.button_activity_speaking_3);
@@ -196,64 +196,66 @@ public class Speaking_3_Activity extends AppCompatActivity {
             Log.i("curso", curso);
             String numAletorio = "1";
 
-                if (curso.equals("Inglés")) {
-                    titulo.setText("Listen and Repeat");
-                } else if (curso.equals("Italiano")) {
-                    titulo.setText("Ascolta e ripeti");
+            if (curso.equals("Inglés")) {
+                titulo.setText("Listen and Repeat");
+            } else if (curso.equals("Italiano")) {
+                titulo.setText("Ascolta e ripeti");
+            }
+
+            int lessonint = Integer.parseInt(lesson);
+
+            if(lessonint == 1) lessonint = 21;
+
+            if (curso.equals("Italiano")) {
+                switch (lesson) {
+
+                    case "1":
+                        lessonint = 11;
+                        break;
+                    case "2":
+                        lessonint = 12;
+                        break;
+                    case "3":
+                        lessonint = 13;
+                        break;
+                    case "4":
+                        lessonint = 14;
+                        break;
+                    case "5":
+                        lessonint = 15;
+                        break;
+                    case "6":
+                        lessonint = 16;
+                        break;
+                    case "7":
+                        lessonint = 17;
+                        break;
+                    case "8":
+                        lessonint = 18;
+                        break;
+                    case "9":
+                        lessonint = 19;
+                        break;
+                    case "10":
+                        lessonint = 20;
+                        break;
                 }
+            }
 
-                int lessonint = Integer.parseInt(lesson);
-
-                if(lessonint == 1) lessonint = 21;
-
-                if (curso.equals("Italiano")) {
-                    switch (lesson) {
-
-                        case "1":
-                            lessonint = 11;
-                            break;
-                        case "2":
-                            lessonint = 12;
-                            break;
-                        case "3":
-                            lessonint = 13;
-                            break;
-                        case "4":
-                            lessonint = 14;
-                            break;
-                        case "5":
-                            lessonint = 15;
-                            break;
-                        case "6":
-                            lessonint = 16;
-                            break;
-                        case "7":
-                            lessonint = 17;
-                            break;
-                        case "8":
-                            lessonint = 18;
-                            break;
-                        case "9":
-                            lessonint = 19;
-                            break;
-                        case "10":
-                            lessonint = 20;
-                            break;
-                    }
-                }
-
-                bringTheInfo(lessonint - 1, numAletorio);
-                opsciones();
+            bringTheInfo(lessonint - 1, numAletorio);
+            opsciones();
 
 
         } else {
-                Intent i = new Intent(Speaking_3_Activity.this, ResumenActividad.class);
-                i.putExtra("curso",curso);
-                i.putExtra("lesson",lesson);
-                i.putExtra("calificacion", String.valueOf(cali));
-                startActivity(i);
+            Intent i = new Intent(Speaking_3_Activity.this, ResumenActividad.class);
+            String tipo = "Habla";
+            i.putExtra("tipo",tipo);
+            i.putExtra("curso",curso);
+            i.putExtra("lesson",lesson);
+            i.putExtra("calificacion", String.valueOf(cali));
+            startActivity(i);
 
-            }
+        }
     }
 
     private void bringTheInfo(final Integer lessonint2, final String numAle) {
@@ -274,38 +276,43 @@ public class Speaking_3_Activity extends AppCompatActivity {
                     JSONArray jsonArray = jsonObject.getJSONArray("questions");
 
                     if (success.equals("GOOD")) {
-                        Log.i("ahhhha","success");
+                        Log.i("ahhhha", "success");
                         progressDialog.dismiss();
 
                         JSONObject object =  jsonArray.getJSONObject(0);
-                        JSONObject object1 =  jsonArray.getJSONObject(1);
+                        respuestaFromBD = object.getString("question");
+                        respuestaFromBD = respuestaFromBD.toLowerCase();
 
-                        JSONArray images = object1.getJSONArray("images");
+                        JSONObject audioRoute = object.getJSONObject("audio");
+
+                        JSONObject ima = object.getJSONObject("images");
+                        JSONObject imaI = ima.getJSONObject("image");
+
+                        String audio = audioRoute.getString("rutaAudio").trim();
+
+                        Log.i("RESPUESTACORRECTA", "RESPUESTA CORRECTA: " + respuestaFromBD + "ruta audio: " + audio);
+
+                        String imagenfrom1 = imaI.getString("imageRoute");
 
 
-                        comun.Images image = comun.getImages(images);
-                                respuestaFromBD = object.getString("question");
-                                String audio = object.getString("rutaAudio").trim();
-                                String imagenfrom = image.imageUno;
+                        Glide.with(Speaking_3_Activity.this)
+                                .load(imagenfrom1)
+                                .into(imagenView);
 
-                                Glide.with(Speaking_3_Activity.this)
-                                        .load(imagenfrom)
-                                        .into(imagen);
+                        mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                try {
+                                    mp.reset();
+                                    mp.setDataSource(Speaking_3_Activity.this,uri);
+                                    mp.prepareAsync();
 
-                                mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        try {
-                                            mp.reset();
-                                            mp.setDataSource(Speaking_3_Activity.this,uri);
-                                            mp.prepareAsync();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
 
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                    }
-                                });
+                            }
+                        });
 
                     }
 
@@ -379,6 +386,8 @@ public class Speaking_3_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 revisar.setVisibility(View.INVISIBLE);
                 continuar.setVisibility(View.VISIBLE);
+                Log.i("RESPUESTACORRECTA",respuestaUser);
+
                 if(respuestaUser.equals(respuestaFromBD)){
                     mediaPlayer.start();
                     cali = cali + 100;

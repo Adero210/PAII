@@ -148,6 +148,8 @@ public class Grammar_1_Activity extends AppCompatActivity {
 
         }else {
             Intent i = new Intent(Grammar_1_Activity.this, ResumenActividad.class);
+            String tipo = "Gramatica";
+            i.putExtra("tipo",tipo);
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
             i.putExtra("calificacion", String.valueOf(cali));
@@ -212,7 +214,6 @@ public class Grammar_1_Activity extends AppCompatActivity {
                 params.put("lectionId", String.valueOf(lessonint2));
                 params.put("sketch",boceto);
                 params.put("typeName","Gramatica");
-
                 return params;
             }
         };

@@ -115,6 +115,31 @@
                     android:visibility="invisible"/>
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/opcion4_activity_vocabulary_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_rounded_signin"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:theme="@style/RaisedButtonDark"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:text="@string/opcion"/>
+
+                    <Button
+                        android:id="@+id/opcion4_activity_sel_vocabulary_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp10"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:background="@drawable/rounded_rentangle_orange"
+                        android:theme="@style/RaisedButtonDark"
+                        android:text="@string/opcion"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
+
 
             </LinearLayout>
 

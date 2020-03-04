@@ -27,6 +27,7 @@ import java.util.Map;
 
 import ceti.edu.paii.R;
 import ceti.edu.paii.activities.listening.Listening_1_Activity;
+import ceti.edu.paii.activities.listening.Listening_3_Activity;
 import ceti.edu.paii.activities.listening.Listening_4_Activity;
 import ceti.edu.paii.activities.listening.grammar.Grammar_1_Activity;
 import ceti.edu.paii.activities.listening.grammar.Grammar_2_Activity;
@@ -94,12 +95,12 @@ public class Activities_Activity extends AppCompatActivity {
         tcalESCU  = findViewById(R.id.number_listenig_activity);
         tcal6G  = findViewById(R.id.number_grammar_activity);
 
-        calitext1.setText("Calification: ");
-        calitext2.setText("Calification: ");
-        calitext3.setText("Calification: ");
-        calitext4.setText("Calification: ");
-        calitext5.setText("Calification: ");
-        calitext6.setText("Calification: ");
+        calitext1.setText("qualification: ");
+        calitext2.setText("qualification: ");
+        calitext3.setText("qualification: ");
+        calitext4.setText("qualification: ");
+        calitext5.setText("qualification: ");
+        calitext6.setText("qualification: ");
 
         readCali();
         String data[] = new String[2];
@@ -117,12 +118,12 @@ public class Activities_Activity extends AppCompatActivity {
             bg.setText("grammatica");
             bs.setText("A proposito di");
 
-            calitext1.setText("Calif: ");
-            calitext2.setText("Calif: ");
-            calitext3.setText("Calif: ");
-            calitext4.setText("Calif: ");
-            calitext5.setText("Calif: ");
-            calitext6.setText("Calif: ");
+            calitext1.setText("qualificazione: ");
+            calitext2.setText("qualificazione: ");
+            calitext3.setText("qualificazione: ");
+            calitext4.setText("qualificazione: ");
+            calitext5.setText("qualificazione: ");
+            calitext6.setText("qualificazione: ");
         }
 
         language2 = language;
@@ -135,6 +136,7 @@ public class Activities_Activity extends AppCompatActivity {
         btnVocabulary.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String boceto;
                 String num ="";
                 String  actHechas = "1";
                 String calificacion = "0";
@@ -152,8 +154,10 @@ public class Activities_Activity extends AppCompatActivity {
 
                     case "1":
                         Intent intent = new Intent(Activities_Activity.this, Vocabulary_2_Activity.class);
+                        boceto = "2";
                         intent.putExtra("curso",language);
                         intent.putExtra("lesson",lesson);
+                        intent.putExtra("boceto",boceto);
                         intent.putExtra("calificacion",calificacion);
                         intent.putExtra("actividad",actHechas);
                         startActivity(intent);
@@ -169,10 +173,11 @@ public class Activities_Activity extends AppCompatActivity {
                         break;
 
                     case "3":
-                        Intent intent2 = new Intent(Activities_Activity.this, Vocabulary_4_Activity.class);
-
+                        Intent intent2 = new Intent(Activities_Activity.this, Vocabulary_2_Activity.class);
+                        boceto = "4";
                         intent2.putExtra("curso",language);
                         intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("boceto",boceto);
                         intent2.putExtra("calificacion",calificacion);
                         intent2.putExtra("actividad",actHechas);
                         startActivity(intent2);
@@ -315,7 +320,7 @@ public class Activities_Activity extends AppCompatActivity {
                 String actHechas = "1";
                 String calificacion = "0";
 
-                num = comun.aleatorio(2);
+                num = comun.aleatorio(3);
                 Log.i("numeroRamdon",num);
                 switch (num){
                     case "0":
@@ -328,12 +333,21 @@ public class Activities_Activity extends AppCompatActivity {
                         break;
 
                     case "1":
-                        Intent intent = new Intent(Activities_Activity.this, Listening_4_Activity.class);
+                        Intent intent = new Intent(Activities_Activity.this, Listening_3_Activity.class);
                         intent.putExtra("curso",language);
                         intent.putExtra("lesson",lesson);
                         intent.putExtra("calificacion",calificacion);
                         intent.putExtra("actividad",actHechas);
                         startActivity(intent);
+                        break;
+
+                    case "2":
+                        Intent intent2= new Intent(Activities_Activity.this, Listening_4_Activity.class);
+                        intent2.putExtra("curso",language);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("calificacion",calificacion);
+                        intent2.putExtra("actividad",actHechas);
+                        startActivity(intent2);
                         break;
                 }
             }

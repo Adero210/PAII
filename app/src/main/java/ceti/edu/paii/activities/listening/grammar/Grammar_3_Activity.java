@@ -145,6 +145,8 @@ public class Grammar_3_Activity extends AppCompatActivity {
 
         }else {
             Intent i = new Intent(Grammar_3_Activity.this, ResumenActividad.class);
+            String tipo = "Gramatica";
+            i.putExtra("tipo",tipo);
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
             i.putExtra("calificacion", String.valueOf(cali));

@@ -232,6 +232,8 @@ public class Speaking_1_Activity extends AppCompatActivity {
         }
         else {
             Intent i = new Intent(Speaking_1_Activity.this, ResumenActividad.class);
+            String tipo = "Habla";
+            i.putExtra("tipo",tipo);
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
             i.putExtra("calificacion", String.valueOf(cali));
@@ -261,6 +263,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
                         JSONObject audios = object.getJSONObject("audio");
 
                         respuestaFromBD = object.getString("question" );
+                        respuestaFromBD = respuestaFromBD.toLowerCase();
 
                         String audio = audios.getString("rutaAudio");
 

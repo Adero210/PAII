@@ -99,7 +99,7 @@ public class PictureAdapterRecyclerView extends RecyclerView.Adapter<PictureAdap
                     String curso = picture.getUserName();
                     int cursoint = 0;
                     Log.i(TAG,curso);
-                    if (curso.equals("Ingles")){
+                    if (curso.equals("Inglés")){
                         cursoint = 1;
                     }else if(curso.equals("Italiano")){
                         cursoint = 2;
