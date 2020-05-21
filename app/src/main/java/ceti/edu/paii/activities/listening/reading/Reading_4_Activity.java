@@ -45,27 +45,22 @@ public class Reading_4_Activity extends AppCompatActivity {
 
     private String curso;
     private String lesson;
-
-    private String tipo;
-
     int actHechas, cali;
-    private String b1,b2,b3,b4, calis, actHechasS;
+    private String calis, actHechasS;
 
     private  String numAletorio ="";
-
-    private int numerosPreuntas = 5;
 
     private TextView parrafo,word1,word2,word3,word4,word5;
     private MediaPlayer mediaPlayer,incorrect;
 
     private String palabrasCorrectas[] = new String[5];
     private ProgressDialog progressDialog;
-    private static String URL_ACTR4 = comun.URL + "genericAct.php";
-    private String boceto = "1";
+    private static String URL_ACTR4 = comun.URL + "getActivity.php";
+    private String boceto = "3";
     private String correcta = "";
     private int cont = 0;
 
-    private String gre[];
+    private String[] gre= new String[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +71,6 @@ public class Reading_4_Activity extends AppCompatActivity {
         lesson = getIntent().getStringExtra("lesson");
         calis   = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
-        b1 = getIntent().getStringExtra("boceto1");
-        b2 = getIntent().getStringExtra("boceto2");
-        b3 = getIntent().getStringExtra("boceto3");
-        b4 = getIntent().getStringExtra("boceto4");
-        tipo = getIntent().getStringExtra("tipo");
         cali = Integer.valueOf(calis);
         actHechas = Integer.valueOf(actHechasS);
         if(actHechas<=8) {
@@ -106,16 +96,15 @@ public class Reading_4_Activity extends AppCompatActivity {
 
             continuar.setVisibility(View.GONE);
 
-            numAletorio = comun.aleatorio(numerosPreuntas);
-
-            if(b2.contains(numAletorio)) {
-                if (curso.equals("Ingles")) {
-                    oracion.setText("complete the paragraph");
+            numAletorio = "1";
+             if (curso.equals("English")) {
+                    oracion.setText("Complete the paragraph");
                 } else if (curso.equals("Italiano")) {
-                    oracion.setText("completa il paragrafo");
+                    oracion.setText("Completa il paragrafo");
                 }
 
                 int lessonint = Integer.parseInt(lesson);
+                if(lessonint == 1) lessonint = 21;
 
                 if (curso.equals("Italiano")) {
                     switch (lesson) {
@@ -155,27 +144,13 @@ public class Reading_4_Activity extends AppCompatActivity {
                 brinTheInfo(lessonint - 1, numAletorio);
 
                 functiond();
-            }else {
 
-                Intent i = new Intent(Reading_4_Activity.this, Reading_4_Activity.class);
-                i.putExtra("curso",curso);
-                i.putExtra("lesson",lesson);
-                i.putExtra("tipo",tipo);
-
-                i.putExtra("calificacion",String.valueOf(cali));
-                i.putExtra("actividad",String.valueOf(actHechas));
-                i.putExtra("boceto1",b1);
-                i.putExtra("boceto2",b2);
-                i.putExtra("boceto3",b3);
-                i.putExtra("boceto4",b4);
-                startActivity(i);
-            }
         }else {
             Intent i = new Intent(Reading_4_Activity.this, ResumenActividad.class);
+            String tipo = "Lectura";
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
             i.putExtra("tipo",tipo);
-
             i.putExtra("calificacion", String.valueOf(cali));
             startActivity(i);
 
@@ -193,29 +168,20 @@ public class Reading_4_Activity extends AppCompatActivity {
             public void onResponse(String response) {
 
                 try {
-
+                    Log.i("ahhhha","entre al try");
                     JSONObject jsonObject = new JSONObject(response);
-                    String numfilas = jsonObject.getString("filas");
-                    String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+                    String success = jsonObject.getString("status");
+                    JSONArray jsonArray = jsonObject.getJSONArray("questions");
 
-                    int numFilas = Integer.parseInt(numfilas);
-
-                    if(success.equals("1")){
+                    if (success.equals("GOOD")) {
                         progressDialog.dismiss();
-                        for(int i = 0 ; i < jsonArray.length();i++) {
 
-                            JSONObject object = jsonArray.getJSONObject(i);
+                        JSONObject object =  jsonArray.getJSONObject(0);
+                                String parrafo2 = object.getString("question");
 
-
-                            for(int h = 0; h < numFilas; h++) {
-                                String parrafo2 = object.getString("pregunta" + h);
-
-                                correcta = object.getString("respuestac" + h);
 
                                 Log.i("PARRAFOCORRECTO", correcta);
 
-                                gre = correcta.split(",");
 
                                 String words[] = parrafo2.split("~");
 
@@ -225,6 +191,16 @@ public class Reading_4_Activity extends AppCompatActivity {
                                 String part3 = words[5];
                                 String part4 = words[7];
                                 String part5 = words[9];
+
+                                gre[0] = words[1];
+                                gre[1] = words[3];
+                                gre[2] = words[5];
+                                gre[3] = words[7];
+                                gre[4] = words[9];
+
+                                for (int i=0;i<words.length;i++){
+                                    correcta = correcta + " " + words[i];
+                                }
 
                                 String ss = parrafo2.replace(words[1], "____");
                                 String ssc2 = ss.replace(words[3], "____");
@@ -271,9 +247,7 @@ public class Reading_4_Activity extends AppCompatActivity {
                                 word3.setText(partR3);
                                 word4.setText(partR4);
                                 word5.setText(partR5);
-                            }
 
-                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -296,10 +270,10 @@ public class Reading_4_Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("pregunta",numAle);
-                params.put("lesson", String.valueOf(lessonint2));
-                params.put("boceto",boceto);
-                params.put("type","reading");
+                params.put("numberOfQuestions",numAle);
+                params.put("lectionId", String.valueOf(lessonint2));
+                params.put("sketch",boceto);
+                params.put("typeName","Lectura");
                 return params;
             }
         };
@@ -407,6 +381,11 @@ public class Reading_4_Activity extends AppCompatActivity {
                 word4.setVisibility(View.INVISIBLE);
                 word5.setVisibility(View.INVISIBLE);
 
+                Log.i("frgrosere","gre"+gre[0] + "," + gre[1] + "," +gre[2] + "," + gre[3] + "," + gre[4] + ",");
+
+
+                Log.i("frgrosere","pc"+palabrasCorrectas[0] + "," + palabrasCorrectas[1] + "," +palabrasCorrectas[2] + "," +palabrasCorrectas[3] + "," +palabrasCorrectas[4] + ",");
+
                 if(gre[0].equals(palabrasCorrectas[0])&&gre[1].equals(palabrasCorrectas[1])&&gre[2].equals(palabrasCorrectas[2])
                 &&gre[3].equals(palabrasCorrectas[3])&&gre[4].equals(palabrasCorrectas[4])){
                     Toast.makeText(Reading_4_Activity.this,"CORRECT ",Toast.LENGTH_SHORT).show();
@@ -426,7 +405,6 @@ public class Reading_4_Activity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String b2N = b2.replaceAll(numAletorio,"");
                 actHechas++;
                 String num ="";
                 num = comun.aleatorio(4);
@@ -436,52 +414,32 @@ public class Reading_4_Activity extends AppCompatActivity {
                         Intent i = new Intent(Reading_4_Activity.this, Reading_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("tipo",tipo);
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
-                        i.putExtra("boceto1",b1);
-                        i.putExtra("boceto2",b2N);
-                        i.putExtra("boceto3",b3);
-                        i.putExtra("boceto4",b4);
                         startActivity(i);
                         break;
                     case "1":
-                        Intent intent = new Intent(Reading_4_Activity.this, Reading_Paragraph_Activity.class);
+                        Intent intent = new Intent(Reading_4_Activity.this, Reading_1_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("tipo",tipo);
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
-                        intent.putExtra("boceto1",b1);
-                        intent.putExtra("boceto2",b2N);
-                        intent.putExtra("boceto3",b3);
-                        intent.putExtra("boceto4",b4);
                         startActivity(intent);
                         break;
                     case "2":
-                        Intent intent1 = new Intent(Reading_4_Activity.this, Reading_paragraph_2_Activity.class);
+                        Intent intent1 = new Intent(Reading_4_Activity.this, Reading_4_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("tipo",tipo);
                         intent1.putExtra("calificacion",String.valueOf(cali));
                         intent1.putExtra("actividad",String.valueOf(actHechas));
-                        intent1.putExtra("boceto1",b1);
-                        intent1.putExtra("boceto2",b2N);
-                        intent1.putExtra("boceto3",b3);
-                        intent1.putExtra("boceto4",b4);
                         startActivity(intent1);
                         break;
                     case "3":
                         Intent intent2 = new Intent(Reading_4_Activity.this, Reading_4_Activity.class);
                         intent2.putExtra("curso",curso);
                         intent2.putExtra("lesson",lesson);
-                        intent2.putExtra("tipo",tipo);
                         intent2.putExtra("calificacion",String.valueOf(cali));
                         intent2.putExtra("actividad",String.valueOf(actHechas));
-                        intent2.putExtra("boceto1",b1);
-                        intent2.putExtra("boceto2",b2N);
-                        intent2.putExtra("boceto3",b3);
-                        intent2.putExtra("boceto4",b4);
                         startActivity(intent2);
                         break;
                 }

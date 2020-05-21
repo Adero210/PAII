@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -76,8 +78,9 @@ public class StatusActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),
                                     "Se guardo Exitosamente",
                                     Toast.LENGTH_SHORT).show();
-
-
+                            Intent i = new Intent(StatusActivity.this,ContainerActivity.class);
+                            i.putExtra("dato","e");
+                            startActivity(i);
                         }else {
                             Toast.makeText(getApplicationContext(),
                                     "Se obtuvo un error mientras guardaba",

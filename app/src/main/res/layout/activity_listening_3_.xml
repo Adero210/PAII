@@ -25,10 +25,11 @@
             android:textStyle="bold"/>
 
 
-        <Button
+        <ImageButton
             android:id="@+id/play_pause_activity_listening_3"
             android:layout_width="76dp"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginBottom="@dimen/dp10"
             android:layout_marginLeft="@dimen/dp10"
             android:layout_marginTop="@dimen/dp10"
             android:background="@drawable/play"

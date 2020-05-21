@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -53,8 +54,6 @@ import ceti.edu.paii.view.ResumenActividad;
 
 public class Listening_1_Activity extends AppCompatActivity {
 
-
-
     int actHechas, cali;
 
     private String calis, actHechasS;
@@ -92,8 +91,21 @@ public class Listening_1_Activity extends AppCompatActivity {
     private String respuestaUser ="";
     private MediaPlayer mediaPlayer,incorrect;
     //AUDIO
-    Button play_pause;
+    ImageButton play_pause;
     MediaPlayer mp;
+
+    private String id0;
+    private String id1;
+    private String id2;
+    private String id3;
+    private String id4;
+    private String id5;
+    private String id6;
+    private String id7;
+    private String id8;
+
+    String[] cadid = new String[30];
+
 
 
     @Override
@@ -105,11 +117,32 @@ public class Listening_1_Activity extends AppCompatActivity {
         lesson = getIntent().getStringExtra("lesson");
         calis   = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
+        id0 = getIntent().getStringExtra("id0");
+        id1 = getIntent().getStringExtra("id1");
+        id2 = getIntent().getStringExtra("id2");
+        id3 = getIntent().getStringExtra("id3");
+        id4 = getIntent().getStringExtra("id4");
+        id5 = getIntent().getStringExtra("id5");
+        id6 = getIntent().getStringExtra("id6");
+        id7 = getIntent().getStringExtra("id7");
+        id8 = getIntent().getStringExtra("id8");
 
-        cali = Integer.valueOf(calis);
-        actHechas = Integer.valueOf(actHechasS);
+        cali = Integer.parseInt(calis);
+        actHechas = Integer.parseInt(actHechasS);
+        cadid[0] = id0;
+        cadid[1] = id1;
+        cadid[2] = id2;
+        cadid[3] = id3;
+        cadid[4] = id4;
+        cadid[5] = id5;
+        cadid[6] = id6;
+        cadid[7] = id7;
+        cadid[8] = id8;
+
+
 
         if(actHechas <= 8) {
+
 
             progressDialog = new ProgressDialog(Listening_1_Activity.this);
 
@@ -204,6 +237,8 @@ public class Listening_1_Activity extends AppCompatActivity {
 
             bringTheInfo(lessonint - 1, numAletorio);
 
+
+
             options();
 
 
@@ -215,7 +250,6 @@ public class Listening_1_Activity extends AppCompatActivity {
             i.putExtra("lesson",lesson);
             i.putExtra("tipo",tipo);
             i.putExtra("calificacion", String.valueOf(cali));
-
             startActivity(i);
         }
     }
@@ -237,19 +271,19 @@ public class Listening_1_Activity extends AppCompatActivity {
 
                     if (success.equals("GOOD")) {
                         Log.i("ahhhha","success");
-                        progressDialog.dismiss();
 
                         JSONObject object =  jsonArray.getJSONObject(0);
 
-
-                        respuestaFromBD = object.getString("question");
+                        String question = object.getString("question");
+                        respuestaFromBD = object.getString("correct");
 
                         JSONObject jsonObject1audio = object.getJSONObject("audio");
 
-                        String audio = jsonObject1audio.getString("rutaAudio").trim();
+                        String audio = jsonObject1audio.getString("fileName").trim();
+                       // String audio = "1.2.10_01-24-2020 12:16:15";
+
 
                         JSONArray jsonArray1 = object.getJSONArray("images");
-                        comun.getImages(jsonArray1);
 
                         String imagenfrom1 = null;
 
@@ -288,6 +322,47 @@ public class Listening_1_Activity extends AppCompatActivity {
 
                         }
 
+
+                        for(int i = 0; i <= cadid.length; i++){
+                            String aux = question;
+                            if(question.equals(cadid[i])) {
+
+                                Intent in = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
+                                String tipo = "Escucha";
+                                in.putExtra("curso", curso);
+                                in.putExtra("lesson", lesson);
+                                in.putExtra("tipo", tipo);
+                                in.putExtra("calificacion", calis);
+                                in.putExtra("actividad", actHechasS);
+                                in.putExtra("id0", cadid[0]);
+                                in.putExtra("id1", cadid[1]);
+                                in.putExtra("id2", cadid[2]);
+                                in.putExtra("id3", cadid[3]);
+                                in.putExtra("id4", cadid[4]);
+                                in.putExtra("id5", cadid[5]);
+                                in.putExtra("id6", cadid[6]);
+                                in.putExtra("id7", cadid[7]);
+                                in.putExtra("id8", cadid[8]);
+
+                                startActivity(in);
+                            }
+
+                            if (cadid[i].equals("0")) {
+                                cadid[i] = aux;
+                                if (cadid[i + 1].equals("0")) {
+                                    cadid[i] = question;
+                                    break;
+                                }
+                            }
+
+
+                        }
+
+                        Log.i("aaa",cadid[0]+cadid[1]);
+
+
+                        progressDialog.dismiss();
+
                         text1.setText(textfrom1);
                         text2.setText(textfrom2);
                         text3.setText(textfrom3);
@@ -313,7 +388,7 @@ public class Listening_1_Activity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri1) {
                                 try {
-
+                                    Log.i("uri",String.valueOf(uri1));
                                     mp.reset();
                                     mp.setDataSource(Listening_1_Activity.this,uri1);
                                     // mp.setLooping(true);
@@ -441,6 +516,7 @@ public class Listening_1_Activity extends AppCompatActivity {
                 continuar.setVisibility(View.VISIBLE);
                 if(respuestaUser.equals(respuestaFromBD)){
                     cali = cali + 100;
+                    calis = String.valueOf(cali);
 
                     mediaPlayer.start();
                     if(curso.equals("Ingles")){
@@ -452,6 +528,7 @@ public class Listening_1_Activity extends AppCompatActivity {
                 }else{
                     incorrect.start();
                     cali = cali + 0;
+                    calis = String.valueOf(cali);
 
                     if(curso.equals("Ingles")){
                         Toast.makeText(Listening_1_Activity.this,"wrong",Toast.LENGTH_SHORT).show();
@@ -467,6 +544,8 @@ public class Listening_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 actHechas++;
+                actHechasS = String.valueOf(actHechas);
+                Log.i("aaaa",cadid[0]);
                 String num;
                 num = comun.aleatorio(3);
                 Log.i("numeroRamdon",num);
@@ -475,8 +554,18 @@ public class Listening_1_Activity extends AppCompatActivity {
                         Intent i = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("calificacion",String.valueOf(cali));
-                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("calificacion",calis);
+                        i.putExtra("actividad",actHechasS);
+                        i.putExtra("id0",cadid[0]);
+                        i.putExtra("id1",cadid[1]);
+                        i.putExtra("id2",cadid[2]);
+                        i.putExtra("id3",cadid[3]);
+                        i.putExtra("id4",cadid[4]);
+                        i.putExtra("id5",cadid[5]);
+                        i.putExtra("id6",cadid[6]);
+                        i.putExtra("id7",cadid[7]);
+                        i.putExtra("id8", cadid[8]);
+
                         startActivity(i);
                         break;
 
@@ -484,8 +573,18 @@ public class Listening_1_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Listening_1_Activity.this, Listening_3_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("calificacion",String.valueOf(cali));
-                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("calificacion",calis);
+                        intent.putExtra("actividad",actHechasS);
+                        intent.putExtra("id0",cadid[0]);
+                        intent.putExtra("id1",cadid[1]);
+                        intent.putExtra("id2",cadid[2]);
+                        intent.putExtra("id3",cadid[3]);
+                        intent.putExtra("id4",cadid[4]);
+                        intent.putExtra("id5",cadid[5]);
+                        intent.putExtra("id6",cadid[6]);
+                        intent.putExtra("id7",cadid[7]);
+                        intent.putExtra("id8", cadid[8]);
+
                         startActivity(intent);
                         break;
 
@@ -493,8 +592,18 @@ public class Listening_1_Activity extends AppCompatActivity {
                         Intent intent2= new Intent(Listening_1_Activity.this, Listening_4_Activity.class);
                         intent2.putExtra("curso",curso);
                         intent2.putExtra("lesson",lesson);
-                        intent2.putExtra("calificacion",String.valueOf(cali));
-                        intent2.putExtra("actividad",String.valueOf(actHechas));
+                        intent2.putExtra("calificacion",calis);
+                        intent2.putExtra("actividad",actHechasS);
+                        intent2.putExtra("id0",cadid[0]);
+                        intent2.putExtra("id1",cadid[1]);
+                        intent2.putExtra("id2",cadid[2]);
+                        intent2.putExtra("id3",cadid[3]);
+                        intent2.putExtra("id4",cadid[4]);
+                        intent2.putExtra("id5",cadid[5]);
+                        intent2.putExtra("id6",cadid[6]);
+                        intent2.putExtra("id7",cadid[7]);
+                        intent2.putExtra("id8", cadid[8]);
+
                         startActivity(intent2);
                         break;
 

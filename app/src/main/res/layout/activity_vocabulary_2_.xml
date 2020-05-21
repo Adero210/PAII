@@ -60,10 +60,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginRight="@dimen/dp5"
-                    android:background="@drawable/rounded_rentangle_orange"
-                    android:theme="@style/RaisedButtonDark"
+                    android:backgroundTint="@color/colorPrimary"
                     android:text="@string/opcion"
-                    android:visibility="gone"/>
+                    android:visibility="invisible"/>
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -85,8 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginRight="@dimen/dp5"
-                    android:background="@drawable/rounded_rentangle_orange"
-                    android:theme="@style/RaisedButtonDark"
+                    android:backgroundTint="@color/colorPrimary"
                     android:text="@string/opcion"
                     android:visibility="invisible"/>
                 </RelativeLayout>
@@ -109,8 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginRight="@dimen/dp5"
-                    android:background="@drawable/rounded_rentangle_orange"
-                    android:theme="@style/RaisedButtonDark"
+                    android:backgroundTint="@color/colorPrimary"
                     android:text="@string/opcion"
                     android:visibility="invisible"/>
                 </RelativeLayout>
@@ -134,8 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dp10"
                         android:layout_marginRight="@dimen/dp5"
-                        android:background="@drawable/rounded_rentangle_orange"
-                        android:theme="@style/RaisedButtonDark"
+                        android:backgroundTint="@color/colorPrimary"
                         android:text="@string/opcion"
                         android:visibility="invisible"/>
                 </RelativeLayout>

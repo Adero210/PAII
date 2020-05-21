@@ -369,6 +369,7 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.makeText(MainActivity.this,"LOGIN" ,Toast.LENGTH_SHORT).show();
                                     Intent intent  = new Intent(MainActivity.this,ContainerActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    //intent.putExtra("dato","n");
                                     startActivity(intent);
 
 

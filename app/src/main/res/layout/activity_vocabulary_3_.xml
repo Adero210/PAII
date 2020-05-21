@@ -6,17 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.listening.vocabulary.Vocabulary_3_Activity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp10"
-            android:layout_marginTop="@dimen/dp25"
-            android:layout_marginRight="@dimen/dp10"
             android:orientation="vertical">
 
             <TextView
@@ -24,12 +16,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/pares"
+                android:layout_marginRight="5dp"
                 android:textAlignment="center"
                 android:textSize="@dimen/edittext_textsize"
                 android:textStyle="bold" />
 
             <GridLayout
-                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_width="385dp"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
                 android:gravity="center"
@@ -37,11 +31,19 @@
                 android:layout_marginBottom="@dimen/dp10"
                 android:layout_marginRight="@dimen/dp10">
 
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
                 <Button
                     android:id="@+id/opcion1_activity_vocabulary_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
+                    android:layout_marginLeft="@dimen/dp25"
+
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
@@ -52,6 +54,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
+                    android:layout_marginLeft="@dimen/dp25"
+
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
@@ -63,6 +67,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginLeft="@dimen/dp25"
+
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
                     android:theme="@style/RaisedButtonDark" />
@@ -72,6 +78,7 @@
                     android:id="@+id/opcion4_activity_vocabulary_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp25"
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/button_rounded_signin"
@@ -82,11 +89,19 @@
                     android:id="@+id/opcion5_activity_vocabulary_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp25"
+
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
                     android:theme="@style/RaisedButtonDark" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
 
                 <Button
 
@@ -95,6 +110,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginLeft="@dimen/dp25"
+
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
                     android:theme="@style/RaisedButtonDark" />
@@ -104,6 +121,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
+                    android:layout_marginLeft="@dimen/dp25"
+
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
@@ -114,6 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
+                    android:layout_marginLeft="@dimen/dp25"
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
@@ -124,6 +144,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
+                    android:layout_marginLeft="@dimen/dp25"
+
                     android:layout_marginBottom="@dimen/dp10"
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
@@ -134,11 +156,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
+                    android:layout_marginLeft="@dimen/dp25"
+
                     android:background="@drawable/button_rounded_signin"
                     android:text="@string/opcion"
                     android:theme="@style/RaisedButtonDark"
                     android:layout_row="0"
                      />
+                </LinearLayout>
             </GridLayout>
 
             <Button
@@ -151,8 +176,4 @@
                 android:theme="@style/RaisedButtonDark" />
 
         </LinearLayout>
-
-
-    </RelativeLayout>
-
 </android.support.design.widget.CoordinatorLayout>

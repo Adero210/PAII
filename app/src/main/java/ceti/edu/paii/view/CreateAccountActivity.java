@@ -57,8 +57,8 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
 
     RadioGroup radioGroup;
     private Button btnJoinUs;
-    private TextInputEditText edtEmail, edtcPassword, edtPassword, edttel, edtbirt, edtapp, edtmpp, edtnick, edtnombre;
-    private TextInputLayout tilEmail, tilcpass, tilPassword, tilttel, tilbirt, tlapp, tilmpp, tilnick, tilnombre;
+    private TextInputEditText edtEmail, edtcPassword, edtPassword, edtbirt, edtapp, edtmpp, edtnick, edtnombre;
+    private TextInputLayout tilEmail, tilcpass, tilPassword, tilbirt, tlapp, tilmpp, tilnick, tilnombre;
     private Log log;
     private static String URL_REGIST = comun.URL + "registerUser.php";
 
@@ -74,7 +74,6 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
         radioGroup = (RadioGroup) findViewById(R.id.gender_radio_group);
         edtnick = (TextInputEditText) findViewById(R.id.nickName);
 
-        edttel = (TextInputEditText) findViewById(R.id.telefono);
         edtbirt = (TextInputEditText) findViewById(R.id.birthdate);
         edtapp = (TextInputEditText) findViewById(R.id.midlename);
         edtmpp = (TextInputEditText) findViewById(R.id.lastName);
@@ -85,7 +84,6 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
         btnJoinUs = (Button) findViewById(R.id.joinUs);
 
         tilnick = (TextInputLayout) findViewById(R.id.inpT_nickName);
-        tilttel = (TextInputLayout) findViewById(R.id.inpT_tel);
         tilbirt = (TextInputLayout) findViewById(R.id.inpT_birth);
         tlapp = (TextInputLayout) findViewById(R.id.inpT_apepat);
         tilmpp = (TextInputLayout) findViewById(R.id.inpT_apemat);
@@ -130,7 +128,7 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
     public void confirmInput(){
 
         if(!validateNickName()|!validateemail()|!validateName()|!validateapp()|!validateapm()
-        |!validateTel()|!validateDate()|!validatePass()|!cvalidatePass()){
+        |!validateDate()|!validatePass()|!cvalidatePass()){
             Toast.makeText(this,"Comprobar datos",Toast.LENGTH_SHORT).show();
         }else
         {
@@ -210,17 +208,7 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
             return true;
         }
     }
-    private boolean validateTel(){
-        String Input = tilttel.getEditText().getText().toString().trim();
 
-        if (Input.isEmpty()) {
-            tilttel.setError("El campo no debe estar vacio");
-            return false;
-        } else {
-            tilttel.setError(null);
-            return true;
-        }
-    }
     private boolean validateDate(){
         String Input = tilbirt.getEditText().getText().toString().trim();
 
@@ -346,7 +334,6 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
         final String apepat = edtapp.getText().toString().trim();
         final String apemat = edtmpp.getText().toString().trim();
         final String nickname = edtnick.getText().toString().trim();
-        final String telefono = edttel.getText().toString().trim();
         final String nacimiento = edtbirt.getText().toString().trim();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGIST, new Response.Listener<String>() {
             @Override
@@ -386,7 +373,6 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
                 params.put("lastname1", apepat);
                 params.put("lastname2", apemat);
                 params.put("nickname", nickname);
-                params.put("cellphone", telefono);
                 params.put("bdate", nacimiento);
                 params.put("idUser", idUser);
                 params.put("sex",gender);

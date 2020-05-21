@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +56,7 @@ import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.view.ResumenActividad;
 
 public class Speaking_3_Activity extends AppCompatActivity {
-    Button play;
+    ImageButton play;
     MediaPlayer mp;
     int actHechas, cali;
     private String calis, actHechasS;
@@ -288,7 +289,7 @@ public class Speaking_3_Activity extends AppCompatActivity {
                         JSONObject ima = object.getJSONObject("images");
                         JSONObject imaI = ima.getJSONObject("image");
 
-                        String audio = audioRoute.getString("rutaAudio").trim();
+                        String audio = audioRoute.getString("fileName").trim();
 
                         Log.i("RESPUESTACORRECTA", "RESPUESTA CORRECTA: " + respuestaFromBD + "ruta audio: " + audio);
 

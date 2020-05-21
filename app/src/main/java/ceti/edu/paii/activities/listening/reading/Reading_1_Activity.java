@@ -1,10 +1,7 @@
 package ceti.edu.paii.activities.listening.reading;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +22,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONArray;
@@ -35,21 +30,14 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Stack;
 
 import ceti.edu.paii.R;
-import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_1_Activity;
-import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_2_Activity;
-import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_3_Activity;
-import ceti.edu.paii.activities.listening.vocabulary.Vocabulary_4_Activity;
 import ceti.edu.paii.comun.comun;
-import ceti.edu.paii.model.actividades;
 import ceti.edu.paii.view.ResumenActividad;
 
 public class Reading_1_Activity extends AppCompatActivity {
 
     private TextView oracion;
-
 
     private MediaPlayer mediaPlayer,incorrect;
     private ImageView imagenVIew;
@@ -63,27 +51,21 @@ public class Reading_1_Activity extends AppCompatActivity {
     private String curso;
     private String lesson;
 
-    private String tipo;
-
     int actHechas, cali;
-    private String b1,b2,b3,b4, calis, actHechasS;
+    private String calis, actHechasS;
 
-    private  String numAletorio ="";
+    private  String numAletorio;
 
 
     private StorageReference mImageStorage;
 
     private String boceto = "2";
 
-    private int numerosPreuntas = 5;
-
     private  String res = "NO", resCheck ="";
 
     private ProgressDialog progressDialog;
-    private static String URL_ACTR2 = comun.URL + "genericAct.php";
+    private static String URL_ACTR2 = comun.URL + "getActivity.php";
 
-
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,14 +75,8 @@ public class Reading_1_Activity extends AppCompatActivity {
         lesson = getIntent().getStringExtra("lesson");
         calis   = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
-        b1 = getIntent().getStringExtra("boceto1");
-        b2 = getIntent().getStringExtra("boceto2");
-        b3 = getIntent().getStringExtra("boceto3");
-        b4 = getIntent().getStringExtra("boceto4");
-        tipo = getIntent().getStringExtra("tipo");
         cali = Integer.valueOf(calis);
         actHechas = Integer.valueOf(actHechasS);
-        oracion = findViewById(R.id.oracion_activity_reading_1);
 
         if(actHechas<=8) {
 
@@ -115,6 +91,7 @@ public class Reading_1_Activity extends AppCompatActivity {
 
 
             descriptionTextView = findViewById(R.id.description_text_activity_Reading_1);
+            oracion = findViewById(R.id.oracion_activity_reading_1);
             imagenVIew = findViewById(R.id.image_activity_Reading_1);
             opcA = findViewById(R.id.opcion1_activity_Reading_1);
             opcA2 = findViewById(R.id.opcion1_activity_Reading_1_1);
@@ -135,78 +112,64 @@ public class Reading_1_Activity extends AppCompatActivity {
             opcC2.setVisibility(View.INVISIBLE);
             opcD2.setVisibility(View.INVISIBLE);
 
-            numAletorio = comun.aleatorio(numerosPreuntas);
-
-            if(b1.contains(numAletorio)) {
-                if (curso.equals("Ingles")) {
-                    oracion.setText("select the correct answer");
-                } else if (curso.equals("Italiano")) {
-                    oracion.setText("seleziona la risposta corretta");
-                }
-
-                int lessonint = Integer.parseInt(lesson);
-
-                if (curso.equals("Italiano")) {
-                    switch (lesson) {
-
-                        case "1":
-                            lessonint = 11;
-                            break;
-                        case "2":
-                            lessonint = 12;
-                            break;
-                        case "3":
-                            lessonint = 13;
-                            break;
-                        case "4":
-                            lessonint = 14;
-                            break;
-                        case "5":
-                            lessonint = 15;
-                            break;
-                        case "6":
-                            lessonint = 16;
-                            break;
-                        case "7":
-                            lessonint = 17;
-                            break;
-                        case "8":
-                            lessonint = 18;
-                            break;
-                        case "9":
-                            lessonint = 19;
-                            break;
-                        case "10":
-                            lessonint = 20;
-                            break;
-                    }
-                }
-
-                Log.i("DATAFROMSQL", "Curso" + curso);
-                Log.i("DATAFROMSQL", "success" + (lessonint - 1));
-                bringTheInfo(lessonint - 1, numAletorio);
-                opciones();
-            }else {
-
-                Intent i = new Intent(Reading_1_Activity.this, Reading_1_Activity.class);
-                i.putExtra("curso",curso);
-                i.putExtra("lesson",lesson);
-                i.putExtra("tipo",tipo);
-
-                i.putExtra("calificacion",String.valueOf(cali));
-                i.putExtra("actividad",String.valueOf(actHechas));
-                i.putExtra("boceto1",b1);
-                i.putExtra("boceto2",b2);
-                i.putExtra("boceto3",b3);
-                i.putExtra("boceto4",b4);
-                startActivity(i);
+            numAletorio = "1";
+            if (curso.equals("English")) {
+                oracion.setText("select the correct answer");
+            } else if (curso.equals("Italiano")) {
+                oracion.setText("seleziona la risposta corretta");
             }
+
+            int lessonint = Integer.parseInt(lesson);
+            if(lessonint == 1) lessonint = 21;
+
+
+            if (curso.equals("Italiano")) {
+                switch (lesson) {
+
+                    case "1":
+                        lessonint = 11;
+                        break;
+                    case "2":
+                        lessonint = 12;
+                        break;
+                    case "3":
+                        lessonint = 13;
+                        break;
+                    case "4":
+                        lessonint = 14;
+                        break;
+                    case "5":
+                        lessonint = 15;
+                        break;
+                    case "6":
+                        lessonint = 16;
+                        break;
+                    case "7":
+                        lessonint = 17;
+                        break;
+                    case "8":
+                        lessonint = 18;
+                        break;
+                    case "9":
+                        lessonint = 19;
+                        break;
+                    case "10":
+                        lessonint = 20;
+                        break;
+                }
+            }
+
+            Log.i("DATAFROMSQL", "Curso" + curso);
+            Log.i("DATAFROMSQL", "success" + (lessonint - 1));
+            bringTheInfo(lessonint - 1, numAletorio);
+            opciones();
+
         }else {
             Intent i = new Intent(Reading_1_Activity.this, ResumenActividad.class);
+            String tipo = "Lectura";
             i.putExtra("curso",curso);
             i.putExtra("lesson",lesson);
             i.putExtra("tipo",tipo);
-
             i.putExtra("calificacion", String.valueOf(cali));
             startActivity(i);
 
@@ -399,9 +362,8 @@ public class Reading_1_Activity extends AppCompatActivity {
         continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String b1N = b1.replaceAll(numAletorio,"");
                 actHechas++;
-                String num ="";
+                String num;
                 num = comun.aleatorio(4);
                 Log.i("numeroRamdon",num);
                 switch (num){
@@ -409,52 +371,32 @@ public class Reading_1_Activity extends AppCompatActivity {
                         Intent i = new Intent(Reading_1_Activity.this, Reading_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("tipo",tipo);
                         i.putExtra("calificacion",String.valueOf(cali));
                         i.putExtra("actividad",String.valueOf(actHechas));
-                        i.putExtra("boceto1",b1N);
-                        i.putExtra("boceto2",b2);
-                        i.putExtra("boceto3",b3);
-                        i.putExtra("boceto4",b4);
                         startActivity(i);
                         break;
                     case "1":
-                        Intent intent = new Intent(Reading_1_Activity.this, Reading_Paragraph_Activity.class);
+                        Intent intent = new Intent(Reading_1_Activity.this, Reading_1_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("tipo",tipo);
                         intent.putExtra("calificacion",String.valueOf(cali));
                         intent.putExtra("actividad",String.valueOf(actHechas));
-                        intent.putExtra("boceto1",b1N);
-                        intent.putExtra("boceto2",b2);
-                        intent.putExtra("boceto3",b3);
-                        intent.putExtra("boceto4",b4);
                         startActivity(intent);
                         break;
                     case "2":
-                        Intent intent1 = new Intent(Reading_1_Activity.this, Reading_paragraph_2_Activity.class);
+                        Intent intent1 = new Intent(Reading_1_Activity.this, Reading_4_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("tipo",tipo);
                         intent1.putExtra("calificacion",String.valueOf(cali));
                         intent1.putExtra("actividad",String.valueOf(actHechas));
-                        intent1.putExtra("boceto1",b1N);
-                        intent1.putExtra("boceto2",b2);
-                        intent1.putExtra("boceto3",b3);
-                        intent1.putExtra("boceto4",b4);
                         startActivity(intent1);
                         break;
                     case "3":
                         Intent intent2 = new Intent(Reading_1_Activity.this, Reading_4_Activity.class);
                         intent2.putExtra("curso",curso);
                         intent2.putExtra("lesson",lesson);
-                        intent2.putExtra("tipo",tipo);
                         intent2.putExtra("calificacion",String.valueOf(cali));
                         intent2.putExtra("actividad",String.valueOf(actHechas));
-                        intent2.putExtra("boceto1",b1N);
-                        intent2.putExtra("boceto2",b2);
-                        intent2.putExtra("boceto3",b3);
-                        intent2.putExtra("boceto4",b4);
                         startActivity(intent2);
                         break;
                 }
@@ -464,7 +406,7 @@ public class Reading_1_Activity extends AppCompatActivity {
 
     private void bringTheInfo(final Integer lessonint2, final String numAle) {
 
-       progressDialog.show();
+        progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ACTR2, new Response.Listener<String>(){
             @Override
@@ -472,44 +414,49 @@ public class Reading_1_Activity extends AppCompatActivity {
 
                 try {
 
+                    Log.i("ahhhha","entre al try");
                     JSONObject jsonObject = new JSONObject(response);
-                    String numfilas = jsonObject.getString("filas");
-                    String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("actr2");
+                    String success = jsonObject.getString("status");
+                    JSONArray jsonArray = jsonObject.getJSONArray("questions");
 
-                    int numFilas = Integer.parseInt(numfilas);
-
-                    if(success.equals("1")){
+                    if (success.equals("GOOD")) {
                         progressDialog.dismiss();
-                        for(int i = 0 ; i < jsonArray.length();i++){
 
-                            JSONObject object =  jsonArray.getJSONObject(i);
+                        JSONObject object =  jsonArray.getJSONObject(0);
+                        JSONArray options = object.getJSONArray("options");
 
-                            for(int h = 0; h < numFilas; h++) {
+                        comun.Optionss opciones = comun.getOptions(options);
 
-                                String pregunta = object.getString("pregunta" + h).trim();
+                        resCheck = object.getString("correct").trim();
 
-                                String opcArec = object.getString("opcA" + h).trim();
-                                String opcBrec = object.getString("opcB" + h).trim();
-                                String opcCrec = object.getString("opcC" + h).trim();
-                                String opcDrec = object.getString("opcD" + h).trim();
-                                String Imagen = object.getString("urlImage" + h);
-                                Log.i("DATAFROMSQL", "success" + Imagen);
-                                resCheck = object.getString("respuestac" + h).trim();
-                                Glide.with(Reading_1_Activity.this)
-                                        .load(Imagen)
-                                        .into(imagenVIew);
-                                descriptionTextView.setText(pregunta);
-                                opcA.setText(opcArec);
-                                opcB.setText(opcBrec);
-                                opcC.setText(opcCrec);
-                                opcD.setText(opcDrec);
-                                opcA2.setText(opcArec);
-                                opcB2.setText(opcBrec);
-                                opcC2.setText(opcCrec);
-                                opcD2.setText(opcDrec);
-                            }
-                        }
+                        String pregunta = object.getString("question").trim();
+
+                        JSONObject jsonObject1 = object.getJSONObject("images");
+                        JSONObject jsonObject2 = jsonObject1.getJSONObject("image");
+
+
+                        String opcionA = opciones.opcA;
+                        String opcionB = opciones.opcB;
+                        String opcionC = opciones.opcC;
+                        String opcionD = opciones.opcD;
+
+
+
+                        String Imagen = jsonObject2.getString("imageRoute");
+                        Log.i("DATAFROMSQL", "success" + Imagen);
+                        Glide.with(Reading_1_Activity.this)
+                                .load(Imagen)
+                                .into(imagenVIew);
+                        descriptionTextView.setText(pregunta);
+                        opcA.setText(opcionA);
+                        opcB.setText(opcionB);
+                        opcC.setText(opcionC);
+                        opcD.setText(opcionD);
+                        opcA2.setText(opcionA);
+                        opcB2.setText(opcionB);
+                        opcC2.setText(opcionC);
+                        opcD2.setText(opcionD);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -522,7 +469,7 @@ public class Reading_1_Activity extends AppCompatActivity {
                 new ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                      //  progressBar.setVisibility(View.GONE);
+                        //  progressBar.setVisibility(View.GONE);
                         Toast.makeText(Reading_1_Activity.this,"error" + error.toString(),Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -530,10 +477,10 @@ public class Reading_1_Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("pregunta",numAle);
-                params.put("lesson", String.valueOf(lessonint2));
-                params.put("boceto",boceto);
-                params.put("type","reading");
+                params.put("numberOfQuestions",numAle);
+                params.put("lectionId", String.valueOf(lessonint2));
+                params.put("sketch",boceto);
+                params.put("typeName","Lectura");
                 return params;
             }
         };

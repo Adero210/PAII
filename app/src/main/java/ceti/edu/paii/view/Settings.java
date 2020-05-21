@@ -53,7 +53,7 @@ public class Settings extends AppCompatActivity {
 
         showToolbar("Configuración", true);
         sessionManager = new SessionManager(this);
-        sessionManager.checkLogin();
+        //sessionManager.checkLogin();
 
         name = findViewById(R.id.name_settings);
         email = findViewById(R.id.email_settings);

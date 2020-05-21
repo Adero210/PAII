@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Activities_Activity">
+    tools:context=".view.Activities_Activity"
+    android:orientation="vertical"
+    >
 
-        <LinearLayout
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarActi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarActi"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_collapseMode="pin"/>
+    </android.support.design.widget.AppBarLayout>
 
-                <Button
+
+            <android.support.design.button.MaterialButton
                     android:id="@+id/btn_reading_activity"
                     android:layout_width="350dp"
                     android:layout_height="@dimen/dp50"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/sp20"
-                    android:background="@drawable/blur_frame_fragment_books_reading_wallpapers_104492"
+                    app:strokeColor="@color/editTextColorBlack"
+                    app:strokeWidth="3dp"
+                    app:cornerRadius="10dp"
+                    app:rippleColor="@color/colorAccent"
+                    app:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/editTextColorWhite"
                     android:text="@string/Reading" />
 
                 <LinearLayout
@@ -41,13 +59,19 @@
 
                 </LinearLayout>
 
-                <Button
+                <android.support.design.button.MaterialButton
                     android:id="@+id/btn_writing_activity"
                     android:layout_width="350dp"
                     android:layout_height="@dimen/dp50"
                     android:layout_gravity="center"
                     android:background="@drawable/book10_7"
                     android:layout_marginTop="@dimen/sp20"
+                    app:strokeColor="@color/editTextColorBlack"
+                    app:strokeWidth="3dp"
+                    app:cornerRadius="10dp"
+                    app:rippleColor="@color/colorAccent"
+                    app:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/editTextColorWhite"
                     android:text="@string/Writing"/>
 
                 <LinearLayout
@@ -71,13 +95,18 @@
 
                 </LinearLayout>
 
-                <Button
+                <android.support.design.button.MaterialButton
                     android:id="@+id/btn_listening_activity"
                     android:layout_width="350dp"
                     android:layout_height="@dimen/dp50"
                     android:layout_gravity="center"
                     android:background="@drawable/music_notes_video"
                     android:layout_marginTop="@dimen/sp20"
+                    app:strokeColor="@color/editTextColorBlack"
+                    app:strokeWidth="3dp"
+                    app:cornerRadius="10dp"
+                    app:rippleColor="@color/colorAccent"
+                    app:backgroundTint="@color/colorPrimaryDark"
                     android:textColor="@color/editTextColorWhite"
                     android:text="@string/Listenig"/>
 
@@ -102,13 +131,19 @@
 
                 </LinearLayout>
 
-                <Button
+                <android.support.design.button.MaterialButton
                     android:id="@+id/btn_vocabulary_activity"
                     android:layout_width="350dp"
                     android:layout_height="@dimen/dp50"
                     android:layout_gravity="center"
                     android:background="@drawable/kkk"
                     android:layout_marginTop="@dimen/sp20"
+                    app:strokeColor="@color/editTextColorBlack"
+                    app:strokeWidth="3dp"
+                    app:cornerRadius="10dp"
+                    app:rippleColor="@color/colorAccent"
+                    app:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/editTextColorWhite"
                     android:text="@string/Vocabulary"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -131,13 +166,19 @@
 
                 </LinearLayout>
 
-                <Button
+                <android.support.design.button.MaterialButton
                     android:id="@+id/btn_grammar_activity"
                     android:layout_width="350dp"
                     android:layout_height="@dimen/dp50"
                     android:layout_gravity="center"
                     android:background="@drawable/engineering_gears_wallpaper_in_blue_vector"
                     android:layout_marginTop="@dimen/sp20"
+                    app:strokeColor="@color/editTextColorBlack"
+                    app:strokeWidth="3dp"
+                    app:cornerRadius="10dp"
+                    app:rippleColor="@color/colorAccent"
+                    app:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/editTextColorWhite"
                     android:text="@string/grammar"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -160,13 +201,19 @@
 
                 </LinearLayout>
 
-                <Button
+                <android.support.design.button.MaterialButton
                     android:id="@+id/btn_speaking_activity"
                     android:layout_width="350dp"
                     android:layout_height="@dimen/dp50"
                     android:layout_gravity="center"
                     android:background="@drawable/fondo_manchas_abstractas_coloridas_acuarela_23_2148209195"
                     android:layout_marginTop="@dimen/sp20"
+                    app:strokeColor="@color/editTextColorBlack"
+                    app:strokeWidth="3dp"
+                    app:cornerRadius="10dp"
+                    app:rippleColor="@color/colorAccent"
+                    app:backgroundTint="@color/colorPrimaryDark"
+                    android:textColor="@color/editTextColorWhite"
                     android:text="@string/Speaking"/>
 
                 <LinearLayout
@@ -189,10 +236,4 @@
                             android:layout_marginLeft="@dimen/dp5"/>
 
                 </LinearLayout>
-
-        </LinearLayout>
-
-
-
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

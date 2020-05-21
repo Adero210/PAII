@@ -120,6 +120,9 @@ public class ResumenActividad extends AppCompatActivity {
                 + String.valueOf(l)+ comun.userNameLec );
 
 
+        if(cali2 > 100){
+            score = "100";
+        }
 
         Log.i("pleaseFunciona","score" + score + "tipo" + tipo + "lesson" + String.valueOf(l)+ "user" + comun.userNameLec);
         updateCali(score,l);

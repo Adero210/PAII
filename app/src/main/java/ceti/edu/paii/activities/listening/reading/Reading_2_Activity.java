@@ -511,7 +511,7 @@ public class Reading_2_Activity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case "2":
-                        Intent intent1 = new Intent(Reading_2_Activity.this, Reading_paragraph_2_Activity.class);
+                        Intent intent1 = new Intent(Reading_2_Activity.this, Reading_3_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
                         intent1.putExtra("tipo",tipo);

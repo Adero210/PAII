@@ -30,14 +30,15 @@
                 android:textSize="@dimen/edittext_textsize"
                 android:textStyle="bold"/>
 
-                <Button
-                    android:id="@+id/play_pause_activity_vocabulary_4"
-                    android:layout_width="62dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp10"
-                    android:layout_marginTop="@dimen/dp25"
-                    android:background="@drawable/play"
-                    android:theme="@style/RaisedButtonDark" />
+            <ImageButton
+                android:id="@+id/play_pause_activity_vocabulary_4"
+                android:layout_width="75dp"
+                android:layout_height="46dp"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp25"
+                android:background="@drawable/play"
+
+                />
             <TextView
                 android:id="@+id/textinput_vocabulary_4"
                 android:layout_width="wrap_content"
@@ -72,9 +73,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
-                    android:background="@drawable/rounded_rentangle_orange"
                     android:text="@string/opcion"
-                    android:theme="@style/RaisedButtonDark"
+                    android:backgroundTint="@color/colorPrimary"
                     android:visibility="invisible"/>
 
                 </RelativeLayout>
@@ -99,9 +99,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
-                    android:background="@drawable/rounded_rentangle_orange"
+                    android:backgroundTint="@color/colorPrimary"
                     android:text="@string/opcion"
-                    android:theme="@style/RaisedButtonDark"
                     android:visibility="invisible"/>
 
                 </RelativeLayout>
@@ -127,9 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
-                    android:background="@drawable/rounded_rentangle_orange"
                     android:text="@string/opcion"
-                    android:theme="@style/RaisedButtonDark"
+                    android:backgroundTint="@color/colorPrimary"
                     android:visibility="invisible"/>
 
                 </RelativeLayout>
@@ -155,9 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp5"
                     android:layout_marginBottom="@dimen/dp10"
-                    android:background="@drawable/rounded_rentangle_orange"
                     android:text="@string/opcion"
-                    android:theme="@style/RaisedButtonDark"
+                    android:backgroundTint="@color/colorPrimary"
                     android:visibility="invisible"/>
                 </RelativeLayout>
 

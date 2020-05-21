@@ -30,14 +30,14 @@
                     android:layout_height="200dp"
                     android:src="@drawable/logo" />
 
-                <Button
-                    android:id="@+id/play_activity_speaking_3"
-                    android:layout_width="62dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp10"
-                    android:layout_marginTop="@dimen/dp25"
-                    android:background="@drawable/play"
-                    android:theme="@style/RaisedButtonDark" />
+            <ImageButton
+                android:id="@+id/play_activity_speaking_3"
+                android:layout_width="80dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="@dimen/dp10"
+                android:layout_marginTop="@dimen/dp25"
+                android:background="@drawable/play"
+                android:theme="@style/RaisedButtonDark" />
 
 
                 <TextView

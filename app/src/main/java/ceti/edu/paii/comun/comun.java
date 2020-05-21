@@ -21,7 +21,7 @@ public class comun {
     public static String getId;
     public static final String EXTRA_CHAT_ID = "chatId";
     public static SessionManager sessionManager;
-    public static String URL = "http://192.168.137.243/PAI_php/conexiones/";
+    public static String URL = "https://paicetiproject.com/PAI_php/conexiones/";
 
     public static String currentId;
     public static FragmentManager fragmentManager;

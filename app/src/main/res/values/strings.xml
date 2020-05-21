@@ -130,6 +130,16 @@
     <string name="continuar">Continuar</string>
     <string name="calificacion">Calificacion</string>
     <string name="save10">10</string>
+    <string name="tab_chat_espa">Mensajes</string>
+    <string name="tab_inicio">Inicio</string>
+    <string name="description">Aplicacion creada por:
+        Luis Angel Martinez y
+        Juan Antonio Romano
+
+        para el Centro de Enzeñanza Industrial como proyecto de titulación.
+        Nombre:
+        Plataforma de Aprendizaje de idiomas PAI
+    </string>
 
 
 </resources>

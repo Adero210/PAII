@@ -76,7 +76,7 @@ public class Writing_3_Activity extends AppCompatActivity {
 
     private Button revisar;
     private Button continuar;
-    private int tam = 0;
+    public static int tam = 0;
     String boceto = "1";
     private LinearLayout contenedorBotones;
 
@@ -293,9 +293,13 @@ public class Writing_3_Activity extends AppCompatActivity {
                     Log.i("aaaaaa", partOracRev);
 
                     btn1.setText(r[0]);
+                    btn1.setTextSize(9);
                     btn2.setText(r[1]);
+                    btn2.setTextSize(9);
                     btn3.setText(r[2]);
+                    btn3.setTextSize(9);
                     btn4.setText(r[3]);
+                    btn4.setTextSize(9);
                     btn5.setText(r[4]);
                     btn6.setText(r[5]);
                     btn7.setText(r[6]);
@@ -309,9 +313,20 @@ public class Writing_3_Activity extends AppCompatActivity {
                     btn16.setText(r[14]);
                     btn17.setText(r[15]);
 
+                    btn5.setTextSize(9);
+                    btn6.setTextSize(9);
+                    btn7.setTextSize(9);
+                    btn8.setTextSize(9);
+                    btn10.setTextSize(9);
+                    btn11.setTextSize(9);
+                    btn12.setTextSize(9);
+                    btn13.setTextSize(9);
+                    btn14.setTextSize(9);
+                    btn15.setTextSize(9);
+                    btn16.setTextSize(9);
+                    btn17.setTextSize(9);
+
                     agregarBotones(tam, contenedorBotones);
-
-
 
 
                 } catch (JSONException e) {
@@ -415,360 +430,126 @@ public class Writing_3_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn1.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn2.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn3.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn4.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn5.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn6.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn7.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn8.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn9.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn10.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn11.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn12.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn13.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn14.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn15.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn15.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn16.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn17.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn17.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
         btn18.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String vf = (String) btn18.getText();
-                int loop = 0;
-                int i = 0;
-                do {
-                    String btnID = String.valueOf(i);
-                    int resID = getResources().getIdentifier(btnID, "id", getPackageName());
-                    Button txtObtenido = findViewById(resID);
-                    String f = (String) txtObtenido.getText();
-                    if (f.equals("")) {
-                        txtObtenido.setText(vf);
-                        loop = 1;
-                    }
-                    i++;
-
-                }while (loop == 0);
+                functionBottom(vf);
             }
         });
 
@@ -811,6 +592,30 @@ public class Writing_3_Activity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void functionBottom(String vf){
+        boolean loop = false;
+        int i = 0;
+            do {
+                String btnID = String.valueOf(i);
+                int resID = getResources().getIdentifier(btnID,
+                        "id", getPackageName());
+                Button txtObtenido = findViewById(resID);
+                Log.i("sadsdasdada", String.valueOf(txtObtenido));
+                String f = (String) txtObtenido.getText();
+                if(txtObtenido != null) {
+                    if (f.equals("")) {
+                        txtObtenido.setText(vf);
+                        loop = true;
+                    }
+                    i++;
+                }else
+                {
+                    Toast.makeText(Writing_3_Activity.this,"full",Toast.LENGTH_SHORT).show();
+                    loop = true;
+                }
+            } while (loop == false);
     }
 
     private String aleatorioLetras(int tam){

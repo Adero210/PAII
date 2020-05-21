@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,7 +72,7 @@ public class Writing_1_Activity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference mAudioStorage;
 
-    Button play_pause;
+    private ImageButton play_pause;
     MediaPlayer mp;
 
     @Override
@@ -281,7 +282,7 @@ public class Writing_1_Activity extends AppCompatActivity {
                         JSONObject audioRoute = object.getJSONObject("audio");
 
 
-                        String audio = audioRoute.getString("rutaAudio").trim();
+                        String audio = audioRoute.getString("fileName").trim();
 
                         Log.i("RESPUESTACORRECTA",audio+respuestaFromBD);
                         mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -293,20 +294,13 @@ public class Writing_1_Activity extends AppCompatActivity {
                                     // mp.seekTo(0);
                                     //totalTime = mp.getDuration();
                                     mp.prepareAsync();
-
-
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
 
                             }
                         });
-
-
                     }
-
-
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();

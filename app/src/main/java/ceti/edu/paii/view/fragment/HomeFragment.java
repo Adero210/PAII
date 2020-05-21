@@ -189,8 +189,7 @@ public class HomeFragment extends Fragment {
         ArrayList<Picture> pictures = new ArrayList<>();
         pictures.add(new Picture("https://mlstaticquic-a.akamaihd.net/bandera-estados-unidos-eeuu-usa-150x90-envio-gratis-D_NQ_NP_962788-MLU26870601027_022018-F.jpg",
                 nameCurseIn,terminadoIn));
-        pictures.add(new Picture("https://wallpapercave.com/wp/wp1841290.jpg",
-                nameCurseIt,String.valueOf(terminadoIt)));
+        pictures.add(new Picture("https://okdiario.com/img/2019/09/24/bandera-italia.jpg",nameCurseIt,String.valueOf(terminadoIt)));
         return pictures;
     }
 

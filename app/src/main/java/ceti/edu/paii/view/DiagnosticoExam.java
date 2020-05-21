@@ -12,9 +12,9 @@ import ceti.edu.paii.activities.listening.grammar.Grammar_1_Activity;
 import ceti.edu.paii.activities.listening.grammar.Grammar_2_Activity;
 import ceti.edu.paii.activities.listening.grammar.Grammar_3_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_1_Activity;
+import ceti.edu.paii.activities.listening.reading.Reading_3_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_4_Activity;
 import ceti.edu.paii.activities.listening.reading.Reading_Paragraph_Activity;
-import ceti.edu.paii.activities.listening.reading.Reading_paragraph_2_Activity;
 import ceti.edu.paii.activities.listening.speaking.Speaking_1_Activity;
 import ceti.edu.paii.activities.listening.speaking.Speaking_2_Activity;
 import ceti.edu.paii.activities.listening.speaking.Speaking_3_Activity;
@@ -239,7 +239,7 @@ public class DiagnosticoExam extends AppCompatActivity {
                 break;
 
             case "2":
-                Intent intent1 = new Intent(DiagnosticoExam.this, Reading_paragraph_2_Activity.class);
+                Intent intent1 = new Intent(DiagnosticoExam.this, Reading_3_Activity.class);
                 intent1.putExtra("curso",language);
                 intent1.putExtra("lesson",lesson);
                 intent1.putExtra("tipo",tipo);

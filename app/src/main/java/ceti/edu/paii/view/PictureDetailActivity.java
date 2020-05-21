@@ -67,7 +67,7 @@ public class PictureDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_detail);
-        showToolbar("Lessons", true);
+
 
         RecyclerView leccionesRecycler = (RecyclerView) findViewById(R.id.leccionRecycler);
         leccionesRecycler.setHasFixedSize(true);
@@ -85,8 +85,10 @@ public class PictureDetailActivity extends AppCompatActivity {
 
         if (lessonName.equals("Inglés")){
             cursoint = 1;
+            showToolbar("Lessons", true);
         }else if(lessonName.equals("Italiano")){
             cursoint = 2;
+            showToolbar("Lezioni", true);
         }
 
         Log.i("ahhhha",lessonName);
@@ -227,25 +229,25 @@ public class PictureDetailActivity extends AppCompatActivity {
 
 
         if (r.equals("Inglés")){
-            lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "1", "English","Completed",progresoLec1+"%","Calif:",calificacionLec1));
-            if(cal1>8.0){
-                lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "2", "English","Completed",progresoLec2+"%","Calif:",calificacionLec2));
-                if(cal2>8.0) {
-                    lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "3", "English", "Completed", progresoLec3+"%", "Calif:", calificacionLec3));
-                    if (cal3 > 8.0) {
-                        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "4", "English", "Completed", progresoLec4+"%", "Calif:", calificacionLec4));
-                        if(cal4>8.0) {
-                            lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "5", "English", "Completed", progresoLec5+"%", "Calif:", calificacionLec5));
-                            if(cal5>8.0) {
-                                lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "6", "English", "Completed", progresoLec6+"%", "Calif:", calificacionLec6));
-                                if (cal6 > 8.0) {
-                                    lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "7", "English", "Completed", progresoLec7+"%", "Calif:", calificacionLec7));
-                                    if(cal7>8.0) {
-                                        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "8", "English", "Completed", progresoLec8+"%", "Calif:", calificacionLec8));
-                                        if (cal8 > 8.0) {
-                                            lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "9", "English", "Completed", progresoLec9+"%", "Calif:", calificacionLec9));
-                                            if(cal9>8.0) {
-                                                lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "10", "English", "Completed", progresoLec10+"%", "Calif:", calificacionLec10));
+            lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "1", "English","Completed",progresoLec1+"%","score:",calificacionLec1));
+            if(cal1>80.0){
+                lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "2", "English","Completed",progresoLec2+"%","score:",calificacionLec2));
+                if(cal2>80.0) {
+                    lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368","Lesson", "3", "English", "Completed", progresoLec3+"%", "score:", calificacionLec3));
+                    if (cal3 > 80.0) {
+                        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "4", "English", "Completed", progresoLec4+"%", "score:", calificacionLec4));
+                        if(cal4>80.0) {
+                            lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "5", "English", "Completed", progresoLec5+"%", "score:", calificacionLec5));
+                            if(cal5>80.0) {
+                                lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "6", "English", "Completed", progresoLec6+"%", "score:", calificacionLec6));
+                                if (cal6 > 80.0) {
+                                    lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "7", "English", "Completed", progresoLec7+"%", "score:", calificacionLec7));
+                                    if(cal7>80.0) {
+                                        lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "8", "English", "Completed", progresoLec8+"%", "score:", calificacionLec8));
+                                        if (cal8 > 80.0) {
+                                            lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "9", "English", "Completed", progresoLec9+"%", "score:", calificacionLec9));
+                                            if(cal9>80.0) {
+                                                lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lesson", "10", "English", "Completed", progresoLec10+"%", "score:", calificacionLec10));
                                             }
                                         }
                                     }
@@ -258,23 +260,23 @@ public class PictureDetailActivity extends AppCompatActivity {
 
         }else if(r.equals("Italiano")) {
             lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "1", r, "Completato", progresoLec1+"%", "tasso", calificacionLec1));
-            if (cal1 > 8.0) {
+            if (cal1 > 80.0) {
                 lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "2", r, "Completato", progresoLec2+"%", "tasso", calificacionLec2));
-                if(cal2>8.0) {
+                if(cal2>80.0) {
                     lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "3", r, "Completato", progresoLec3+"%", "tasso", calificacionLec3));
-                    if(cal3>8.0) {
+                    if(cal3>80.0) {
                         lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "4", r, "Completato", progresoLec4+"%", "tasso", calificacionLec4));
-                        if(cal4>8.0) {
+                        if(cal4>80.0) {
                             lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "5", r, "Completato", progresoLec5+"%", "tasso", calificacionLec5));
-                            if(cal5>8.0) {
+                            if(cal5>80.0) {
                                 lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "6", r, "Completato", progresoLec6+"%", "tasso", calificacionLec6));
-                                if(cal6>8.0) {
+                                if(cal6>80.0) {
                                     lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "7", r, "Completato", progresoLec7+"%", "tasso", calificacionLec7));
-                                    if(cal7>8.0) {
+                                    if(cal7>80.0) {
                                         lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "8", r, "Completato", progresoLec8+"%", "tasso", calificacionLec8));
-                                        if (cal8 > 8.0) {
+                                        if (cal8 > 80.0) {
                                             lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "9", r, "Completato", progresoLec9+"%", "tasso", calificacionLec9));
-                                            if(cal9>8.0) {
+                                            if(cal9>80.0) {
                                                 lecciones.add(new Leccion("http://cdn.shopify.com/s/files/1/0778/7113/files/Lessons.png?v=1499095368", "Lezione", "10", r, "Completato", progresoLec10+"%", "tasso", calificacionLec10));
                                             }
                                         }

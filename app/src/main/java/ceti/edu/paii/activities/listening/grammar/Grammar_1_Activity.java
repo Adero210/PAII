@@ -61,6 +61,18 @@ public class Grammar_1_Activity extends AppCompatActivity {
     int actHechas, cali;
     private String calis, actHechasS;
 
+    private String id0;
+    private String id1;
+    private String id2;
+    private String id3;
+    private String id4;
+    private String id5;
+    private String id6;
+    private String id7;
+    private String id8;
+
+    String[] cadid = new String[30];
+
     private  String numAletorio = "1";
 
 
@@ -71,10 +83,21 @@ public class Grammar_1_Activity extends AppCompatActivity {
 
         curso  = getIntent().getStringExtra("curso");
         lesson = getIntent().getStringExtra("lesson");
-        calis   = getIntent().getStringExtra("calificacion");
+        calis = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
-        cali = Integer.valueOf(calis);
-        actHechas = Integer.valueOf(actHechasS);
+        id0 = getIntent().getStringExtra("id0");
+        id1 = getIntent().getStringExtra("id1");
+        id2 = getIntent().getStringExtra("id2");
+        id3 = getIntent().getStringExtra("id3");
+        id4 = getIntent().getStringExtra("id4");
+        id5 = getIntent().getStringExtra("id5");
+        id6 = getIntent().getStringExtra("id6");
+        id7 = getIntent().getStringExtra("id7");
+        id8 = getIntent().getStringExtra("id8");
+
+        cali = Integer.parseInt(calis);
+        actHechas = Integer.parseInt(actHechasS);
+
 
         if(actHechas <= 8) {
             progressDialog = new ProgressDialog(Grammar_1_Activity.this);
@@ -171,13 +194,55 @@ public class Grammar_1_Activity extends AppCompatActivity {
 
                     if (success.equals("GOOD")) {
                         Log.i("ahhhha","success");
-                        progressDialog.dismiss();
                         JSONObject object =  jsonArray.getJSONObject(0);
                         JSONArray options = object.getJSONArray("options");
                         comun.Optionss opciones = comun.getOptions(options);
 
                         pregunta = object.getString("question" ).trim();
                         respuestaFromBD = object.getString("correct");
+
+
+
+                        for(int i = 0; i <= cadid.length; i++){
+                            String aux = pregunta;
+                            if(pregunta.equals(cadid[i])) {
+
+                                Intent in = new Intent(Grammar_1_Activity.this, Grammar_1_Activity.class);
+                                String tipo = "Escucha";
+                                in.putExtra("curso", curso);
+                                in.putExtra("lesson", lesson);
+                                in.putExtra("tipo", tipo);
+                                in.putExtra("calificacion", calis);
+                                in.putExtra("actividad", actHechasS);
+                                in.putExtra("id0", cadid[0]);
+                                in.putExtra("id1", cadid[1]);
+                                in.putExtra("id2", cadid[2]);
+                                in.putExtra("id3", cadid[3]);
+                                in.putExtra("id4", cadid[4]);
+                                in.putExtra("id5", cadid[5]);
+                                in.putExtra("id6", cadid[6]);
+                                in.putExtra("id7", cadid[7]);
+                                in.putExtra("id8", cadid[8]);
+
+                                startActivity(in);
+                            }
+
+                            if (cadid[i].equals("0")) {
+
+                                cadid[i] = aux;
+                                if (cadid[i + 1].equals("0")) {
+                                    cadid[i] = pregunta;
+                                    break;
+                                }
+                            }
+                        }
+
+                        Log.i("aaa",cadid[0]+cadid[1]);
+
+
+
+                        progressDialog.dismiss();
+                        Log.i("aaaa",cadid[0] + cadid[1]);
                         String opcionA = opciones.opcA;
                         String opcionB = opciones.opcB;
                         String opcionC = opciones.opcC;
@@ -304,6 +369,8 @@ public class Grammar_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 actHechas++;
+                actHechasS = String.valueOf(actHechas);
+                Log.i("aaaa",cadid[0]);
                 String num;
                 num = comun.aleatorio(3);
                 Log.i("numeroRamdon",num);
@@ -312,8 +379,17 @@ public class Grammar_1_Activity extends AppCompatActivity {
                         Intent i = new Intent(Grammar_1_Activity.this, Grammar_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("calificacion",String.valueOf(cali));
-                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("calificacion",calis);
+                        i.putExtra("actividad",actHechasS);
+                        i.putExtra("id0",cadid[0]);
+                        i.putExtra("id1",cadid[1]);
+                        i.putExtra("id2",cadid[2]);
+                        i.putExtra("id3",cadid[3]);
+                        i.putExtra("id4",cadid[4]);
+                        i.putExtra("id5",cadid[5]);
+                        i.putExtra("id6",cadid[6]);
+                        i.putExtra("id7",cadid[7]);
+                        i.putExtra("id8", cadid[8]);
                         startActivity(i);
                         break;
 
@@ -321,18 +397,36 @@ public class Grammar_1_Activity extends AppCompatActivity {
                         Intent intent = new Intent(Grammar_1_Activity.this, Grammar_2_Activity.class);
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
-                        intent.putExtra("calificacion",String.valueOf(cali));
-                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("calificacion",calis);
+                        intent.putExtra("actividad",actHechasS);
+                        intent.putExtra("id0",cadid[0]);
+                        intent.putExtra("id1",cadid[1]);
+                        intent.putExtra("id2",cadid[2]);
+                        intent.putExtra("id3",cadid[3]);
+                        intent.putExtra("id4",cadid[4]);
+                        intent.putExtra("id5",cadid[5]);
+                        intent.putExtra("id6",cadid[6]);
+                        intent.putExtra("id7",cadid[7]);
+                        intent.putExtra("id8", cadid[8]);
                         startActivity(intent);
                         break;
 
                     case "2":
-                        Intent intent1 = new Intent(Grammar_1_Activity.this, Grammar_3_Activity.class);
-                        intent1.putExtra("curso",curso);
-                        intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("calificacion",String.valueOf(cali));
-                        intent1.putExtra("actividad",String.valueOf(actHechas));
-                        startActivity(intent1);
+                        Intent intent2 = new Intent(Grammar_1_Activity.this, Grammar_3_Activity.class);
+                        intent2.putExtra("curso",curso);
+                        intent2.putExtra("lesson",lesson);
+                        intent2.putExtra("calificacion",calis);
+                        intent2.putExtra("actividad",actHechasS);
+                        intent2.putExtra("id0",cadid[0]);
+                        intent2.putExtra("id1",cadid[1]);
+                        intent2.putExtra("id2",cadid[2]);
+                        intent2.putExtra("id3",cadid[3]);
+                        intent2.putExtra("id4",cadid[4]);
+                        intent2.putExtra("id5",cadid[5]);
+                        intent2.putExtra("id6",cadid[6]);
+                        intent2.putExtra("id7",cadid[7]);
+                        intent2.putExtra("id8", cadid[8]);
+                        startActivity(intent2);
                         break;
                 }
             }

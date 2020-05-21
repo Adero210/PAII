@@ -69,11 +69,21 @@ public class ContainerActivity extends AppCompatActivity implements BottomSheetD
 
         notification("Login");
 
+        String val;
+        val =  getIntent().getStringExtra("dato");
+
+        if (val == null)
+            val = "n";
+
         //final SearchFragment searchFragment = new SearchFragment();
         //set HomeFragment como default en la primera vista despues del login
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
         }
+        if (val.equals("e")){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment).commit();
+        }
+
         FragmentManager f = getSupportFragmentManager();
         comun.fragmentManager = f;
 
@@ -160,7 +170,8 @@ public class ContainerActivity extends AppCompatActivity implements BottomSheetD
                 startActivity(i);
                 break;
             case R.id.mAbout:
-                Toast.makeText(this, "PAII BY Romano and Cornejo", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ContainerActivity.this, About.class);
+                startActivity(intent);
                 break;
             case R.id.mSettings:
                 goChangeUserData();

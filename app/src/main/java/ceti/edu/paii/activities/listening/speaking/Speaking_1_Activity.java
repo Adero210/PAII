@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +51,7 @@ import ceti.edu.paii.view.ResumenActividad;
 
 public class Speaking_1_Activity extends AppCompatActivity {
 
-    Button play;
+    ImageButton play;
     MediaPlayer mp;
     int actHechas, cali;
     private String calis, actHechasS;
@@ -265,7 +266,7 @@ public class Speaking_1_Activity extends AppCompatActivity {
                         respuestaFromBD = object.getString("question" );
                         respuestaFromBD = respuestaFromBD.toLowerCase();
 
-                        String audio = audios.getString("rutaAudio");
+                        String audio = audios.getString("fileName");
 
                         mAudioStorage.child("audiosAtividades").child(audio).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override

@@ -18,7 +18,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".view.DiagnosticoExam"></activity>
+        <activity android:name=".view.About"></activity>
+        <activity android:name=".view.DiagnosticoExam" />
         <activity android:name=".view.ResumenActividad" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -46,10 +47,10 @@
         </activity>
         <activity
             android:name=".view.Activities_Activity"
-            android:parentActivityName=".view.PictureDetailActivity">
+            android:parentActivityName=".view.ContainerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".view.PictureDetailActivity" />
+                android:value=".view.ContainerActivity" />
         </activity>
         <activity android:name=".activities.listening.speaking.Speaking_3_Activity" />
         <activity android:name=".activities.listening.speaking.Speaking_2_Activity" />
@@ -69,7 +70,6 @@
             android:label="@string/title_activity_reading_3_"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
         <activity android:name=".activities.listening.reading.Reading_2_Activity" />
-        <activity android:name=".activities.listening.reading.Reading_paragraph_2_Activity" />
         <activity android:name=".activities.listening.reading.Reading_Paragraph_Activity" />
         <activity android:name=".activities.listening.reading.Reading_1_Activity" />
         <activity android:name=".activities.listening.writing.Writing_1_Activity" />

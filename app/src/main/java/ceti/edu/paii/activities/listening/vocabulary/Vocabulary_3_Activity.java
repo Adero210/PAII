@@ -612,10 +612,10 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
                         String questionFour = Questions.questions[3];
                         String questionFive = Questions.questions[4];
 
-                        String correctOne = Questions.corrects[0];
+                        String correctOne = Questions.corrects[3];
                         String correctTwo = Questions.corrects[1];
-                        String correctThree = Questions.corrects[2];
-                        String correctFour = Questions.corrects[3];
+                        String correctThree = Questions.corrects[0];
+                        String correctFour = Questions.corrects[2];
                         String correctFive = Questions.corrects[4];
 
 
@@ -630,6 +630,16 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
                         btn9.setText(correctFour);
                         btn0.setText(correctFive);
 
+                        btn1.setTextSize(8);
+                        btn2.setTextSize(8);
+                        btn3.setTextSize(8);
+                        btn4.setTextSize(8);
+                        btn5.setTextSize(8);
+                        btn6.setTextSize(8);
+                        btn7.setTextSize(8);
+                        btn8.setTextSize(8);
+                        btn9.setTextSize(8);
+                        btn0.setTextSize(8);
 
                     }
 

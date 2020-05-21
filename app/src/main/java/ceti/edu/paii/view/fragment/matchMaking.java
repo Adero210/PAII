@@ -1,6 +1,8 @@
 package ceti.edu.paii.view.fragment;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -65,7 +67,15 @@ public class matchMaking extends Fragment {
 
         progressDialog =  new ProgressDialog(getContext());
         progressDialog.setMessage("Buscando compañero...");
+        progressDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                stopLokingForChat();
+                progressDialog.dismiss();
+            }
+        });
         progressDialog.setCancelable(false);
+
         b = r.findViewById(R.id.button_fragment_match);
 
         initfirebase();
@@ -81,6 +91,8 @@ public class matchMaking extends Fragment {
 
         return r;
     }
+
+
 
     private void initfirebase() {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -163,6 +175,7 @@ public class matchMaking extends Fragment {
 
     private void esperarUser() {
         progressDialog.setMessage("Esperando Otro usuario...");
+
         progressDialog.show();
 
         listenerRegistration = bd.collection("chat")
@@ -197,6 +210,50 @@ public class matchMaking extends Fragment {
         chatIntent.putExtra("userId", started);
         chatIntent.putExtra("name", userName);
          startActivity(chatIntent);
+         chatId = "";
     }
 
+    public void stopLokingForChat(){
+        if(listenerRegistration != null){
+            listenerRegistration.remove();
+            bd.collection("chat")
+                    .document(chatId).delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            chatId = "";
+                        }
+                    });
+
+        }
+    }
+
+    @Override
+    public void onStop() {
+        if(listenerRegistration != null){
+
+        }else{
+            stopLokingForChat();
+
+        }
+      /*  if (chatId != ""){
+            bd.collection("chat")
+                    .document(chatId).delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            chatId = "";
+                        }
+                    });
+        }*/
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+       /* if(chatId != ""){
+            esperarUser();
+        }*/
+    }
 }
