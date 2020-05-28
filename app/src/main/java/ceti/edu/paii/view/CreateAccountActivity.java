@@ -328,63 +328,63 @@ public class CreateAccountActivity extends AppCompatActivity implements RadioGro
         progressDialog.show();
 
 
-        final String email = edtEmail.getText().toString().trim();
-        final String password = edtPassword.getText().toString().trim();
-        final String name = edtnombre.getText().toString().trim();
-        final String apepat = edtapp.getText().toString().trim();
-        final String apemat = edtmpp.getText().toString().trim();
-        final String nickname = edtnick.getText().toString().trim();
-        final String nacimiento = edtbirt.getText().toString().trim();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGIST, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    Boolean success = jsonObject.getBoolean("success");
+    final String email = edtEmail.getText().toString().trim();
+    final String password = edtPassword.getText().toString().trim();
+    final String name = edtnombre.getText().toString().trim();
+    final String apepat = edtapp.getText().toString().trim();
+    final String apemat = edtmpp.getText().toString().trim();
+    final String nickname = edtnick.getText().toString().trim();
+    final String nacimiento = edtbirt.getText().toString().trim();
+    StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGIST, new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                Boolean success = jsonObject.getBoolean("success");
 
-                    if (success == true) {
-                        progressDialog.dismiss();
-                        Toast.makeText(CreateAccountActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.d("error1", e.toString());
-                    Toast.makeText(CreateAccountActivity.this, "Registro Fallido" + e.toString(), Toast.LENGTH_SHORT).show();
+                if (success == true) {
+                    progressDialog.dismiss();
+                    Toast.makeText(CreateAccountActivity.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CreateAccountActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.d("error1", e.toString());
+                Toast.makeText(CreateAccountActivity.this, "Registro Fallido" + e.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+    },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(CreateAccountActivity.this, "Register error2" + error.toString(), Toast.LENGTH_SHORT).show();
+                    Log.i("helperror",error.toString());
 
                 }
+            }) {
+        protected Map<String, String> getParams() throws AuthFailureError {
+            Map<String, String> params = new HashMap<>();
+            params.put("name", name);
+            params.put("email", email);
+            params.put("lastname1", apepat);
+            params.put("lastname2", apemat);
+            params.put("nickname", nickname);
+            params.put("bdate", nacimiento);
+            params.put("idUser", idUser);
+            params.put("sex",gender);
+            return params;
+        }
+    };
 
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CreateAccountActivity.this, "Register error2" + error.toString(), Toast.LENGTH_SHORT).show();
-                        Log.i("helperror",error.toString());
-
-                    }
-                }) {
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("lastname1", apepat);
-                params.put("lastname2", apemat);
-                params.put("nickname", nickname);
-                params.put("bdate", nacimiento);
-                params.put("idUser", idUser);
-                params.put("sex",gender);
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+    RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
 
-    }
+}
 
 
     public void showToolbar(String tittle, boolean upButton) {

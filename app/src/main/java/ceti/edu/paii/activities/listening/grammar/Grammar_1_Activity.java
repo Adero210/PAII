@@ -1,6 +1,8 @@
 package ceti.edu.paii.activities.listening.grammar;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -71,6 +73,11 @@ public class Grammar_1_Activity extends AppCompatActivity {
     private String id7;
     private String id8;
 
+    private String bto;
+    protected String cWord;
+    private String wWord;
+    private ProgressDialog calificacion;
+
     String[] cadid = new String[30];
 
     private  String numAletorio = "1";
@@ -98,6 +105,15 @@ public class Grammar_1_Activity extends AppCompatActivity {
         cali = Integer.parseInt(calis);
         actHechas = Integer.parseInt(actHechasS);
 
+        cadid[0] = id0;
+        cadid[1] = id1;
+        cadid[2] = id2;
+        cadid[3] = id3;
+        cadid[4] = id4;
+        cadid[5] = id5;
+        cadid[6] = id6;
+        cadid[7] = id7;
+        cadid[8] = id8;
 
         if(actHechas <= 8) {
             progressDialog = new ProgressDialog(Grammar_1_Activity.this);
@@ -125,8 +141,14 @@ public class Grammar_1_Activity extends AppCompatActivity {
 
                 if (curso.equals("English")) {
                     titulo.setText("Choose the correct translation");
+                    bto = "Continue";
+                    cWord = "Correct!";
+                    wWord = "Wrong: ";
                 } else if (curso.equals("Italiano")) {
                     titulo.setText("Scegli la traduzione corretta");
+                    bto = "Continua";
+                    cWord = "Corretto!";
+                    wWord = "Strizzare: ";
                 }
                 int lessonint = Integer.parseInt(lesson);
                 if(lessonint == 1) lessonint = 21;
@@ -165,6 +187,75 @@ public class Grammar_1_Activity extends AppCompatActivity {
                     }
                 }
 
+            calificacion =  new ProgressDialog(Grammar_1_Activity.this);
+            calificacion.setButton(AlertDialog.BUTTON_NEGATIVE, bto, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    progressDialog.dismiss();
+                    actHechas++;
+                    actHechasS = String.valueOf(actHechas);
+                    Log.i("aaaa",cadid[0]);
+                    String num;
+                    num = comun.aleatorio(3);
+                    Log.i("numeroRamdon",num);
+                    switch (num){
+                        case "0":
+                            Intent i = new Intent(Grammar_1_Activity.this, Grammar_1_Activity.class);
+                            i.putExtra("curso",curso);
+                            i.putExtra("lesson",lesson);
+                            i.putExtra("calificacion",calis);
+                            i.putExtra("actividad",actHechasS);
+                            i.putExtra("id0",cadid[0]);
+                            i.putExtra("id1",cadid[1]);
+                            i.putExtra("id2",cadid[2]);
+                            i.putExtra("id3",cadid[3]);
+                            i.putExtra("id4",cadid[4]);
+                            i.putExtra("id5",cadid[5]);
+                            i.putExtra("id6",cadid[6]);
+                            i.putExtra("id7",cadid[7]);
+                            i.putExtra("id8", cadid[8]);
+                            startActivity(i);
+                            break;
+
+                        case "1":
+                            Intent intent = new Intent(Grammar_1_Activity.this, Grammar_2_Activity.class);
+                            intent.putExtra("curso",curso);
+                            intent.putExtra("lesson",lesson);
+                            intent.putExtra("calificacion",calis);
+                            intent.putExtra("actividad",actHechasS);
+                            intent.putExtra("id0",cadid[0]);
+                            intent.putExtra("id1",cadid[1]);
+                            intent.putExtra("id2",cadid[2]);
+                            intent.putExtra("id3",cadid[3]);
+                            intent.putExtra("id4",cadid[4]);
+                            intent.putExtra("id5",cadid[5]);
+                            intent.putExtra("id6",cadid[6]);
+                            intent.putExtra("id7",cadid[7]);
+                            intent.putExtra("id8", cadid[8]);
+                            startActivity(intent);
+                            break;
+
+                        case "2":
+                            Intent intent2 = new Intent(Grammar_1_Activity.this, Grammar_3_Activity.class);
+                            intent2.putExtra("curso",curso);
+                            intent2.putExtra("lesson",lesson);
+                            intent2.putExtra("calificacion",calis);
+                            intent2.putExtra("actividad",actHechasS);
+                            intent2.putExtra("id0",cadid[0]);
+                            intent2.putExtra("id1",cadid[1]);
+                            intent2.putExtra("id2",cadid[2]);
+                            intent2.putExtra("id3",cadid[3]);
+                            intent2.putExtra("id4",cadid[4]);
+                            intent2.putExtra("id5",cadid[5]);
+                            intent2.putExtra("id6",cadid[6]);
+                            intent2.putExtra("id7",cadid[7]);
+                            intent2.putExtra("id8", cadid[8]);
+                            startActivity(intent2);
+                            break;
+                    }
+                }
+            });
+            calificacion.setCancelable(false);
                 Log.i("PLEASEFUNCIONA", lessonint-1 + numAletorio);
                 bringTheInfo(lessonint - 1, numAletorio);
                 opciones();
@@ -208,10 +299,8 @@ public class Grammar_1_Activity extends AppCompatActivity {
                             if(pregunta.equals(cadid[i])) {
 
                                 Intent in = new Intent(Grammar_1_Activity.this, Grammar_1_Activity.class);
-                                String tipo = "Escucha";
                                 in.putExtra("curso", curso);
                                 in.putExtra("lesson", lesson);
-                                in.putExtra("tipo", tipo);
                                 in.putExtra("calificacion", calis);
                                 in.putExtra("actividad", actHechasS);
                                 in.putExtra("id0", cadid[0]);
@@ -351,86 +440,25 @@ public class Grammar_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 calificar.setVisibility(View.INVISIBLE);
-                continuar.setVisibility(View.VISIBLE);
                 if(respuestaSelected.equals(respuestaFromBD)){
+                    calificacion.setMessage(cWord);
+                    calificacion.setProgressStyle(5);
                     mediaPlayer.start();
                     cali = cali + 100;
+                    calis = String.valueOf(cali);
+                    calificacion.show();
 
-                    Toast.makeText(Grammar_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
                 }else{
+                    calificacion.setMessage(wWord + respuestaFromBD);
+                    calificacion.setProgressStyle(2);
                     incorrect.start();
                     cali = cali + 0;
-
-                    Toast.makeText(Grammar_1_Activity.this,"Correct answer: " + respuestaFromBD,Toast.LENGTH_SHORT).show();
+                    calis = String.valueOf(cali);
+                    calificacion.show();
                 }
             }
         });
-        continuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actHechas++;
-                actHechasS = String.valueOf(actHechas);
-                Log.i("aaaa",cadid[0]);
-                String num;
-                num = comun.aleatorio(3);
-                Log.i("numeroRamdon",num);
-                switch (num){
-                    case "0":
-                        Intent i = new Intent(Grammar_1_Activity.this, Grammar_1_Activity.class);
-                        i.putExtra("curso",curso);
-                        i.putExtra("lesson",lesson);
-                        i.putExtra("calificacion",calis);
-                        i.putExtra("actividad",actHechasS);
-                        i.putExtra("id0",cadid[0]);
-                        i.putExtra("id1",cadid[1]);
-                        i.putExtra("id2",cadid[2]);
-                        i.putExtra("id3",cadid[3]);
-                        i.putExtra("id4",cadid[4]);
-                        i.putExtra("id5",cadid[5]);
-                        i.putExtra("id6",cadid[6]);
-                        i.putExtra("id7",cadid[7]);
-                        i.putExtra("id8", cadid[8]);
-                        startActivity(i);
-                        break;
 
-                    case "1":
-                        Intent intent = new Intent(Grammar_1_Activity.this, Grammar_2_Activity.class);
-                        intent.putExtra("curso",curso);
-                        intent.putExtra("lesson",lesson);
-                        intent.putExtra("calificacion",calis);
-                        intent.putExtra("actividad",actHechasS);
-                        intent.putExtra("id0",cadid[0]);
-                        intent.putExtra("id1",cadid[1]);
-                        intent.putExtra("id2",cadid[2]);
-                        intent.putExtra("id3",cadid[3]);
-                        intent.putExtra("id4",cadid[4]);
-                        intent.putExtra("id5",cadid[5]);
-                        intent.putExtra("id6",cadid[6]);
-                        intent.putExtra("id7",cadid[7]);
-                        intent.putExtra("id8", cadid[8]);
-                        startActivity(intent);
-                        break;
-
-                    case "2":
-                        Intent intent2 = new Intent(Grammar_1_Activity.this, Grammar_3_Activity.class);
-                        intent2.putExtra("curso",curso);
-                        intent2.putExtra("lesson",lesson);
-                        intent2.putExtra("calificacion",calis);
-                        intent2.putExtra("actividad",actHechasS);
-                        intent2.putExtra("id0",cadid[0]);
-                        intent2.putExtra("id1",cadid[1]);
-                        intent2.putExtra("id2",cadid[2]);
-                        intent2.putExtra("id3",cadid[3]);
-                        intent2.putExtra("id4",cadid[4]);
-                        intent2.putExtra("id5",cadid[5]);
-                        intent2.putExtra("id6",cadid[6]);
-                        intent2.putExtra("id7",cadid[7]);
-                        intent2.putExtra("id8", cadid[8]);
-                        startActivity(intent2);
-                        break;
-                }
-            }
-        });
     }
     @Override
     public void onBackPressed(){

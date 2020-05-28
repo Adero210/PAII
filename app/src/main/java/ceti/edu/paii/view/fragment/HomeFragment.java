@@ -2,6 +2,7 @@ package ceti.edu.paii.view.fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ import ceti.edu.paii.R;
 import ceti.edu.paii.adapter.PictureAdapterRecyclerView;
 import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.model.Picture;
+import ceti.edu.paii.view.Id_facebook;
 
 import static ceti.edu.paii.R.id.pictureRecycler;
 
@@ -69,6 +71,7 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setOrientation(linearLayoutManager.VERTICAL);
         picturesRecycler.setLayoutManager(linearLayoutManager);
 
+        Log.i("uidFirebase", FirebaseAuth.getInstance().getUid());
 
         mensajeError = view.findViewById(R.id.mensajeerror);
         id = firebaseAuth.getInstance().getCurrentUser().getUid();
@@ -162,9 +165,19 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(getContext(), "Error reading dialog: " + error.toString(), Toast.LENGTH_SHORT).show();
-                        mensajeError.setVisibility(View.VISIBLE);
-                        mensajeError.setText("Sin Conexion Sorry");
+
+                        if (error.toString().equals("com.android.volley.ServerError")){
+                            String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                            String useruid = FirebaseAuth.getInstance().getUid();
+                            goId(comun.register, useruid, email);
+
+                        }else {
+                            Toast.makeText(getContext(), "Error reading dialog: " + error.toString(), Toast.LENGTH_SHORT).show();
+                            Log.i("errrrror", error.toString());
+                            mensajeError.setVisibility(View.VISIBLE);
+                            mensajeError.setText("Sin Conexion Sorry");
+                        }
 
                     }
                 }) {
@@ -192,6 +205,15 @@ public class HomeFragment extends Fragment {
         pictures.add(new Picture("https://okdiario.com/img/2019/09/24/bandera-italia.jpg",nameCurseIt,String.valueOf(terminadoIt)));
         return pictures;
     }
+
+    public void goId(String userNameFaceBook, String uid, String s){
+        Intent intent = new Intent(getContext(), Id_facebook.class);
+        intent.putExtra("name",userNameFaceBook);
+        intent.putExtra("firebaseId",uid);
+        intent.putExtra("email",s);
+        startActivity(intent);
+    }
+
 
     public void showToolbar(String tittle, boolean upButton,View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);

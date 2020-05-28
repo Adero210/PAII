@@ -177,30 +177,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_tel_settings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp30"
-                android:layout_marginRight="@dimen/dp30"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <ImageView
-                    android:layout_width="@dimen/dp70"
-                    android:layout_height="@dimen/dp50"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_phone" />
-
-                <EditText
-                    android:id="@+id/ap_tel_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp10"
-                    android:layout_weight="1"
-                    android:hint="@string/hint_telefonoo" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/layout_date_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

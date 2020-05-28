@@ -32,6 +32,20 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
     private static String URL_ACTR2 = comun.URL + "getActivity.php";
     int actHechas, cali;
     private String calis, actHechasS;
+
+    private String id0;
+    private String id1;
+    private String id2;
+    private String id3;
+    private String id4;
+    private String id5;
+    private String id6;
+    private String id7;
+    private String id8;
+
+    String[] cadid = new String[30];
+
+
     private String curso;
     private String lesson;
     private String boceto = "3";
@@ -55,10 +69,31 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
 
         curso  = getIntent().getStringExtra("curso");
         lesson = getIntent().getStringExtra("lesson");
-        calis   = getIntent().getStringExtra("calificacion");
+        calis = getIntent().getStringExtra("calificacion");
         actHechasS = getIntent().getStringExtra("actividad");
-        cali = Integer.valueOf(calis);
-        actHechas = Integer.valueOf(actHechasS);
+        id0 = getIntent().getStringExtra("id0");
+        id1 = getIntent().getStringExtra("id1");
+        id2 = getIntent().getStringExtra("id2");
+        id3 = getIntent().getStringExtra("id3");
+        id4 = getIntent().getStringExtra("id4");
+        id5 = getIntent().getStringExtra("id5");
+        id6 = getIntent().getStringExtra("id6");
+        id7 = getIntent().getStringExtra("id7");
+        id8 = getIntent().getStringExtra("id8");
+
+        cali = Integer.parseInt(calis);
+        actHechas = Integer.parseInt(actHechasS);
+
+        cadid[0] = id0;
+        cadid[1] = id1;
+        cadid[2] = id2;
+        cadid[3] = id3;
+        cadid[4] = id4;
+        cadid[5] = id5;
+        cadid[6] = id6;
+        cadid[7] = id7;
+        cadid[8] = id8;
+
 
         if(actHechas<=8) {
             progressDialog = new ProgressDialog(Vocabulary_3_Activity.this);
@@ -320,10 +355,16 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 if(paIn>3){
                     cali = cali+0;
+                    calis = String.valueOf(cali);
+
                 }else{
                     cali = cali+100;
+                    calis = String.valueOf(cali);
+
                 }
                 actHechas++;
+                actHechasS = String.valueOf(actHechas);
+                Log.i("aaaa",cadid[0]);
                 String num;
                 num = comun.aleatorio(4);
                 Log.i("numeroRamdon",num);
@@ -332,8 +373,17 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
                         Intent i = new Intent(Vocabulary_3_Activity.this, Vocabulary_1_Activity.class);
                         i.putExtra("curso",curso);
                         i.putExtra("lesson",lesson);
-                        i.putExtra("calificacion",String.valueOf(cali));
-                        i.putExtra("actividad",String.valueOf(actHechas));
+                        i.putExtra("calificacion",calis);
+                        i.putExtra("actividad",actHechasS);
+                        i.putExtra("id0",cadid[0]);
+                        i.putExtra("id1",cadid[1]);
+                        i.putExtra("id2",cadid[2]);
+                        i.putExtra("id3",cadid[3]);
+                        i.putExtra("id4",cadid[4]);
+                        i.putExtra("id5",cadid[5]);
+                        i.putExtra("id6",cadid[6]);
+                        i.putExtra("id7",cadid[7]);
+                        i.putExtra("id8", cadid[8]);
                         startActivity(i);
                         break;
 
@@ -343,8 +393,17 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
                         intent.putExtra("curso",curso);
                         intent.putExtra("lesson",lesson);
                         intent.putExtra("boceto", boceto);
-                        intent.putExtra("calificacion",String.valueOf(cali));
-                        intent.putExtra("actividad",String.valueOf(actHechas));
+                        intent.putExtra("calificacion",calis);
+                        intent.putExtra("actividad",actHechasS);
+                        intent.putExtra("id0",cadid[0]);
+                        intent.putExtra("id1",cadid[1]);
+                        intent.putExtra("id2",cadid[2]);
+                        intent.putExtra("id3",cadid[3]);
+                        intent.putExtra("id4",cadid[4]);
+                        intent.putExtra("id5",cadid[5]);
+                        intent.putExtra("id6",cadid[6]);
+                        intent.putExtra("id7",cadid[7]);
+                        intent.putExtra("id8", cadid[8]);
                         startActivity(intent);
                         break;
 
@@ -352,8 +411,17 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Vocabulary_3_Activity.this, Vocabulary_3_Activity.class);
                         intent1.putExtra("curso",curso);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("calificacion",String.valueOf(cali));
-                        intent1.putExtra("actividad",String.valueOf(actHechas));
+                        intent1.putExtra("calificacion",calis);
+                        intent1.putExtra("actividad",actHechasS);
+                        intent1.putExtra("id0",cadid[0]);
+                        intent1.putExtra("id1",cadid[1]);
+                        intent1.putExtra("id2",cadid[2]);
+                        intent1.putExtra("id3",cadid[3]);
+                        intent1.putExtra("id4",cadid[4]);
+                        intent1.putExtra("id5",cadid[5]);
+                        intent1.putExtra("id6",cadid[6]);
+                        intent1.putExtra("id7",cadid[7]);
+                        intent1.putExtra("id8", cadid[8]);
                         startActivity(intent1);
                         break;
 
@@ -363,8 +431,17 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
                         intent2.putExtra("curso",curso);
                         intent2.putExtra("lesson",lesson);
                         intent2.putExtra("boceto", boceto);
-                        intent2.putExtra("calificacion",String.valueOf(cali));
-                        intent2.putExtra("actividad",String.valueOf(actHechas));
+                        intent2.putExtra("calificacion",calis);
+                        intent2.putExtra("actividad",actHechasS);
+                        intent2.putExtra("id0",cadid[0]);
+                        intent2.putExtra("id1",cadid[1]);
+                        intent2.putExtra("id2",cadid[2]);
+                        intent2.putExtra("id3",cadid[3]);
+                        intent2.putExtra("id4",cadid[4]);
+                        intent2.putExtra("id5",cadid[5]);
+                        intent2.putExtra("id6",cadid[6]);
+                        intent2.putExtra("id7",cadid[7]);
+                        intent2.putExtra("id8", cadid[8]);
                         startActivity(intent2);
                         break;
 
@@ -603,7 +680,7 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
 
                     if (success.equals("GOOD")) {
                         Log.i("ahhhha","success");
-                        progressDialog.dismiss();
+
                         getQuestions(jsonArray);
 
                         String questionOne = Questions.questions[0];
@@ -619,6 +696,7 @@ public class Vocabulary_3_Activity extends AppCompatActivity {
                         String correctFive = Questions.corrects[4];
 
 
+                        progressDialog.dismiss();
                         btn1.setText(questionOne);
                         btn2.setText(questionTwo);
                         btn3.setText(questionThree);

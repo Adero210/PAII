@@ -79,6 +79,19 @@ public class Vocabulary_4_Activity extends AppCompatActivity {
     int actHechas, cali;
     private String b1,b2,b3,b4, calis, actHechasS;
 
+
+    private String id0;
+    private String id1;
+    private String id2;
+    private String id3;
+    private String id4;
+    private String id5;
+    private String id6;
+    private String id7;
+    private String id8;
+
+    String[] cadid = new String[30];
+
     private  String numAletorio ="";
     private int numerosPreuntas = 5;
 

@@ -143,8 +143,9 @@ public class Activities_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 String boceto;
                 String num ="";
-                String  actHechas = "1";
+                String actHechas = "1";
                 String calificacion = "0";
+                llenar();
                 num = comun.aleatorio(4);
                 Log.i("numeroRamdon",num);
                 switch (num){
@@ -154,6 +155,15 @@ public class Activities_Activity extends AppCompatActivity {
                         i.putExtra("lesson",lesson);
                         i.putExtra("calificacion",calificacion);
                         i.putExtra("actividad",actHechas);
+                        i.putExtra("id0",idblock[0]);
+                        i.putExtra("id1",idblock[1]);
+                        i.putExtra("id2",idblock[2]);
+                        i.putExtra("id3",idblock[3]);
+                        i.putExtra("id4",idblock[4]);
+                        i.putExtra("id5",idblock[5]);
+                        i.putExtra("id6",idblock[6]);
+                        i.putExtra("id7",idblock[7]);
+                        i.putExtra("id8",idblock[8]);
                         startActivity(i);
                         break;
 
@@ -165,6 +175,15 @@ public class Activities_Activity extends AppCompatActivity {
                         intent.putExtra("boceto",boceto);
                         intent.putExtra("calificacion",calificacion);
                         intent.putExtra("actividad",actHechas);
+                        intent.putExtra("id0",idblock[0]);
+                        intent.putExtra("id1",idblock[1]);
+                        intent.putExtra("id2",idblock[2]);
+                        intent.putExtra("id3",idblock[3]);
+                        intent.putExtra("id4",idblock[4]);
+                        intent.putExtra("id5",idblock[5]);
+                        intent.putExtra("id6",idblock[6]);
+                        intent.putExtra("id7",idblock[7]);
+                        intent.putExtra("id8",idblock[8]);
                         startActivity(intent);
                         break;
 
@@ -172,8 +191,17 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Activities_Activity.this, Vocabulary_3_Activity.class);
                         intent1.putExtra("curso",language);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("calificacion",calificacion);
-                        intent1.putExtra("actividad",actHechas);
+                        intent1.putExtra("calificacion", calificacion);
+                        intent1.putExtra("actividad", actHechas);
+                        intent1.putExtra("id0",idblock[0]);
+                        intent1.putExtra("id1",idblock[1]);
+                        intent1.putExtra("id2",idblock[2]);
+                        intent1.putExtra("id3",idblock[3]);
+                        intent1.putExtra("id4",idblock[4]);
+                        intent1.putExtra("id5",idblock[5]);
+                        intent1.putExtra("id6",idblock[6]);
+                        intent1.putExtra("id7",idblock[7]);
+                        intent1.putExtra("id8",idblock[8]);
                         startActivity(intent1);
                         break;
 
@@ -183,8 +211,17 @@ public class Activities_Activity extends AppCompatActivity {
                         intent2.putExtra("curso",language);
                         intent2.putExtra("lesson",lesson);
                         intent2.putExtra("boceto",boceto);
-                        intent2.putExtra("calificacion",calificacion);
-                        intent2.putExtra("actividad",actHechas);
+                        intent2.putExtra("calificacion", calificacion);
+                        intent2.putExtra("actividad", actHechas);
+                        intent2.putExtra("id0",idblock[0]);
+                        intent2.putExtra("id1",idblock[1]);
+                        intent2.putExtra("id2",idblock[2]);
+                        intent2.putExtra("id3",idblock[3]);
+                        intent2.putExtra("id4",idblock[4]);
+                        intent2.putExtra("id5",idblock[5]);
+                        intent2.putExtra("id6",idblock[6]);
+                        intent2.putExtra("id7",idblock[7]);
+                        intent2.putExtra("id8",idblock[8]);
                         startActivity(intent2);
                         break;
                 }
@@ -195,9 +232,9 @@ public class Activities_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String num ="";
-                String  actHechas = "1";
+                String actHechas = "1";
                 String calificacion = "0";
-
+                llenar();
                 num = comun.aleatorio(3);
                 Log.i("numeroRamdon",num);
                     switch (num){
@@ -207,6 +244,16 @@ public class Activities_Activity extends AppCompatActivity {
                         i.putExtra("lesson",lesson);
                         i.putExtra("calificacion",calificacion);
                         i.putExtra("actividad",actHechas);
+                        i.putExtra("id0",idblock[0]);
+                        i.putExtra("id1",idblock[1]);
+                        i.putExtra("id2",idblock[2]);
+                        i.putExtra("id3",idblock[3]);
+                        i.putExtra("id4",idblock[4]);
+                        i.putExtra("id5",idblock[5]);
+                        i.putExtra("id6",idblock[6]);
+                        i.putExtra("id7",idblock[7]);
+                        i.putExtra("id8",idblock[8]);
+
                         startActivity(i);
                         break;
 
@@ -216,6 +263,16 @@ public class Activities_Activity extends AppCompatActivity {
                         intent.putExtra("lesson",lesson);
                         intent.putExtra("calificacion",calificacion);
                         intent.putExtra("actividad",actHechas);
+                        intent.putExtra("id0",idblock[0]);
+                        intent.putExtra("id1",idblock[1]);
+                        intent.putExtra("id2",idblock[2]);
+                        intent.putExtra("id3",idblock[3]);
+                        intent.putExtra("id4",idblock[4]);
+                        intent.putExtra("id5",idblock[5]);
+                        intent.putExtra("id6",idblock[6]);
+                        intent.putExtra("id7",idblock[7]);
+                        intent.putExtra("id8",idblock[8]);
+
                         startActivity(intent);
                         break;
 
@@ -223,8 +280,17 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Activities_Activity.this, Speaking_3_Activity.class);
                         intent1.putExtra("curso",language);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("calificacion",calificacion);
-                        intent1.putExtra("actividad",actHechas);
+                        intent1.putExtra("calificacion", calificacion);
+                        intent1.putExtra("actividad", actHechas);
+                        intent1.putExtra("id0",idblock[0]);
+                        intent1.putExtra("id1",idblock[1]);
+                        intent1.putExtra("id2",idblock[2]);
+                        intent1.putExtra("id3",idblock[3]);
+                        intent1.putExtra("id4",idblock[4]);
+                        intent1.putExtra("id5",idblock[5]);
+                        intent1.putExtra("id6",idblock[6]);
+                        intent1.putExtra("id7",idblock[7]);
+                        intent1.putExtra("id8",idblock[8]);
                         startActivity(intent1);
                         break;
                 }
@@ -237,6 +303,7 @@ public class Activities_Activity extends AppCompatActivity {
                 String num ="";
                 String  actHechas = "1";
                 String calificacion = "0";
+                llenar();
                 num = comun.aleatorio(3);
                 Log.i("numeroRamdon",num);
                 switch (num){
@@ -246,6 +313,15 @@ public class Activities_Activity extends AppCompatActivity {
                         i.putExtra("lesson",lesson);
                         i.putExtra("calificacion",calificacion);
                         i.putExtra("actividad",actHechas);
+                        i.putExtra("id0",idblock[0]);
+                        i.putExtra("id1",idblock[1]);
+                        i.putExtra("id2",idblock[2]);
+                        i.putExtra("id3",idblock[3]);
+                        i.putExtra("id4",idblock[4]);
+                        i.putExtra("id5",idblock[5]);
+                        i.putExtra("id6",idblock[6]);
+                        i.putExtra("id7",idblock[7]);
+                        i.putExtra("id8",idblock[8]);
                         startActivity(i);
                         break;
 
@@ -255,6 +331,15 @@ public class Activities_Activity extends AppCompatActivity {
                         intent.putExtra("lesson",lesson);
                         intent.putExtra("calificacion",calificacion);
                         intent.putExtra("actividad",actHechas);
+                        intent.putExtra("id0",idblock[0]);
+                        intent.putExtra("id1",idblock[1]);
+                        intent.putExtra("id2",idblock[2]);
+                        intent.putExtra("id3",idblock[3]);
+                        intent.putExtra("id4",idblock[4]);
+                        intent.putExtra("id5",idblock[5]);
+                        intent.putExtra("id6",idblock[6]);
+                        intent.putExtra("id7",idblock[7]);
+                        intent.putExtra("id8",idblock[8]);
                         startActivity(intent);
                         break;
 
@@ -262,8 +347,17 @@ public class Activities_Activity extends AppCompatActivity {
                         Intent intent1 = new Intent(Activities_Activity.this, Writing_3_Activity.class);
                         intent1.putExtra("curso",language);
                         intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("calificacion",calificacion);
-                        intent1.putExtra("actividad",actHechas);
+                        intent1.putExtra("calificacion", calificacion);
+                        intent1.putExtra("actividad", actHechas);
+                        intent1.putExtra("id0",idblock[0]);
+                        intent1.putExtra("id1",idblock[1]);
+                        intent1.putExtra("id2",idblock[2]);
+                        intent1.putExtra("id3",idblock[3]);
+                        intent1.putExtra("id4",idblock[4]);
+                        intent1.putExtra("id5",idblock[5]);
+                        intent1.putExtra("id6",idblock[6]);
+                        intent1.putExtra("id7",idblock[7]);
+                        intent1.putExtra("id8",idblock[8]);
                         startActivity(intent1);
                         break;
                 }

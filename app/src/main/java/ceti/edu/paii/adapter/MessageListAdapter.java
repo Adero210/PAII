@@ -178,11 +178,11 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
                             messageViewHolder.rightMsgImgLayout.setVisibility(View.VISIBLE);
 
                             Glide.with(messageViewHolder.fotomensaje2.getContext())
-                                    .load(msgDto.getUrlFoto())
+                                    .load(msgDto.getUrl())
                                     .into(messageViewHolder.getFotomensaje2());
                             messageViewHolder.rightMsgTextView.setText(msgDto.getMessage());
 
-                        }else if(message_type.equals("Audio")){
+                        }else if(message_type.equals("audio")){
 
                         messageViewHolder.rightMsgLayout.setVisibility(LinearLayout.GONE);
                         messageViewHolder.MsgAudioLayout.setVisibility(LinearLayout.VISIBLE);
@@ -193,7 +193,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
                                 messageViewHolder.mp = new MediaPlayer();
                                 try {
-                                    messageViewHolder.mp.setDataSource(msgDto.getUrlAudio());
+                                    messageViewHolder.mp.setDataSource(msgDto.getUrl());
 
                                     /*messageViewHolder.mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                                         @Override
@@ -238,11 +238,11 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
                         messageViewHolder.leftMsgImgLayout.setVisibility(View.VISIBLE);
 
                         Glide.with(messageViewHolder.fotomensaje.getContext())
-                                .load(msgDto.getUrlFoto())
+                                .load(msgDto.getUrl())
                                 .into(messageViewHolder.getFotomensaje());
                         messageViewHolder.leftMsgTextView.setText(msgDto.getMessage());
 
-                    }else if(message_type.equals("Audio")){
+                    }else if(message_type.equals("audio")){
 
                         messageViewHolder.leftMsgLayout.setVisibility(LinearLayout.GONE);
                         messageViewHolder.MsgAudioLayoutleft.setVisibility(LinearLayout.VISIBLE);
@@ -253,7 +253,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
                                 messageViewHolder.mp = new MediaPlayer();
                                 try {
-                                    messageViewHolder.mp.setDataSource(msgDto.getUrlAudio());
+                                    messageViewHolder.mp.setDataSource(msgDto.getUrl());
 
                                     /*messageViewHolder.mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                                         @Override

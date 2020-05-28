@@ -23,6 +23,9 @@ public class comun {
     public static SessionManager sessionManager;
     public static String URL = "https://paicetiproject.com/PAI_php/conexiones/";
 
+
+    public static String register = "false";
+
     public static String currentId;
     public static FragmentManager fragmentManager;
 

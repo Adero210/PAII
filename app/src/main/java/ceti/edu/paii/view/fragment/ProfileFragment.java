@@ -94,7 +94,9 @@ public class ProfileFragment extends Fragment {
         /*obtenemos el ususario y el uid de firebase y posicionamos en la base de datos
          * para obtener valores desde firebase */
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String current_uid = mCurrentUser.getUid();
+        String current_uid = FirebaseAuth.getInstance().getUid();
+
+        Log.i("uidFirebase", FirebaseAuth.getInstance().getUid());
 
 
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(current_uid);
@@ -105,7 +107,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                String name = dataSnapshot.child("name").getValue().toString().trim();
+                String name = dataSnapshot.child("name").getValue().toString();
                 final String image = dataSnapshot.child("image").getValue().toString().trim();
                 String status = dataSnapshot.child("status").getValue().toString().trim();
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString().trim();

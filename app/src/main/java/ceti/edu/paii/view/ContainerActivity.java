@@ -57,6 +57,7 @@ public class ContainerActivity extends AppCompatActivity implements BottomSheetD
 
         comun.ya = 1;
 
+
         mUserRef = FirebaseDatabase.getInstance().getReference().child("user").child(firebaseAuth.getCurrentUser().getUid());
 
 

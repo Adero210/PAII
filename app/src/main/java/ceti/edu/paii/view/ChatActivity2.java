@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arover.moment.Moment;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -332,11 +333,12 @@ public class ChatActivity2 extends AppCompatActivity {
                                 .child(mCurrentUserId).child(mChatUser).push();
 
 
-                        String push_id = user_message_push.getKey();
+                        Moment moment = new Moment();
+                        String push_id = moment.toString();
 
                         Map messageMap = new HashMap();
-                        messageMap.put("urlAudio",Url_Audio);
-                        messageMap.put("type" , "Audio");
+                        messageMap.put("url",Url_Audio);
+                        messageMap.put("type" , "audio");
                         messageMap.put("time", ServerValue.TIMESTAMP);
                         messageMap.put("from", mCurrentUserId);
 
@@ -397,12 +399,13 @@ public class ChatActivity2 extends AppCompatActivity {
                             DatabaseReference user_message_push = mUserroot.child("messages")
                                     .child(mCurrentUserId).child(mChatUser).push();
 
-                            String push_id = user_message_push.getKey();
+                            Moment moment = new Moment();
+                            String push_id = moment.toString();
 
                             Map messageMap = new HashMap();
                             messageMap.put("message", "se envio una foto");
                             messageMap.put("seen",false);
-                            messageMap.put("urlFoto",Url_download);
+                            messageMap.put("url",Url_download);
                             messageMap.put("type" , "image");
                             messageMap.put("time", ServerValue.TIMESTAMP);
                             messageMap.put("from", mCurrentUserId);
@@ -570,7 +573,8 @@ public class ChatActivity2 extends AppCompatActivity {
             DatabaseReference user_message_push = mUserroot.child("messages")
                     .child(mCurrentUserId).child(mChatUser).push();
 
-            String push_id = user_message_push.getKey();
+            Moment moment = new Moment();
+            String push_id = moment.toString();
 
             Map messageMap = new HashMap();
             messageMap.put("message", message);

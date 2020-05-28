@@ -328,10 +328,8 @@ public class Listening_1_Activity extends AppCompatActivity {
                             if(question.equals(cadid[i])) {
 
                                 Intent in = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
-                                String tipo = "Escucha";
                                 in.putExtra("curso", curso);
                                 in.putExtra("lesson", lesson);
-                                in.putExtra("tipo", tipo);
                                 in.putExtra("calificacion", calis);
                                 in.putExtra("actividad", actHechasS);
                                 in.putExtra("id0", cadid[0]);

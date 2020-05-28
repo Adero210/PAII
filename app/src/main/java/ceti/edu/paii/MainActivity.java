@@ -46,6 +46,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.protobuf.StringValue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +59,7 @@ import java.util.Map;
 import ceti.edu.paii.comun.comun;
 import ceti.edu.paii.view.ContainerActivity;
 import ceti.edu.paii.view.CreateAccountActivity;
+import ceti.edu.paii.view.Id_facebook;
 import ceti.edu.paii.view.ResetPassword;
 import ceti.edu.paii.view.SessionManager;
 import ceti.edu.paii.view.Settings;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mUserDatabase;
 
+
     private FirebaseAuth.AuthStateListener authStateListener;
     private CallbackManager callbackManager;
     String mEmail, emailFaceBook,userNameFaceBook;
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
     SessionManager sessionManager;
     String getId;
+
+
 
 
     @Override
@@ -225,66 +230,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-   /* private void insertDataFacebook(){
-
-        final String email = emailFaceBook;
-        final String nickName = userNameFaceBook;
-        final String idUser = getId;
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Guardando...");
-        progressDialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_INSERT_FACE,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-                            if (success.equals("1")) {
-                               // Toast.makeText(MainActivity.this, "Exito!", Toast.LENGTH_SHORT).show();
-                                sessionManager.createSession(email, nickName, idUser);
-                                comun.sessionManager = sessionManager;
-                            }
-
-                        } catch (JSONException e) {
-                            progressDialog.dismiss();
-                            e.printStackTrace();
-                            Log.i("eerrroor",e.toString());
-                            Toast.makeText(MainActivity.this, "Error del catch! " + e.toString(), Toast.LENGTH_SHORT).show();
-
-                        }
-
-                    }
-                },
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        Log.i("eerrroor",error.toString());
-
-                        Toast.makeText(MainActivity.this, "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                params.put("idUser", idUser);
-                params.put("nickName",nickName);
-                //params.put("phone",tel);
-                return params;
-
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }*/
-
-
     private void loginData(final String email){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
@@ -390,7 +335,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
+
                     FirebaseUser user = task.getResult().getUser();
 
                     SharedPreferences pref = getSharedPreferences("USER", Context.MODE_PRIVATE);
@@ -398,14 +344,21 @@ public class MainActivity extends AppCompatActivity {
                     editor.putString("email", user.getEmail());
                     editor.commit();
 
-                   goHome();
-                    Toast.makeText(MainActivity.this, "Login exitoso",Toast.LENGTH_SHORT);
+
+                    String emailf = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+//                    Log.i("loginFirebase", userNameFaceBook + user.getUid() + user.getEmail());
+                    String emailu = user.getEmail();
+                    comun.register = userNameFaceBook;
+                    if (emailf.equals(emailu)) {
+                        goHome();
+                    }
                 }else{
                     Toast.makeText(MainActivity.this, "Login NO exitoso",Toast.LENGTH_SHORT);
                 }
             }
         });
     }
+
 
 
     public void goCreateAccount(View view){

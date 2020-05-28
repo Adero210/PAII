@@ -39,7 +39,7 @@ import ceti.edu.paii.comun.comun;
 public class Settings extends AppCompatActivity {
 
     private static final String TAG = Settings.class.getSimpleName();//Toma la información
-    private EditText name, email,username,appa,apma,tel,date,gender;
+    private EditText name, email,username,appa,apma,date,gender;
     SessionManager sessionManager;
     String getId;
     private static String URL_READ = comun.URL + "read_detail.php";
@@ -60,12 +60,11 @@ public class Settings extends AppCompatActivity {
         username = findViewById(R.id.UserName_settings);
         appa = findViewById(R.id.ap_pa_settings);
         apma = findViewById(R.id.ap_ma_settings);
-        tel = findViewById(R.id.ap_tel_settings);
         date = findViewById(R.id.date_settings);
         gender = findViewById(R.id.gender_settings);
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID);
+        getId = comun.getId;
 
     }
 
@@ -94,7 +93,6 @@ public class Settings extends AppCompatActivity {
                                     String strUserName = object.getString("userName").trim();
                                     String strApePat = object.getString("apePat").trim();
                                     String strApeMat = object.getString("apeMat").trim();
-                                    String strTel = object.getString("phone").trim();
                                     String strNac = object.getString("nacimiento").trim();
                                     String strGender = object.getString("gender").trim();
 
@@ -105,13 +103,12 @@ public class Settings extends AppCompatActivity {
                                     username.setText(strUserName);
                                     appa.setText(strApePat);
                                     apma.setText(strApeMat);
-                                    tel.setText(strTel);
                                     date.setText(strNac);
                                     gender.setText(strGender);
 
-                                    if(strGender.equals("0")){
+                                    if(strGender.equals("1")){
                                         gender.setText("Hombre");
-                                    }else if(strGender.equals("1")){
+                                    }else if(strGender.equals("2")){
                                         gender.setText("Mujer");
                                     }
 
@@ -168,7 +165,6 @@ public class Settings extends AppCompatActivity {
         username.setFocusable(false);
         appa.setFocusable(false);
         apma.setFocusable(false);
-        tel.setFocusable(false);
         date.setFocusable(false);
         gender.setFocusable(false);
 
@@ -185,7 +181,6 @@ public class Settings extends AppCompatActivity {
                 username.setFocusableInTouchMode(true);
                 appa.setFocusableInTouchMode(true);
                 apma.setFocusableInTouchMode(true);
-                tel.setFocusableInTouchMode(true);
                 date.setFocusable(false);
                 gender.setFocusable(false);
 
@@ -208,7 +203,6 @@ public class Settings extends AppCompatActivity {
                 username.setFocusableInTouchMode(false);
                 appa.setFocusableInTouchMode(false);
                 apma.setFocusableInTouchMode(false);
-                tel.setFocusableInTouchMode(false);
                 date.setFocusableInTouchMode(false);
                 gender.setFocusableInTouchMode(false);
 
@@ -217,7 +211,6 @@ public class Settings extends AppCompatActivity {
                 username.setFocusable(false);
                 appa.setFocusable(false);
                 apma.setFocusable(false);
-                tel.setFocusable(false);
                 date.setFocusable(false);
                 gender.setFocusable(false);
 
@@ -234,9 +227,6 @@ public class Settings extends AppCompatActivity {
         final String userName = this.username.getText().toString().trim();
         final String appa = this.appa.getText().toString().trim();
         final String apma = this.apma.getText().toString().trim();
-        final String tel = this.tel.getText().toString().trim();
-
-
         final String id = getId;
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -285,7 +275,6 @@ public class Settings extends AppCompatActivity {
                 params.put("userName",userName);
                 params.put("appa",appa);
                 params.put("apma",apma);
-                params.put("phone",tel);
                 return params;
             }
         };

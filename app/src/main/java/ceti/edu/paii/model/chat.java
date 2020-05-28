@@ -7,6 +7,7 @@ public class chat {
     private Date created;
     private String joiner;
     private String started;
+    private boolean movile;
 
     public chat() {
     }
@@ -15,12 +16,14 @@ public class chat {
         this.started = started;
         this.joiner = "";
         this.created = new Date();
+        this.movile = true;
     }
 
-    public chat(Date created, String joiner, String started) {
+    public chat(Date created, String joiner, String started, boolean movile) {
         this.created = created;
         this.joiner = joiner;
         this.started = started;
+        this.movile =  movile;
     }
 
     public Date getCreated() {
@@ -45,5 +48,13 @@ public class chat {
 
     public void setStarted(String started) {
         this.started = started;
+    }
+
+    public boolean isMovile() {
+        return movile;
+    }
+
+    public void setMovile(boolean movile) {
+        this.movile = movile;
     }
 }

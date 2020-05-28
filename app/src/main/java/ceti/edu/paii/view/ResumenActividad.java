@@ -189,6 +189,8 @@ public class ResumenActividad extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(ResumenActividad.this, ContainerActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                 startActivity(i);
             }
         });
