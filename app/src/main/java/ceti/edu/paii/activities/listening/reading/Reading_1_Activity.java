@@ -1,6 +1,8 @@
 package ceti.edu.paii.activities.listening.reading;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +58,11 @@ public class Reading_1_Activity extends AppCompatActivity {
 
     private  String numAletorio;
 
+
+    private String bto;
+    protected String cWord;
+    private String wWord;
+    private ProgressDialog calificacion;
 
     private StorageReference mImageStorage;
 
@@ -115,12 +122,19 @@ public class Reading_1_Activity extends AppCompatActivity {
             numAletorio = "1";
             if (curso.equals("English")) {
                 oracion.setText("select the correct answer");
+                bto = "Continue";
+                cWord = "Correct!";
+                wWord = "Wrong: ";
             } else if (curso.equals("Italiano")) {
                 oracion.setText("seleziona la risposta corretta");
+                bto = "Continua";
+                cWord = "Corretto!";
+                wWord = "Strizzare: ";
             }
 
             int lessonint = Integer.parseInt(lesson);
             if(lessonint == 1) lessonint = 21;
+
 
 
             if (curso.equals("Italiano")) {
@@ -158,6 +172,54 @@ public class Reading_1_Activity extends AppCompatActivity {
                         break;
                 }
             }
+
+
+            calificacion =  new ProgressDialog(Reading_1_Activity.this);
+            calificacion.setButton(AlertDialog.BUTTON_NEGATIVE, bto, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    progressDialog.dismiss();
+                    actHechas++;
+                    String num;
+                    num = comun.aleatorio(4);
+                    Log.i("numeroRamdon",num);
+                    switch (num){
+                        case "0":
+                            Intent i = new Intent(Reading_1_Activity.this, Reading_1_Activity.class);
+                            i.putExtra("curso",curso);
+                            i.putExtra("lesson",lesson);
+                            i.putExtra("calificacion",String.valueOf(cali));
+                            i.putExtra("actividad",String.valueOf(actHechas));
+                            startActivity(i);
+                            break;
+                        case "1":
+                            Intent intent = new Intent(Reading_1_Activity.this, Reading_1_Activity.class);
+                            intent.putExtra("curso",curso);
+                            intent.putExtra("lesson",lesson);
+                            intent.putExtra("calificacion",String.valueOf(cali));
+                            intent.putExtra("actividad",String.valueOf(actHechas));
+                            startActivity(intent);
+                            break;
+                        case "2":
+                            Intent intent1 = new Intent(Reading_1_Activity.this, Reading_4_Activity.class);
+                            intent1.putExtra("curso",curso);
+                            intent1.putExtra("lesson",lesson);
+                            intent1.putExtra("calificacion",String.valueOf(cali));
+                            intent1.putExtra("actividad",String.valueOf(actHechas));
+                            startActivity(intent1);
+                            break;
+                        case "3":
+                            Intent intent2 = new Intent(Reading_1_Activity.this, Reading_4_Activity.class);
+                            intent2.putExtra("curso",curso);
+                            intent2.putExtra("lesson",lesson);
+                            intent2.putExtra("calificacion",String.valueOf(cali));
+                            intent2.putExtra("actividad",String.valueOf(actHechas));
+                            startActivity(intent2);
+                            break;
+                    }
+                }
+            });
+            calificacion.setCancelable(false);
 
             Log.i("DATAFROMSQL", "Curso" + curso);
             Log.i("DATAFROMSQL", "success" + (lessonint - 1));
@@ -290,118 +352,100 @@ public class Reading_1_Activity extends AppCompatActivity {
         revisar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String x ="";
+                String x;
                 revisar.setVisibility(View.INVISIBLE);
-                continuar.setVisibility(View.VISIBLE);
                 switch (res){
                     case "A":
                         x = opcA2.getText().toString();
                         if(resCheck.equals(x)){
-                            Toast.makeText(Reading_1_Activity.this,"CORRECT ",Toast.LENGTH_SHORT).show();
+                            calificacion.setMessage(cWord);
+                            calificacion.setProgressStyle(5);
                             mediaPlayer.start();
                             cali = cali + 100;
+                            calis = String.valueOf(cali);
+                            calificacion.show();
                         }
                         else{
-                            Toast.makeText(Reading_1_Activity.this,"INCORRECT " +
-                                    "\n Correct: " + resCheck,Toast.LENGTH_SHORT).show();
+                            calificacion.setMessage(wWord + resCheck);
+                            calificacion.setProgressStyle(2);
                             incorrect.start();
                             cali = cali + 0;
+                            calis = String.valueOf(cali);
+                            calificacion.show();
                         }
                         break;
                     case "B":
                         x = opcB2.getText().toString();
                         if(resCheck.equals(x)){
-                            Toast.makeText(Reading_1_Activity.this,"CORRECT ",Toast.LENGTH_SHORT).show();
+                            calificacion.setMessage(cWord);
+                            calificacion.setProgressStyle(5);
                             mediaPlayer.start();
                             cali = cali + 100;
+                            calis = String.valueOf(cali);
+                            calificacion.show();
                         }
                         else{
-                            Toast.makeText(Reading_1_Activity.this,"INCORRECT " +
-                                    "\n Correct: " + resCheck,Toast.LENGTH_SHORT).show();
+                            calificacion.setMessage(wWord + resCheck);
+                            calificacion.setProgressStyle(2);
                             incorrect.start();
                             cali = cali + 0;
+                            calis = String.valueOf(cali);
+                            calificacion.show();
                         }
                         break;
                     case "C":
                         x = opcC2.getText().toString();
                         if(resCheck.equals(x)){
-                            Toast.makeText(Reading_1_Activity.this,"CORRECT ",Toast.LENGTH_SHORT).show();
+                            calificacion.setMessage(cWord);
+                            calificacion.setProgressStyle(5);
                             mediaPlayer.start();
                             cali = cali + 100;
+                            calis = String.valueOf(cali);
+                            calificacion.show();
                         }
                         else{
-                            Toast.makeText(Reading_1_Activity.this,"INCORRECT " +
-                                    "\n Correct: " + resCheck,Toast.LENGTH_SHORT).show();
+                            calificacion.setMessage(wWord + resCheck);
+                            calificacion.setProgressStyle(2);
                             incorrect.start();
                             cali = cali + 0;
+                            calis = String.valueOf(cali);
+                            calificacion.show();
                         }
                         break;
                     case "D":
                         x = opcD2.getText().toString();
                         if(resCheck.equals(x)){
-                            Toast.makeText(Reading_1_Activity.this,"CORRECT ",Toast.LENGTH_SHORT).show();
+                            calificacion.setMessage(cWord);
+                            calificacion.setProgressStyle(5);
                             mediaPlayer.start();
                             cali = cali + 100;
+                            calis = String.valueOf(cali);
+                            calificacion.show();
                         }
                         else{
-                            Toast.makeText(Reading_1_Activity.this,"INCORRECT " +
-                                    "\n Correct: " + resCheck,Toast.LENGTH_SHORT).show();
+                            calificacion.setMessage(wWord + resCheck);
+                            calificacion.setProgressStyle(2);
                             incorrect.start();
                             cali = cali + 0;
+                            calis = String.valueOf(cali);
+                            calificacion.show();
                         }
                         break;
                     case "NO":
                         x = opcA2.getText().toString();
-                        Toast.makeText(Reading_1_Activity.this,"contesta",Toast.LENGTH_SHORT).show();
+                        calificacion.setMessage(wWord);
+                        calificacion.setProgressStyle(2);
+                        incorrect.start();
+                        cali = cali + 0;
+                        calis = String.valueOf(cali);
+                        calificacion.show();
                         break;
                     default:
                         break;
                 }
             }
         });
-        continuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actHechas++;
-                String num;
-                num = comun.aleatorio(4);
-                Log.i("numeroRamdon",num);
-                switch (num){
-                    case "0":
-                        Intent i = new Intent(Reading_1_Activity.this, Reading_1_Activity.class);
-                        i.putExtra("curso",curso);
-                        i.putExtra("lesson",lesson);
-                        i.putExtra("calificacion",String.valueOf(cali));
-                        i.putExtra("actividad",String.valueOf(actHechas));
-                        startActivity(i);
-                        break;
-                    case "1":
-                        Intent intent = new Intent(Reading_1_Activity.this, Reading_1_Activity.class);
-                        intent.putExtra("curso",curso);
-                        intent.putExtra("lesson",lesson);
-                        intent.putExtra("calificacion",String.valueOf(cali));
-                        intent.putExtra("actividad",String.valueOf(actHechas));
-                        startActivity(intent);
-                        break;
-                    case "2":
-                        Intent intent1 = new Intent(Reading_1_Activity.this, Reading_4_Activity.class);
-                        intent1.putExtra("curso",curso);
-                        intent1.putExtra("lesson",lesson);
-                        intent1.putExtra("calificacion",String.valueOf(cali));
-                        intent1.putExtra("actividad",String.valueOf(actHechas));
-                        startActivity(intent1);
-                        break;
-                    case "3":
-                        Intent intent2 = new Intent(Reading_1_Activity.this, Reading_4_Activity.class);
-                        intent2.putExtra("curso",curso);
-                        intent2.putExtra("lesson",lesson);
-                        intent2.putExtra("calificacion",String.valueOf(cali));
-                        intent2.putExtra("actividad",String.valueOf(actHechas));
-                        startActivity(intent2);
-                        break;
-                }
-            }
-        });
+
     }
 
     private void bringTheInfo(final Integer lessonint2, final String numAle) {

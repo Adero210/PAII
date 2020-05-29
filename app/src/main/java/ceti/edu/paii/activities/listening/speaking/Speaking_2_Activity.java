@@ -2,7 +2,9 @@ package ceti.edu.paii.activities.listening.speaking;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
@@ -70,6 +72,11 @@ public class Speaking_2_Activity extends AppCompatActivity {
     private String id6;
     private String id7;
     private String id8;
+
+    private String bto;
+    protected String cWord;
+    private String wWord;
+    private ProgressDialog calificacion;
 
     String[] cadid = new String[30];
 
@@ -165,6 +172,129 @@ public class Speaking_2_Activity extends AppCompatActivity {
             tvxResult = findViewById(R.id.answer_speak_2);
             titulo = findViewById(R.id.titulo_speaking_2);
             oracion = findViewById(R.id.oracion_activity_speaking_2);
+            String numAletorio = "1";
+            if(curso.equals("English")){
+                titulo.setText("Listen and Repeat");
+                bto = "Continue";
+                cWord = "Correct!";
+                wWord = "Wrong: ";
+            }else if(curso.equals("Italiano")){
+                titulo.setText("Ascolta e ripeti");
+                bto = "Continua";
+                cWord = "Corretto!";
+                wWord = "Strizzare: ";
+            }
+
+            int lessonint = Integer.parseInt(lesson);
+
+            if(lessonint == 1) lessonint = 21;
+
+            if(curso.equals("Italiano")){
+                switch (lesson) {
+
+                    case "1":
+                        lessonint = 11;
+                        break;
+                    case "2":
+                        lessonint = 12;
+                        break;
+                    case "3":
+                        lessonint = 13;
+                        break;
+                    case "4":
+                        lessonint = 14;
+                        break;
+                    case "5":
+                        lessonint = 15;
+                        break;
+                    case "6":
+                        lessonint = 16;
+                        break;
+                    case "7":
+                        lessonint = 17;
+                        break;
+                    case "8":
+                        lessonint = 18;
+                        break;
+                    case "9":
+                        lessonint = 19;
+                        break;
+                    case "10":
+                        lessonint = 20;
+                        break;
+                }
+            }
+
+            calificacion =  new ProgressDialog(Speaking_2_Activity.this);
+            calificacion.setButton(AlertDialog.BUTTON_NEGATIVE, bto, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    progressDialog.dismiss();
+                    actHechas++;
+                    actHechasS = String.valueOf(actHechas);
+                    String num ="";
+                    num = comun.aleatorio(3);
+                    Log.i("numeroRamdon",num);
+                    switch (num){
+                        case "0":
+                            Intent i = new Intent(Speaking_2_Activity.this, Speaking_1_Activity.class);
+                            i.putExtra("curso",curso);
+                            i.putExtra("lesson",lesson);
+                            i.putExtra("calificacion",calis);
+                            i.putExtra("actividad",actHechasS);
+                            i.putExtra("id0",cadid[0]);
+                            i.putExtra("id1",cadid[1]);
+                            i.putExtra("id2",cadid[2]);
+                            i.putExtra("id3",cadid[3]);
+                            i.putExtra("id4",cadid[4]);
+                            i.putExtra("id5",cadid[5]);
+                            i.putExtra("id6",cadid[6]);
+                            i.putExtra("id7",cadid[7]);
+                            i.putExtra("id8", cadid[8]);
+                            startActivity(i);
+                            break;
+
+                        case "1":
+                            Intent intent = new Intent(Speaking_2_Activity.this, Speaking_2_Activity.class);
+                            intent.putExtra("curso",curso);
+                            intent.putExtra("lesson",lesson);
+                            intent.putExtra("calificacion",calis);
+                            intent.putExtra("actividad",actHechasS);
+                            intent.putExtra("id0",cadid[0]);
+                            intent.putExtra("id1",cadid[1]);
+                            intent.putExtra("id2",cadid[2]);
+                            intent.putExtra("id3",cadid[3]);
+                            intent.putExtra("id4",cadid[4]);
+                            intent.putExtra("id5",cadid[5]);
+                            intent.putExtra("id6",cadid[6]);
+                            intent.putExtra("id7",cadid[7]);
+                            intent.putExtra("id8", cadid[8]);
+                            startActivity(intent);
+                            break;
+
+                        case "2":
+                            Intent intent2 = new Intent(Speaking_2_Activity.this, Speaking_3_Activity.class);
+                            intent2.putExtra("curso",curso);
+                            intent2.putExtra("lesson",lesson);
+                            intent2.putExtra("calificacion",calis);
+                            intent2.putExtra("actividad",actHechasS);
+                            intent2.putExtra("id0",cadid[0]);
+                            intent2.putExtra("id1",cadid[1]);
+                            intent2.putExtra("id2",cadid[2]);
+                            intent2.putExtra("id3",cadid[3]);
+                            intent2.putExtra("id4",cadid[4]);
+                            intent2.putExtra("id5",cadid[5]);
+                            intent2.putExtra("id6",cadid[6]);
+                            intent2.putExtra("id7",cadid[7]);
+                            intent2.putExtra("id8", cadid[8]);
+                            startActivity(intent2);
+                            break;
+                    }
+                }
+            });
+            calificacion.setCancelable(false);
+
+
             speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
             speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -222,53 +352,6 @@ public class Speaking_2_Activity extends AppCompatActivity {
             });
 
             ////////////////////////////////////////////////////////////////////////////////////////////
-            Log.i("curso",curso);
-            String numAletorio = "1";
-            if(curso.equals("Inglés")){
-                titulo.setText("Listen and Repeat");
-            }else if(curso.equals("Italiano")){
-                titulo.setText("Ascolta e ripeti");
-            }
-
-            int lessonint = Integer.parseInt(lesson);
-
-            if(lessonint == 1) lessonint = 21;
-
-            if(curso.equals("Italiano")){
-                switch (lesson) {
-
-                    case "1":
-                        lessonint = 11;
-                        break;
-                    case "2":
-                        lessonint = 12;
-                        break;
-                    case "3":
-                        lessonint = 13;
-                        break;
-                    case "4":
-                        lessonint = 14;
-                        break;
-                    case "5":
-                        lessonint = 15;
-                        break;
-                    case "6":
-                        lessonint = 16;
-                        break;
-                    case "7":
-                        lessonint = 17;
-                        break;
-                    case "8":
-                        lessonint = 18;
-                        break;
-                    case "9":
-                        lessonint = 19;
-                        break;
-                    case "10":
-                        lessonint = 20;
-                        break;
-                }
-            }
 
             bringTheInfo(lessonint - 1, numAletorio);
             opsciones();
@@ -400,99 +483,22 @@ public class Speaking_2_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 revisar.setVisibility(View.INVISIBLE);
-                continuar.setVisibility(View.VISIBLE);
                 if(respuestaUser.equals(respuestaFromBD)){
+                    calificacion.setMessage(cWord);
                     mediaPlayer.start();
                     cali = cali + 100;
                     calis = String.valueOf(cali);
-
-                    if(curso.equals("Ingles")){
-                        Toast.makeText(Speaking_2_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
-                    }
-                    else if(curso.equals("Italiano")){
-                        Toast.makeText(Speaking_2_Activity.this,"corretta",Toast.LENGTH_SHORT).show();
-                    }
+                    calificacion.show();
                 }else{
+                    calificacion.setMessage(wWord + respuestaFromBD);
                     incorrect.start();
                     cali = cali + 0;
                     calis = String.valueOf(cali);
-
-                    if(curso.equals("Ingles")){
-                        Toast.makeText(Speaking_2_Activity.this,"wrong: "+ respuestaFromBD,Toast.LENGTH_SHORT).show();
-                    }
-                    else if(curso.equals("Italiano")){
-                        Toast.makeText(Speaking_2_Activity.this,"sbagliata: "+respuestaFromBD,Toast.LENGTH_SHORT).show();
-                    }
+                    calificacion.show();
                 }
             }
         });
-        continuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actHechas++;
-                actHechasS = String.valueOf(actHechas);
-                Log.i("aaaa",cadid[0]);
-                String num ="";
-                num = comun.aleatorio(3);
-                Log.i("numeroRamdon",num);
-                switch (num){
-                    case "0":
-                        Intent i = new Intent(Speaking_2_Activity.this, Speaking_1_Activity.class);
-                        i.putExtra("curso",curso);
-                        i.putExtra("lesson",lesson);
-                        i.putExtra("calificacion",calis);
-                        i.putExtra("actividad",actHechasS);
-                        i.putExtra("id0",cadid[0]);
-                        i.putExtra("id1",cadid[1]);
-                        i.putExtra("id2",cadid[2]);
-                        i.putExtra("id3",cadid[3]);
-                        i.putExtra("id4",cadid[4]);
-                        i.putExtra("id5",cadid[5]);
-                        i.putExtra("id6",cadid[6]);
-                        i.putExtra("id7",cadid[7]);
-                        i.putExtra("id8", cadid[8]);
-                        startActivity(i);
-                        break;
 
-                    case "1":
-                        Intent intent = new Intent(Speaking_2_Activity.this, Speaking_2_Activity.class);
-                        intent.putExtra("curso",curso);
-                        intent.putExtra("lesson",lesson);
-                        intent.putExtra("calificacion",calis);
-                        intent.putExtra("actividad",actHechasS);
-                        intent.putExtra("id0",cadid[0]);
-                        intent.putExtra("id1",cadid[1]);
-                        intent.putExtra("id2",cadid[2]);
-                        intent.putExtra("id3",cadid[3]);
-                        intent.putExtra("id4",cadid[4]);
-                        intent.putExtra("id5",cadid[5]);
-                        intent.putExtra("id6",cadid[6]);
-                        intent.putExtra("id7",cadid[7]);
-                        intent.putExtra("id8", cadid[8]);
-                        startActivity(intent);
-                        break;
-
-                    case "2":
-                        Intent intent2 = new Intent(Speaking_2_Activity.this, Speaking_3_Activity.class);
-                        intent2.putExtra("curso",curso);
-                        intent2.putExtra("lesson",lesson);
-                        intent2.putExtra("calificacion",calis);
-                        intent2.putExtra("actividad",actHechasS);
-                        intent2.putExtra("id0",cadid[0]);
-                        intent2.putExtra("id1",cadid[1]);
-                        intent2.putExtra("id2",cadid[2]);
-                        intent2.putExtra("id3",cadid[3]);
-                        intent2.putExtra("id4",cadid[4]);
-                        intent2.putExtra("id5",cadid[5]);
-                        intent2.putExtra("id6",cadid[6]);
-                        intent2.putExtra("id7",cadid[7]);
-                        intent2.putExtra("id8", cadid[8]);
-                        startActivity(intent2);
-                        break;
-                }
-
-            }
-        });
     }
 
 

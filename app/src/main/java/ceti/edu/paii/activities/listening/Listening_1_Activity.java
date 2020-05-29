@@ -1,7 +1,9 @@
 package ceti.edu.paii.activities.listening;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -104,6 +106,13 @@ public class Listening_1_Activity extends AppCompatActivity {
     private String id7;
     private String id8;
 
+
+    private String bto;
+    protected String cWord;
+    private String wWord;
+    private ProgressDialog calificacion;
+
+
     String[] cadid = new String[30];
 
 
@@ -188,8 +197,14 @@ public class Listening_1_Activity extends AppCompatActivity {
 
             if (curso.equals("English")) {
                 titulo.setText("Choose the correct option");
+                bto = "Continue";
+                cWord = "Correct!";
+                wWord = "Wrong: ";
             } else if (curso.equals("Italiano")) {
                 titulo.setText("Scegli la traduzione opzione");
+                bto = "Continua";
+                cWord = "Corretto!";
+                wWord = "Strizzare: ";
             }
 
             int lessonint = Integer.parseInt(lesson);
@@ -235,9 +250,81 @@ public class Listening_1_Activity extends AppCompatActivity {
                 }
             }
 
+            calificacion =  new ProgressDialog(Listening_1_Activity.this);
+            calificacion.setButton(AlertDialog.BUTTON_NEGATIVE, bto, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    progressDialog.dismiss();
+                    actHechas++;
+                    actHechasS = String.valueOf(actHechas);
+                    Log.i("aaaa",cadid[0]);
+                    String num;
+                    num = comun.aleatorio(3);
+                    Log.i("numeroRamdon",num);
+                    switch (num){
+                        case "0":
+                            Intent i = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
+                            i.putExtra("curso",curso);
+                            i.putExtra("lesson",lesson);
+                            i.putExtra("calificacion",calis);
+                            i.putExtra("actividad",actHechasS);
+                            i.putExtra("id0",cadid[0]);
+                            i.putExtra("id1",cadid[1]);
+                            i.putExtra("id2",cadid[2]);
+                            i.putExtra("id3",cadid[3]);
+                            i.putExtra("id4",cadid[4]);
+                            i.putExtra("id5",cadid[5]);
+                            i.putExtra("id6",cadid[6]);
+                            i.putExtra("id7",cadid[7]);
+                            i.putExtra("id8", cadid[8]);
+
+                            startActivity(i);
+                            break;
+
+                        case "1":
+                            Intent intent = new Intent(Listening_1_Activity.this, Listening_3_Activity.class);
+                            intent.putExtra("curso",curso);
+                            intent.putExtra("lesson",lesson);
+                            intent.putExtra("calificacion",calis);
+                            intent.putExtra("actividad",actHechasS);
+                            intent.putExtra("id0",cadid[0]);
+                            intent.putExtra("id1",cadid[1]);
+                            intent.putExtra("id2",cadid[2]);
+                            intent.putExtra("id3",cadid[3]);
+                            intent.putExtra("id4",cadid[4]);
+                            intent.putExtra("id5",cadid[5]);
+                            intent.putExtra("id6",cadid[6]);
+                            intent.putExtra("id7",cadid[7]);
+                            intent.putExtra("id8", cadid[8]);
+
+                            startActivity(intent);
+                            break;
+
+                        case "2":
+                            Intent intent2= new Intent(Listening_1_Activity.this, Listening_4_Activity.class);
+                            intent2.putExtra("curso",curso);
+                            intent2.putExtra("lesson",lesson);
+                            intent2.putExtra("calificacion",calis);
+                            intent2.putExtra("actividad",actHechasS);
+                            intent2.putExtra("id0",cadid[0]);
+                            intent2.putExtra("id1",cadid[1]);
+                            intent2.putExtra("id2",cadid[2]);
+                            intent2.putExtra("id3",cadid[3]);
+                            intent2.putExtra("id4",cadid[4]);
+                            intent2.putExtra("id5",cadid[5]);
+                            intent2.putExtra("id6",cadid[6]);
+                            intent2.putExtra("id7",cadid[7]);
+                            intent2.putExtra("id8", cadid[8]);
+
+                            startActivity(intent2);
+                            break;
+
+                    }
+                }
+            });
+            calificacion.setCancelable(false);
+
             bringTheInfo(lessonint - 1, numAletorio);
-
-
 
             options();
 
@@ -511,104 +598,24 @@ public class Listening_1_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 revisar.setVisibility(View.INVISIBLE);
-                continuar.setVisibility(View.VISIBLE);
                 if(respuestaUser.equals(respuestaFromBD)){
+                    calificacion.setMessage(cWord);
+                    calificacion.setProgressStyle(5);
+                    mediaPlayer.start();
                     cali = cali + 100;
                     calis = String.valueOf(cali);
-
-                    mediaPlayer.start();
-                    if(curso.equals("Ingles")){
-                        Toast.makeText(Listening_1_Activity.this,"Correct",Toast.LENGTH_SHORT).show();
-                    }
-                    else if(curso.equals("Italiano")){
-                        Toast.makeText(Listening_1_Activity.this,"corretta",Toast.LENGTH_SHORT).show();
-                    }
+                    calificacion.show();
                 }else{
+                    calificacion.setMessage(wWord + respuestaFromBD);
+                    calificacion.setProgressStyle(2);
                     incorrect.start();
                     cali = cali + 0;
                     calis = String.valueOf(cali);
-
-                    if(curso.equals("Ingles")){
-                        Toast.makeText(Listening_1_Activity.this,"wrong",Toast.LENGTH_SHORT).show();
-                    }
-                    else if(curso.equals("Italiano")){
-                        Toast.makeText(Listening_1_Activity.this,"sbagliata",Toast.LENGTH_SHORT).show();
-                    }
+                    calificacion.show();
                 }
             }
         });
 
-        continuar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actHechas++;
-                actHechasS = String.valueOf(actHechas);
-                Log.i("aaaa",cadid[0]);
-                String num;
-                num = comun.aleatorio(3);
-                Log.i("numeroRamdon",num);
-                switch (num){
-                    case "0":
-                        Intent i = new Intent(Listening_1_Activity.this, Listening_1_Activity.class);
-                        i.putExtra("curso",curso);
-                        i.putExtra("lesson",lesson);
-                        i.putExtra("calificacion",calis);
-                        i.putExtra("actividad",actHechasS);
-                        i.putExtra("id0",cadid[0]);
-                        i.putExtra("id1",cadid[1]);
-                        i.putExtra("id2",cadid[2]);
-                        i.putExtra("id3",cadid[3]);
-                        i.putExtra("id4",cadid[4]);
-                        i.putExtra("id5",cadid[5]);
-                        i.putExtra("id6",cadid[6]);
-                        i.putExtra("id7",cadid[7]);
-                        i.putExtra("id8", cadid[8]);
-
-                        startActivity(i);
-                        break;
-
-                    case "1":
-                        Intent intent = new Intent(Listening_1_Activity.this, Listening_3_Activity.class);
-                        intent.putExtra("curso",curso);
-                        intent.putExtra("lesson",lesson);
-                        intent.putExtra("calificacion",calis);
-                        intent.putExtra("actividad",actHechasS);
-                        intent.putExtra("id0",cadid[0]);
-                        intent.putExtra("id1",cadid[1]);
-                        intent.putExtra("id2",cadid[2]);
-                        intent.putExtra("id3",cadid[3]);
-                        intent.putExtra("id4",cadid[4]);
-                        intent.putExtra("id5",cadid[5]);
-                        intent.putExtra("id6",cadid[6]);
-                        intent.putExtra("id7",cadid[7]);
-                        intent.putExtra("id8", cadid[8]);
-
-                        startActivity(intent);
-                        break;
-
-                    case "2":
-                        Intent intent2= new Intent(Listening_1_Activity.this, Listening_4_Activity.class);
-                        intent2.putExtra("curso",curso);
-                        intent2.putExtra("lesson",lesson);
-                        intent2.putExtra("calificacion",calis);
-                        intent2.putExtra("actividad",actHechasS);
-                        intent2.putExtra("id0",cadid[0]);
-                        intent2.putExtra("id1",cadid[1]);
-                        intent2.putExtra("id2",cadid[2]);
-                        intent2.putExtra("id3",cadid[3]);
-                        intent2.putExtra("id4",cadid[4]);
-                        intent2.putExtra("id5",cadid[5]);
-                        intent2.putExtra("id6",cadid[6]);
-                        intent2.putExtra("id7",cadid[7]);
-                        intent2.putExtra("id8", cadid[8]);
-
-                        startActivity(intent2);
-                        break;
-
-                }
-
-            }
-        });
     }
 
 
